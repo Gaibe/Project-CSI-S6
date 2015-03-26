@@ -1,3 +1,7 @@
+<?php
+require_once "base.php";
+$connection = base::getConnection();
+?>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -15,19 +19,34 @@
     <body>
 
 
-<div class="container">
-    <nav class="navbar navbar-fixed-top header">
-        <div class="col-md-12">
-            <div class="navbar-header">
-                <a href="http://localhost/projetcsi/" class="navbar-brand">DRIVE</a>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Meilleures ventes</a></li>
-                    <li><a href="#">Les produits</a></li>
-                    <li><a href="#">Les magasins</a></li>
-                </ul>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
-                <i class="glyphicon glyphicon-search"></i>
-                </button>
-            </div>
+<nav class="navbar navbar-fixed-top header">
+    <div class="col-md-12">
+        <div class="navbar-header">
+            <a href="http://localhost/projetcsi/" class="navbar-brand">DRIVE</a>
         </div>
-    </nav>
+        <form class="navbar-form pull-left">
+            <div class="input-group" style="max-width:600px;">
+                <input type="text" class="form-control" placeholder="Rechercher un produit" name="srch-term" id="srch-term">
+                <div class="input-group-btn">
+                    <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+        </form>
+        <div class="pull-right" style="margin-top:8px;">
+            <div class="col-xs-6"><a class="btn btn-default center-block" href="#"><span class="glyphicon glyphicon-th-list"></span> Inscription</a></div>
+            <div class="col-xs-6"><a class="btn btn-default center-block" href="#"><span class="glyphicon glyphicon-user"></span> Connexion</a></div>
+        </div>
+    </div>
+</div>
+<div class="navbar navbar-default" id="subnav">
+    <div class="col-md-12">
+        <div class="navbar-header">            
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Meilleures ventes</a></li>
+                <li><a href="#">Les produits</a></li>
+                <li><a href="#">Les magasins</a></li>
+            </ul>
+            
+        </div>
+    </div>
+</nav>

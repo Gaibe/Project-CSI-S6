@@ -21,7 +21,6 @@ CREATE TABLE IF NOT EXISTS `projet_csi`.`client` (
   `email` VARCHAR(255) NOT NULL,
   `pseudo` VARCHAR(255) NOT NULL,
   `mot_passe` VARCHAR(255) NOT NULL,
-  `adresse` VARCHAR(255) NULL,
   `date_creation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `role` ENUM('membre','admin') NOT NULL DEFAULT 'membre',
   PRIMARY KEY (`id_client`))
@@ -61,8 +60,15 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `projet_csi`.`magasin` (
   `id_magasin` SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(255) NOT NULL,
-  `lieu` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id_magasin`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `projet_csi`.`adresse` (
+  `id_adresse` INT(10) UNSIGNED NOT NULL,
+  `rue` VARCHAR(255) NULL,
+  `ville` VARCHAR(50) NOT NULL,
+  `code_postal` SMALLINT(5) NOT NULL,
+  PRIMARY KEY (`id_adresse`))
 ENGINE = InnoDB;
 
 
@@ -100,6 +106,45 @@ ENGINE = InnoDB;
 
 
 
+
+
+
+CREATE TABLE IF NOT EXISTS `projet_csi`.`magasin_has_adresse` (
+  `magasin_id_magasin` SMALLINT(5) UNSIGNED NOT NULL,
+  `adresse_id_adresse` INT(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`magasin_id_magasin`, `adresse_id_adresse`),
+  INDEX `fk_magasin_has_adresse_adresse1_idx` (`adresse_id_adresse` ASC),
+  INDEX `fk_magasin_has_adresse_magasin1_idx` (`magasin_id_magasin` ASC),
+  CONSTRAINT `fk_magasin_has_adresse_magasin1`
+    FOREIGN KEY (`magasin_id_magasin`)
+    REFERENCES `projet_csi`.`magasin` (`id_magasin`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_magasin_has_adresse_adresse1`
+    FOREIGN KEY (`adresse_id_adresse`)
+    REFERENCES `projet_csi`.`adresse` (`id_adresse`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `projet_csi`.`client_has_adresse` (
+  `client_id_client` INT(10) UNSIGNED NOT NULL,
+  `adresse_id_adresse` INT(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`client_id_client`, `adresse_id_adresse`),
+  INDEX `fk_client_has_adresse_adresse1_idx` (`adresse_id_adresse` ASC),
+  INDEX `fk_client_has_adresse_client1_idx` (`client_id_client` ASC),
+  CONSTRAINT `fk_client_has_adresse_client1`
+    FOREIGN KEY (`client_id_client`)
+    REFERENCES `projet_csi`.`client` (`id_client`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_client_has_adresse_adresse1`
+    FOREIGN KEY (`adresse_id_adresse`)
+    REFERENCES `projet_csi`.`adresse` (`id_adresse`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS `projet_csi`.`bilan_has_produit` (
