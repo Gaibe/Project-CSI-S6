@@ -25,13 +25,11 @@ class base{
 
 
 	public static function connect(){
-		//global $host, $user, $pass, $base;
 		try{
 			$dns = "mysql:host=" . self::$host . ";dbname=" . self::$base . ";";
 			$connection = new PDO($dns, self::$user, self::$pass,	
 					array(PDO::ERRMODE_EXCEPTION=>true, PDO::ATTR_PERSISTENT=>true));
 			$connection->exec("SET CHARACTER SET utf8");
-			echo "CONNECTION ETABLIE";
 			return($connection);
 		}catch (Exception $e){
 			die('Erreur : ' . $e->getMessage());
