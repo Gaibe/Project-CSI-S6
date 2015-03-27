@@ -29,8 +29,8 @@ $project_name = explode("/", $_SERVER["PHP_SELF"])[1];
             </div>
         </form>
         <div class="pull-right" style="margin-top:8px;">
-            <div class="col-xs-6"><a class="btn btn-default center-block" href="/ProjetCSI/inscription"><span class="glyphicon glyphicon-th-list"></span> Inscription</a></div>
-            <div class="col-xs-6"><a class="btn btn-default center-block" href="#"><span class="glyphicon glyphicon-user"></span> Connexion</a></div>
+            <div class="col-xs-6"><a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/inscription"><span class="glyphicon glyphicon-th-list"></span> Inscription</a></div>
+            <div class="col-xs-6"><a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/connexion"><span class="glyphicon glyphicon-user"></span> Connexion</a></div>
         </div>
     </div>
 </div>
