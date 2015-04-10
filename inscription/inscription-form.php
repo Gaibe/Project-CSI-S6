@@ -1,7 +1,7 @@
 <div class="container" id="main">
 <div class="row">
     <div class="col-md-offset-2" ng-app="sample">
-        <form class="form-horizontal" name="registerForm">
+        <form class="form-horizontal" name="registerForm" action="add-user.php" method="POST">
             <h2 class="col-md-offset-4 col-md-8">Inscription</h2><br>
 
             <div class="form-group">
@@ -19,28 +19,28 @@
             </div>
 
             <div class="form-group">
-                <label class="col-md-3 control-label" for="Email">Email</label>
+                <label class="col-md-3 control-label" for="Email">Email *</label>
                 <div class="col-md-4">
                     <input id="Email" type="email" class="form-control" name="Email" ng-model="Email" placeholder="exemple@mail.com" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-3 control-label" for="Pseudo">Pseudo</label>
+                <label class="col-md-3 control-label" for="Pseudo">Pseudo *</label>
                 <div class="col-md-4">
                     <input id="Pseudo" type="text" class="form-control" name="Pseudo" ng-model="Pseudo" />
                 </div>
             </div>
      
             <div class="form-group">
-                <label class="col-md-3 control-label" for="Password">Mot de passe</label>
+                <label class="col-md-3 control-label" for="Password">Mot de passe *</label>
                 <div class="col-md-4">
                     <input id="Password" type="password" class="form-control" name="Password" ng-model="Password" />
                 </div>
             </div>
      
             <div class="form-group">
-                <label class="col-md-3 control-label" for="ConfirmPassword">Confirmer le mot de passe</label>
+                <label class="col-md-3 control-label" for="ConfirmPassword">Confirmer le mot de passe *</label>
                 <div class="col-md-4">
                     <input id="ConfirmPassword" type="password" class="form-control" name="ConfirmPassword" 
                     ng-model="ConfirmPassword" placeholder="Retaper votre mot de passe" />

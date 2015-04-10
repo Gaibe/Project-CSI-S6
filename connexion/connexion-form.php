@@ -1,7 +1,7 @@
 <div class="container" id="main">
 <div class="row">
     <div class="col-md-offset-2" ng-app="sample">
-        <form class="form-horizontal" name="registerForm">
+        <form class="form-horizontal" name="registerForm" method="POST" action="connect-user.php">
             <h2 class="col-md-offset-4 col-md-8">Connexion</h2><br>
 
             <div class="form-group">

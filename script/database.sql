@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS `projet_csi`.`client` (
   `mot_passe` VARCHAR(255) NOT NULL,
   `date_creation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `role` ENUM('membre','admin') NOT NULL DEFAULT 'membre',
-  PRIMARY KEY (`id_client`))
+  PRIMARY KEY (`id_client`),
+  UNIQUE INDEX `pseudo_UNIQUE` (`pseudo` ASC))
 ENGINE = InnoDB;
 
 
