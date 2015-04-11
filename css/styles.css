@@ -113,6 +113,20 @@ h3,h4,h5 {
 
 
 .encart-profil {
-    padding: 8px 8px;
+    padding: 7px 8px;
     text-align: center;
+
+    border-style: solid;
+    border-color: #5C5C5C;
+    border-width: 2px;
+    border-radius: 5px;
+
+}
+
+span.glyphicon-remove {
+    color: #ED7E7E;
+}
+
+span.glyphicon-cog {
+    color: #A2A3A3;
 }
