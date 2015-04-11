@@ -1,4 +1,6 @@
 <?php
+require_once "../base.php";
+require_once "../modele/Hydrator.php";
 require_once '../modele/Client.php';
 require_once 'AuthException.php';
 
