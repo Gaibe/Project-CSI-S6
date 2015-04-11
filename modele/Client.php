@@ -1,7 +1,6 @@
 <?php
-require_once "ModelExtends.php";
 
-final class Client extends ModelExtends {
+final class Client {
 
     // role
     const MEMBRE = 'membre';
@@ -34,18 +33,27 @@ final class Client extends ModelExtends {
         $this->$property = $value;
     }
 
-    public static function findById($id)
-    {
-        $result = parent::findByIdAbstract('client', $id);
-        return parent::hydrate($result, new Client());
+    public static function findById($id) {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM client WHERE id_client = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return Hydrator::hydrate($result, new Client());
     }
 
-    public static function findByPseudo($pseudo) 
-    {
-        $result = parent::findByPseudoAbstract('client', $pseudo);
-        var_dump($result);
-        exit;
-        return parent::hydrate($result, new Client());
+    public static function findByPseudo($pseudo) {
+        $connection = base::getConnection();
+        $pseudo = strtolower($pseudo);
+        $stmt = $connection->prepare("SELECT * FROM client WHERE pseudo = :pseudo");
+        $stmt->bindParam(':pseudo', $pseudo);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return Hydrator::hydrate($result, new Client());
     }
 
     public function insert() {

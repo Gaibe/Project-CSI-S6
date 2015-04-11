@@ -13,7 +13,7 @@ class Authentication {
         // vérifier $client->hash == hash($password)
         if($client->__get('mot_passe') == sha1($password)){
             // charger profil ($client->id)
-            Authentication::loadProfile($client->__get('userid'));
+            Authentication::loadProfile($client->__get('id_client'));
         }
         else{
             throw new AuthException();
@@ -24,12 +24,15 @@ class Authentication {
     private static function loadProfile( $client_id ) {
         // charger l'utilisateur et ses droits
         $client = Client::findById($client_id);
+
         // détruire la variable de session
-        session_destroy();
+        if (isset($_SESSION['membre']) === true) {
+            session_destroy();
+        }
         // créer variable de session = profil chargé
         session_start();
         $_SESSION['membre'] = $client_id;
-        $_SESSION['login'] = $client->__get('login');
+        $_SESSION['pseudo'] = $client->__get('pseudo');
         if ($client->__get('role') === 'admin') {
             $_SESSION['admin'] = true;
         }

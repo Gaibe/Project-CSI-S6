@@ -1,5 +1,9 @@
 <!-- Appeler dans /header.php -->
 
+<?php 
+$client = Client::findById($_SESSION['membre']); 
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -26,8 +30,21 @@
                 </div>
             </div>
         </form>
-        <div class="pull-right" style="margin-top:8px;">
-            <a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/profil"><span class="glyphicon glyphicon-cog"></span> Profil</a>
+        <div class="pull-right" style="margin-top:8px; min-width: 600px;">
+
+            <div class="col-xs-5">
+                <div class="encart-profil bg-info"><?php echo ucfirst($client->__get('prenom')) . " " . ucfirst($client->__get('nom')); ?></div>
+            </div>
+            <div class="col-xs-4">
+                <a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/deconnexion">
+                    <span class="glyphicon glyphicon-remove"></span> Déconnexion
+                </a>
+            </div>
+            <div class="col-xs-3">
+                <a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/profil">
+                    <span class="glyphicon glyphicon-cog"></span> Profil
+                </a>
+            </div>
         </div>
     </div>
     <div class="navbar navbar-default" id="subnav">
