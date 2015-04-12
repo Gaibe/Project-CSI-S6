@@ -113,13 +113,15 @@ h3,h4,h5 {
 
 
 .encart-profil {
-    padding: 7px 8px;
+    padding: 8px 8px;
     text-align: center;
 
     border-style: solid;
-    border-color: #5C5C5C;
-    border-width: 2px;
+    border-color: #3071a9;
+    border-width: 1px;
     border-radius: 5px;
+
+    background-color: #f4f4f4;
 
 }
 
@@ -153,4 +155,9 @@ span.glyphicon-cog {
   font-size: 16px;
   font-weight: bold;
   margin-right: 10px;
+}
+
+a.no-style, a.no-style:hover {
+    color: #000;
+    text-decoration: none;
 }
