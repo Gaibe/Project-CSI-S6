@@ -38,7 +38,7 @@
         <div class="col-md-12">
             <div class="navbar-header">            
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Meilleures ventes</a></li>
+                    <li class="active"><a href="/<?php echo $project_name ?>/">Meilleures ventes</a></li>
                     <li><a href="#">Les produits</a></li>
                     <li><a href="#">Les magasins</a></li>
                 </ul>

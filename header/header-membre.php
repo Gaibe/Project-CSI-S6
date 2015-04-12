@@ -5,6 +5,12 @@ $client = Client::findById($_SESSION['membre']);
 
 $nb_article_panier = 0;
 $montant_panier = "0.00";
+if (isset($_SESSION['admin']) === true && $_SESSION['admin'] === true) {
+    $is_admin = true;
+}
+else {
+    $is_admin = false;
+}
 
 ?>
 
@@ -48,7 +54,12 @@ $montant_panier = "0.00";
             </div>
 
             <div class="col-xs-4">
-                <div class="encart-profil bg-info"><?php echo ucfirst($client->__get('prenom')) . " " . ucfirst($client->__get('nom')); ?></div>
+                <div class="encart-profil bg-info">
+                    <?php if ($is_admin === true) { ?>
+                    <span class="glyphicon glyphicon-star" title="admin"></span> 
+                    <?php } ?>
+                    <?php echo ucfirst($client->__get('prenom')) . " " . ucfirst($client->__get('nom')); ?>
+                </div>
             </div>
             <div class="col-xs-2">
                 <a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/deconnexion">
@@ -68,9 +79,14 @@ $montant_panier = "0.00";
             <div class="col-md-12">
                 <div class="navbar-header">            
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Meilleures ventes</a></li>
+                        <li class="active"><a href="/<?php echo $project_name ?>/">Meilleures ventes</a></li>
                         <li><a href="#">Les produits</a></li>
                         <li><a href="#">Les magasins</a></li>
+                        <?php if ($is_admin === true) { ?>
+                        <li><a href="/<?php echo $project_name ?>/admin/ajout-produit.php">Ajouter un produit</a></li>
+                        <li><a href="/<?php echo $project_name ?>/admin/affichage-bilan.php">Ajouter une réduction</a></li>
+                        <li><a href="/<?php echo $project_name ?>/admin/affichage-bilan.php">Bilan</a></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
