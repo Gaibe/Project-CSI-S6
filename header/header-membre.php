@@ -82,8 +82,8 @@ else {
                 <div class="navbar-header">            
                     <ul id="navbar-ul" class="nav navbar-nav">
                         <li><a href="/<?php echo $project_name ?>/">Meilleures ventes</a></li>
-                        <li><a href="#">Les produits</a></li>
-                        <li><a href="#">Les magasins</a></li>
+                        <li><a href="/<?php echo $project_name ?>/liste-produit.php">Les produits</a></li>
+                        <li><a href="/<?php echo $project_name ?>/liste-magasin.php">Les magasins</a></li>
                         <?php if ($is_admin === true) { ?>
                         <li><a href="/<?php echo $project_name ?>/admin/ajout-produit.php">Ajouter un produit</a></li>
                         <li><a href="/<?php echo $project_name ?>/admin/ajout-reduction.php">Ajouter une réduction</a></li>

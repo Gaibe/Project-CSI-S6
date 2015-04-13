@@ -1,5 +1,6 @@
 <?php
-session_start();
+include_once("../header.php");
+
 
 if (isset($_SESSION['admin']) === false) {
     $project_name = explode("/", $_SERVER["PHP_SELF"])[1];

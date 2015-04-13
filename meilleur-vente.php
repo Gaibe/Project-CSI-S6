@@ -1,7 +1,10 @@
+<?php
+
+require_once("header.php");
+?>
+
 <div class="container" id="main">
     <div class="row">
-
-
 
 
 
@@ -66,3 +69,7 @@
 
 </div>
 </div>
+
+<?php
+
+require_once("footer.php");

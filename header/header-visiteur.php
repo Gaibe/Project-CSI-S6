@@ -42,8 +42,8 @@
             <div class="navbar-header">            
                 <ul id="navbar-ul" class="nav navbar-nav">
                     <li><a href="/<?php echo $project_name ?>/">Meilleures ventes</a></li>
-                    <li><a href="#">Les produits</a></li>
-                    <li><a href="#">Les magasins</a></li>
+                    <li><a href="/<?php echo $project_name ?>/liste-produit.php">Les produits</a></li>
+                    <li><a href="/<?php echo $project_name ?>/liste-magasin.php">Les magasins</a></li>
                 </ul>
             </div>
         </div>
