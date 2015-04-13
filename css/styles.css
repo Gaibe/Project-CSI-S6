@@ -162,7 +162,13 @@ a.no-style, a.no-style:hover {
     text-decoration: none;
 }
 
-img.preview {
+img#preview {
   height: 150px;
   width: 150px;
+}
+
+#preview {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
 }

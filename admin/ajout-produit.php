@@ -33,6 +33,13 @@ else {
             </div>
 
             <div class="form-group">
+                <label class="col-md-3 control-label" for="Image-produit">Url de l'image</label>
+                <div class="col-md-4">
+                    <input id="Image-produit" type="url" class="form-control" name="Image-produit" ng-model="Image-produit" />
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="col-md-3 control-label" for="Prix">Prix du produit</label>
                 <div class="col-md-4">
                     <input id="Prix" type="text" class="form-control" name="Prix" ng-model="Prix" placeholder="0.00" />
@@ -54,21 +61,16 @@ else {
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-md-3 control-label" for="Image-produit">Url de l'image</label>
-                <div class="col-md-4">
-                    <input id="Image-produit" type="url" class="form-control" name="Image-produit" ng-model="Image-produit" />
+            <div class="col-md-offset-2 col-md-6">
+                <div class="image-preview">
+                    <img id="preview" class="img-responsive" style="display: none;" src="#" alt="Previsuialisation" title="Previsuialisation">
                 </div>
-            </div>
-
-            <div class="image-preview">
-                <img id="preview" class="img-responsive" style="display: none;" src="#" alt="Previsuialisation">
             </div>
 
             
             <div class="form-group">
                 <div class="col-md-offset-4 col-md-9">
-                    <input type="submit" class="btn btn-default" value="S'inscrire" />
+                    <input type="submit" class="btn btn-default" value="Ajouter un produit" />
                 </div>
             </div>
         </form>
@@ -78,18 +80,11 @@ else {
 </div>
 
 <script type="text/javascript">
-    function readURL(input) {
+    function readURL(input) {    
+        $('#preview')
+            .attr('src', input.value)
+            .attr('style', 'display: block');
 
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#preview').attr('src', e.target.result);
-                $('#preview').attr('style', 'display: block');
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
     }
     $(document).ready(function() {
         $("#Image-produit").change(function(){
