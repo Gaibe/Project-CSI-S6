@@ -11,7 +11,6 @@ if (isset($_SESSION['admin']) === true && $_SESSION['admin'] === true) {
 else {
     $is_admin = false;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -81,8 +80,8 @@ else {
 
             <div class="col-md-12">
                 <div class="navbar-header">            
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="/<?php echo $project_name ?>/">Meilleures ventes</a></li>
+                    <ul id="navbar-ul" class="nav navbar-nav">
+                        <li><a href="/<?php echo $project_name ?>/">Meilleures ventes</a></li>
                         <li><a href="#">Les produits</a></li>
                         <li><a href="#">Les magasins</a></li>
                         <?php if ($is_admin === true) { ?>

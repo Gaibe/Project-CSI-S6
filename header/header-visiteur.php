@@ -9,6 +9,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="/<?php echo $project_name; ?>/css/bootstrap.min.css" rel="stylesheet">
         <link href="/<?php echo $project_name; ?>/css/styles.css" rel="stylesheet">
+        <!-- script references -->
+        <script src="/<?php echo $project_name; ?>/js/jquery-2.1.3.min.js"></script>
+        <script src="/<?php echo $project_name; ?>/js/bootstrap.min.js"></script>
     </head>
     <body>
 
@@ -37,8 +40,8 @@
 
         <div class="col-md-12">
             <div class="navbar-header">            
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="/<?php echo $project_name ?>/">Meilleures ventes</a></li>
+                <ul id="navbar-ul" class="nav navbar-nav">
+                    <li><a href="/<?php echo $project_name ?>/">Meilleures ventes</a></li>
                     <li><a href="#">Les produits</a></li>
                     <li><a href="#">Les magasins</a></li>
                 </ul>

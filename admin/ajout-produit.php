@@ -63,7 +63,7 @@ else {
 
             <div class="col-md-offset-2 col-md-6">
                 <div class="image-preview">
-                    <img id="preview" class="img-responsive" style="display: none;" src="#" alt="Previsuialisation" title="Previsuialisation">
+                    <img id="preview" class="img-responsive img-circle" style="display: none;" src="#" alt="Previsuialisation" title="Previsuialisation">
                 </div>
             </div>
 
@@ -91,7 +91,7 @@ else {
             readURL(this);
         });
     });
-</script>  
+</script>
 
 
 <?php
