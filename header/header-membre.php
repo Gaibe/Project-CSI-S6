@@ -23,6 +23,9 @@ else {
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="/<?php echo $project_name; ?>/css/bootstrap.min.css" rel="stylesheet">
         <link href="/<?php echo $project_name; ?>/css/styles.css" rel="stylesheet">
+        <!-- script references -->
+        <script src="/<?php echo $project_name; ?>/js/jquery-2.1.3.min.js"></script>
+        <script src="/<?php echo $project_name; ?>/js/bootstrap.min.js"></script>
     </head>
     <body>
 
@@ -84,7 +87,7 @@ else {
                         <li><a href="#">Les magasins</a></li>
                         <?php if ($is_admin === true) { ?>
                         <li><a href="/<?php echo $project_name ?>/admin/ajout-produit.php">Ajouter un produit</a></li>
-                        <li><a href="/<?php echo $project_name ?>/admin/affichage-bilan.php">Ajouter une réduction</a></li>
+                        <li><a href="/<?php echo $project_name ?>/admin/ajout-reduction.php">Ajouter une réduction</a></li>
                         <li><a href="/<?php echo $project_name ?>/admin/affichage-bilan.php">Bilan</a></li>
                         <?php } ?>
                     </ul>

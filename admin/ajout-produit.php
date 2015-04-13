@@ -8,6 +8,7 @@ if (isset($_SESSION['admin']) === false) {
 }
 else {
     include_once("../header.php");
+    
     $list_categ = array("Boisson", "Alimentaire");
     
 ?>
@@ -61,7 +62,7 @@ else {
             </div>
 
             <div class="image-preview">
-                <img id="preview" class="img-responsive" src="#" alt="Previsuialisation">
+                <img id="preview" class="img-responsive" style="display: none;" src="#" alt="Previsuialisation">
             </div>
 
             
@@ -76,7 +77,26 @@ else {
 </div>
 </div>
 
+<script type="text/javascript">
+    function readURL(input) {
 
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#preview').attr('src', e.target.result);
+                $('#preview').attr('style', 'display: block');
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(document).ready(function() {
+        $("#Image-produit").change(function(){
+            readURL(this);
+        });
+    });
+</script>  
 
 
 <?php

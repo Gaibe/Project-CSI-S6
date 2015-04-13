@@ -1,16 +1,20 @@
 <?php
 session_start();
+
 if (isset($_SESSION['admin']) === false) {
+    $project_name = explode("/", $_SERVER["PHP_SELF"])[1];
     header("Location: /$project_name/");
     exit;
 }
 else {
-    include_once("$project_name/header.php");
+    include_once("../header.php");
+    
 ?>
 
 
 
 <?php
+include_once("../footer.php");
 }
-include_once("$project_name/footer.php")
+
 ?>

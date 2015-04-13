@@ -248,3 +248,13 @@ CREATE TABLE IF NOT EXISTS `projet_csi`.`reduction_has_client` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+INSERT INTO `projet_csi`.`client` (`nom`, `prenom`, `email`, `pseudo`, `mot_passe`, `role`)
+VALUES ('projet', 'admin', 'admin@csi.com', 'projet_csi', '3cfe9d1883c5819dd5fdcc3c57fa7a892db0c56c', 'admin');
+
+
+INSERT INTO `projet_csi`.`client` (`nom`, `prenom`, `email`, `pseudo`, `mot_passe`, `role`)
+VALUES ('Schweitzer', 'Victorien', 'Victorien@csi.com', 'victo', '3cfe9d1883c5819dd5fdcc3c57fa7a892db0c56c', 'admin');
+
+INSERT INTO `projet_csi`.`client` (`nom`, `prenom`, `email`, `pseudo`, `mot_passe`, `role`)
+VALUES ('Zeghadi', 'Sofiane', 'Sofiane@csi.com', 'Sofiane', '3cfe9d1883c5819dd5fdcc3c57fa7a892db0c56c', 'admin');
