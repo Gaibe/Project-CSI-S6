@@ -43,6 +43,20 @@ final class Produit {
         return Hydrator::hydrate($result, $produit);
     }
 
+    public static function findByCategorie($id_categ) {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM produit 
+            INNER JOIN produit_has_categorie ON produit_id_produit = id_produit
+            WHERE categorie_id_categorie = :id_categorie");
+        $stmt->bindParam(':id_categorie', $id_categ);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetchAll();
+
+        return Hydrator::hydrate($result, new Categorie());
+    }
+
     public function insert() {
         $connection = base::getConnection();
         $stmt = $connection->prepare("INSERT INTO produit (libelle, prix, description, image_url) 

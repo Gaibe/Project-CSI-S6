@@ -33,35 +33,36 @@ require_once("header.php");
 
 
 
-<div class="col-md-4 col-sm-6">
+        <div class="col-md-4 col-sm-6">
 
-    
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <a href="<?php echo $link_categorie; ?>" class="pull-right"><?php echo $name_categorie; ?></a> 
-            <a class="no-style" data-toggle="modal" data-target="#modal-produit">
-                <h4><?php echo $name_produit; ?></h4>
-            </a>
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a href="<?php echo $link_categorie; ?>" class="pull-right"><?php echo $name_categorie; ?></a> 
+                    <a class="no-style" data-toggle="modal" data-target="#modal-produit">
+                        <h4><?php echo $name_produit; ?></h4>
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <a class="no-style" data-toggle="modal" data-target="#modal-produit">
+                        <img src="http://www.fid-jaques.ch/wp_2014/wp-content/uploads/2014/04/Icon_WriteArticles-1.png" 
+                            class="img-circle img-responsive" alt="image du produit">
+                    </a>
+                    <a class="no-style" data-toggle="modal" data-target="#modal-produit">
+                        <center class="panel-content">
+                            <?php echo $description; ?>
+                        </center>
+                    </a>
+                </div>
+                <p class="price pull-right">
+                    <?php echo $prix; ?> €
+                </p>
+            </div> 
         </div>
-        <div class="panel-body">
-            <a class="no-style" data-toggle="modal" data-target="#modal-produit">
-                <img src="http://www.fid-jaques.ch/wp_2014/wp-content/uploads/2014/04/Icon_WriteArticles-1.png" class="img-circle img-responsive" alt="image du produit">
-            </a>
-            <a class="no-style" data-toggle="modal" data-target="#modal-produit">
-                <center class="panel-content">
-                    <?php echo $description; ?>
-                </center>
-            </a>
-        </div>
-        <p class="price pull-right">
-            <?php echo $prix; ?> €
-        </p>
-    </div> 
-</div>
 
 
     <?php
-    include "modal/modal-produit.php";
+        include "modal/modal-produit.php";
 
     }
     ?>
