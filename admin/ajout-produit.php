@@ -8,14 +8,14 @@ if (isset($_SESSION['admin']) === false) {
 }
 else {
     include_once("../header.php");
-    
-    $list_categ = array("Boisson", "Alimentaire");
+    include_once("../modele/Categorie.php");
+    $list_categ = Categorie::findAll();
     
 ?>
 <div class="container" id="main">
 <div class="row">
     <div class="col-md-offset-2" ng-app="sample">
-        <form class="form-horizontal" name="registerForm" action="add-user.php" method="POST">
+        <form class="form-horizontal" name="registerForm" action="interpreteur/ajout-produit.php" method="POST">
             <h2 class="col-md-offset-3 col-md-8">Ajout d'un produit</h2><br>
 
             <div class="form-group">
@@ -49,11 +49,11 @@ else {
             <div class="form-group">
                 <label class="col-md-3 control-label" for="Categorie">Catégorie</label>
                 <div class="col-md-4">
-                    <select class="form-control">
+                    <select class="form-control" name="Categorie">
                         <?php
                         foreach ($list_categ as $categ) {
                         ?>
-                        <option value="<?php echo $categ; ?>"><?php echo $categ; ?></option>
+                        <option value="<?php echo $categ['id_categorie']; ?>"><?php echo $categ['nom']; ?></option>
                         <?php
                         }
                         ?>

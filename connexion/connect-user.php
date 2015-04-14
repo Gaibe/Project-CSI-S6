@@ -12,6 +12,7 @@ if (isset($_POST['Pseudo']) === true && isset($_POST['Password']) === true) {
     }
 }
 else {
-    echo "<script> alert('Certain champs ne sont pas renseignés'); </script>";
+    // certains champs sont manquants
+    header('Location: .');
     exit;
 }

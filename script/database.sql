@@ -3,9 +3,9 @@ CREATE TABLE IF NOT EXISTS `projet_csi`.`produit` (
   `libelle` VARCHAR(255) NOT NULL,
   `prix` FLOAT(6,2) NOT NULL,
   `description` TEXT NULL,
+  `image_url` VARCHAR(255) NULL,
   PRIMARY KEY (`id_produit`))
 ENGINE = InnoDB;
-
 
 
 CREATE TABLE IF NOT EXISTS `projet_csi`.`categorie` (
@@ -258,3 +258,19 @@ VALUES ('Schweitzer', 'Victorien', 'Victorien@csi.com', 'victo', '3cfe9d1883c581
 
 INSERT INTO `projet_csi`.`client` (`nom`, `prenom`, `email`, `pseudo`, `mot_passe`, `role`)
 VALUES ('Zeghadi', 'Sofiane', 'Sofiane@csi.com', 'Sofiane', '3cfe9d1883c5819dd5fdcc3c57fa7a892db0c56c', 'admin');
+
+
+INSERT INTO categorie (nom)
+VALUES ('viande');
+
+INSERT INTO categorie (nom)
+VALUES ('poisson');
+
+INSERT INTO categorie (nom)
+VALUES ('fruits');
+
+INSERT INTO categorie (nom)
+VALUES ('légume');
+
+INSERT INTO categorie (nom)
+VALUES ('boisson');

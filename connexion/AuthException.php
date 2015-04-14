@@ -2,7 +2,9 @@
 
 class AuthException extends Exception {
     function __construct() {
-        echo "<script> alert('Mot de passe erroné'); </script>";
+        // mauvais mot de passe
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit;
     }
 }
 ?>

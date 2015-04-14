@@ -23,6 +23,8 @@ final class Client {
 
     protected $role = self::MEMBRE;
 
+    protected $adresse;
+
 
     public function __get($property)
     {
@@ -59,7 +61,8 @@ final class Client {
 
     public function insert() {
         $connection = base::getConnection();
-        $stmt = $connection->prepare("INSERT INTO client (nom, prenom, email, pseudo, mot_passe, role) VALUES (:nom, :prenom, :email, :pseudo, :mot_passe, :role)");
+        $stmt = $connection->prepare("INSERT INTO client (nom, prenom, email, pseudo, mot_passe, role) 
+            VALUES (:nom, :prenom, :email, :pseudo, :mot_passe, :role)");
         $stmt->bindParam(':nom', $this->nom);
         $stmt->bindParam(':prenom', $this->prenom);
         $stmt->bindParam(':email', $this->email);

@@ -1,4 +1,6 @@
 <?php
+require_once("../base.php");
+
 require_once("../modele/Client.php");
 
 $crypte = sha1($_POST['Password']);
@@ -14,4 +16,4 @@ $client->__set('mot_passe',$crypte);
 //$client->__set('pseudo',$_POST['Ville']);
 $client->insert();
 
-echo "Utilisateur enregistré !";
+header('Location: ../');
