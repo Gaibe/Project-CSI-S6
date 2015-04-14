@@ -55,10 +55,10 @@ final class Produit {
 
         $this->id_produit = $connection->lastInsertId();
         $stmt2 = $connection->prepare("INSERT INTO produit_has_categorie (produit_id_produit, categorie_id_categorie) 
-            VALUES (:id_produit, 1)");
+            VALUES (:id_produit, :id_categorie)");
         $stmt2->bindParam(':id_produit', $this->id_produit);
         // var_dump($this->categorie);
-        // $stmt2->bindParam(':id_categorie', $this->categorie->__get("id_categorie"));
+        $stmt2->bindParam(':id_categorie', $this->categorie->__get("id_categorie"));
         $stmt2->execute();
     }
 

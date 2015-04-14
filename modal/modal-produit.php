@@ -29,8 +29,15 @@
         </center>
       </div>
       <div class="modal-footer">
+        <?php
+        if (isset($_SESSION['admin']) === true) {
+        ?>
+          <button type="button" class="btn btn-danger">Supprimer</button>
+        <?php
+        }
+        ?>
         <button type="button" class="btn btn-primary">Ajouter au panier</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
