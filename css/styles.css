@@ -151,7 +151,19 @@ span.glyphicon-cog {
     margin: 0 auto;
 }
 
-.panel-price p {
+.modal-body .img-responsive {
+  min-height: 150px;
+  min-width: 150px;
+  max-height: 300px;
+  max-width: 300px;
+  height: auto;
+  
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+.price {
   font-size: 16px;
   font-weight: bold;
   margin-right: 10px;
@@ -160,6 +172,7 @@ span.glyphicon-cog {
 a.no-style, a.no-style:hover {
     color: #000;
     text-decoration: none;
+    cursor: pointer;
 }
 
 img#preview {
