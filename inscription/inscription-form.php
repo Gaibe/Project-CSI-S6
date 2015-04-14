@@ -5,37 +5,37 @@
             <h2 class="col-md-offset-4 col-md-8">Inscription</h2><br>
 
             <div class="form-group">
-                <label class="col-md-3 control-label" for="Nom">Nom</label>
+                <label class="col-md-3 control-label" for="Nom">Nom *</label>
                 <div class="col-md-4">
-                    <input id="Nom" type="text" class="form-control" name="Nom" ng-model="Nom" />
+                    <input id="Nom" type="text" class="form-control" name="Nom" ng-model="Nom" required />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-3 control-label" for="Prenom">Prénom</label>
+                <label class="col-md-3 control-label" for="Prenom">Prénom *</label>
                 <div class="col-md-4">
-                    <input id="Prenom" type="text" class="form-control" name="Prenom" ng-model="Prenom" />
+                    <input id="Prenom" type="text" class="form-control" name="Prenom" ng-model="Prenom" required />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-md-3 control-label" for="Email">Email *</label>
                 <div class="col-md-4">
-                    <input id="Email" type="email" class="form-control" name="Email" ng-model="Email" placeholder="exemple@mail.com" />
+                    <input id="Email" type="email" class="form-control" name="Email" ng-model="Email" placeholder="exemple@mail.com" required />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-md-3 control-label" for="Pseudo">Pseudo *</label>
                 <div class="col-md-4">
-                    <input id="Pseudo" type="text" class="form-control" name="Pseudo" ng-model="Pseudo" />
+                    <input id="Pseudo" type="text" class="form-control" name="Pseudo" ng-model="Pseudo" required />
                 </div>
             </div>
      
             <div class="form-group">
                 <label class="col-md-3 control-label" for="Password">Mot de passe *</label>
                 <div class="col-md-4">
-                    <input id="Password" type="password" class="form-control" name="Password" ng-model="Password" />
+                    <input id="Password" type="password" class="form-control" name="Password" ng-model="Password" required />
                 </div>
             </div>
      
@@ -43,7 +43,7 @@
                 <label class="col-md-3 control-label" for="ConfirmPassword">Confirmer le mot de passe *</label>
                 <div class="col-md-4">
                     <input id="ConfirmPassword" type="password" class="form-control" name="ConfirmPassword" 
-                    ng-model="ConfirmPassword" placeholder="Retaper votre mot de passe" />
+                    ng-model="ConfirmPassword" placeholder="Retaper votre mot de passe" required />
                 </div>
             </div>
 

@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS `projet_csi`.`magasin` (
   PRIMARY KEY (`id_magasin`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `projet_csi`.`adresse` (
-  `id_adresse` INT(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `adresse` (
+  `id_adresse` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `rue` VARCHAR(255) NULL,
   `ville` VARCHAR(50) NOT NULL,
   `code_postal` SMALLINT(5) NOT NULL,
@@ -274,3 +274,29 @@ VALUES ('légume');
 
 INSERT INTO categorie (nom)
 VALUES ('boisson');
+
+
+
+INSERT INTO `produit` (`id_produit`, `libelle`, `prix`, `description`, `image_url`) VALUES
+(1, 'Viande bovine rôti 1KG', 15.90, 'Origine : France\r\nLieu d''élevage : France\r\nLieu d''abattage : France\r\nType : Viande\r\nCatégorie : Vache\r\n15.90 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=727519&use=d&cat=p&typeid=i'),
+(2, 'Porc : Côte sans os', 4.98, 'Origine : France\r\n4 Tranche\r\n440g\r\n11.32 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=734673&use=d&cat=p&typeid=i'),
+(3, 'Boisson aux fruits Oasis zéro Tropical', 1.73, '2L\r\n0.87 € / l\r\nIdéal pour toute la famille !', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=722781&use=d&cat=p&typeid=i'),
+(4, 'Boisson aux fruits Jafaden Orange', 1.19, '2L\r\n0.60 € / l\r\nBon ... Et frais !', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=727181&use=d&cat=p&typeid=i'),
+(5, 'Oranges à jus', 3.99, 'Douceur du Verger\r\nFilet 3kg\r\nVariété : Salustiana\r\nOrigine : Espagne\r\nCatégorie : 1\r\nCalibre : 5/6\r\n1.33 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=751415&use=d&cat=p&typeid=i'),
+(6, 'Bananes Sachet 5 fruits', 1.49, 'Variété : Cavendish\r\nOrigine : Antilles Françaises\r\nCatégorie : Extra\r\nCalibre : 18', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=528924&use=d&cat=p&typeid=i'),
+(7, 'Carottes', 1.49, 'Variété : Carotte\r\nOrigine : France\r\nCatégorie : 1\r\nCalibre : 25/40\r\n0.75 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=271995&use=d&cat=p&typeid=i'),
+(8, 'Chou fleur', 1.69, 'Variété : Chou fleur\r\nOrigine : France - Bretagne\r\nCatégorie : 1', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=476654&use=d&cat=p&typeid=i'),
+(9, 'Poissons panés', 2.13, 'Ronde des Mers\r\nColin d''Alaska 2x100g\r\n10.65 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=485919&use=d&cat=p&typeid=i'),
+(10, 'Petites crevettes roses Ronde des mers', 1.86, '125g\r\n14.88 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=640383&use=d&cat=p&typeid=i');
+
+INSERT INTO `produit_has_categorie` (`produit_id_produit`, `categorie_id_categorie`) VALUES
+(1, 1),
+(2, 1),
+(9, 2),
+(10, 2),
+(5, 3),
+(6, 3),
+(7, 4),
+(8, 4),
+(3, 5),
+(4, 5);

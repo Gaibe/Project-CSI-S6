@@ -11,9 +11,14 @@ $client->__set('prenom',strtolower($_POST['Prenom']));
 $client->__set('email',strtolower($_POST['Email']));
 $client->__set('pseudo',strtolower($_POST['Pseudo']));
 $client->__set('mot_passe',$crypte);
-//$client->__set('rue',$_POST['Rue']);
-//$client->__set('pseudo',$_POST['Code_Postal']);
-//$client->__set('pseudo',$_POST['Ville']);
+
+
+$adresse = new Adresse();
+$adresse->__set('rue',$_POST['Rue']);
+$adresse->__set('ville',$_POST['Ville']);
+$adresse->__set('code_postal',$_POST['Code_postal']);
+
+$client->__set('adresse', $adresse);
 $client->insert();
 
 header('Location: ../');

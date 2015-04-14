@@ -1,5 +1,6 @@
 <?php
 
+require_once("Adresse.php");
 
 final class Client {
 
@@ -70,6 +71,24 @@ final class Client {
         $stmt->bindParam(':mot_passe', $this->mot_passe);
         $stmt->bindParam(':role', $this->role);
         $stmt->execute();
+
+        $this->id_client = $connection->lastInsertId();
+
+        if (isset($this->adresse) === true) {
+            $adresse = new Adresse();
+            $adresse->__set('rue', $this->adresse->__get('rue'));
+            $adresse->__set('ville', $this->adresse->__get('ville'));
+            $adresse->__set('code_postal', $this->adresse->__get('code_postal'));
+            $adresse->insert();
+
+            $id_adresse = $connection->lastInsertId();
+
+            $stmt2 = $connection->prepare("INSERT INTO client_has_adresse (client_id_client, adresse_id_adresse) 
+                VALUES (:id_client,:id_adresse)");
+            $stmt2->bindParam(':id_adresse', $id_adresse);
+            $stmt2->bindParam(':id_client', $this->id_client);
+            $stmt2->execute();
+        }
     }
 
 

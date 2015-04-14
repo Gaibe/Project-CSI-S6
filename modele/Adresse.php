@@ -68,9 +68,9 @@ final class Adresse {
         $connection = base::getConnection();
         $stmt = $connection->prepare("INSERT INTO adresse (rue, ville, code_postal) 
             VALUES (:rue, :ville, :code_postal)");
-        $stmt->bindParam(':rue', $this->libelle);
-        $stmt->bindParam(':ville', $this->prix);
-        $stmt->bindParam(':code_postal', $this->description);
+        $stmt->bindParam(':rue', $this->rue);
+        $stmt->bindParam(':ville', $this->ville);
+        $stmt->bindParam(':code_postal', $this->code_postal);
         $stmt->execute();
     }
     
