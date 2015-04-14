@@ -2,57 +2,57 @@
 class ProduitAffichage {
 
 
-    public static function displayProduit($name_produit, $prix, $link_categorie, $name_categorie, $description, $image_url) {
+    public static function displayProduit($produit, $categorie) {
         echo '
             <div class="col-md-4 col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href="' . $link_categorie . '" class="pull-right">' . $name_categorie . '</a> 
-                        <a class="no-style" data-toggle="modal" data-target="#modal-produit">
-                            <h4 class="article-titre">' . $name_produit . '</h4>
+                        <a href=categorie/"' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
+                        <a class="no-style" data-toggle="modal" data-target="#produit-id-' . $produit["id_produit"] . '">
+                            <h4 class="article-titre">' . $produit["libelle"] . '</h4>
                         </a>
                     </div>
                     <div class="panel-body">
-                        <a class="no-style" data-toggle="modal" data-target="#modal-produit">
-                            <img src="' . $image_url . '" 
-                                class="img-circle img-responsive" alt="image du produit">
+                        <a class="no-style" data-toggle="modal" data-target="#produit-id-' . $produit["id_produit"] . '">
+                            <img src="' . $produit["image_url"] . '" 
+                                class="img-responsive" alt="image du produit">
                         </a>
-                        <a class="no-style" data-toggle="modal" data-target="#modal-produit">
+                        <a class="no-style" data-toggle="modal" data-target="#produit-id-' . $produit["id_produit"] . '">
                             <center class="panel-content">
-                                ' . $description . '
+                                ' . $produit["description"] . '
                             </center>
                         </a>
                     </div>
                     <p class="price">
-                        ' . $prix .' €
+                        ' . $produit["prix"] .' €
                     </p>
                 </div> 
             </div>
         ';
-        self::displayProduitModal($name_produit, $prix, $link_categorie, $name_categorie, $description, $image_url);
+        self::displayProduitModal($produit, $categorie);
     }
 
 
 
 
-    public static function displayProduitModal($name_produit, $prix, $link_categorie, $name_categorie, $description, $image_url) {
+    public static function displayProduitModal($produit, $categorie) {
         echo '
-            <div class="modal fade" id="modal-produit" tabindex="-1" role="dialog" aria-labelledby="#titleLabel" aria-hidden="true">
+            <div class="modal fade" id="produit-id-' . $produit["id_produit"] . '" tabindex="-1" role="dialog" aria-labelledby="#titleLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title" id="titleLabel">' . $name_produit . '</h3>
+                    <h3 class="modal-title" id="titleLabel">' . $produit["libelle"] . '</h3>
                     </br>
                     <span>
-                        ' . $prix .' €
+                        ' . $produit["prix"] .' €
                     </span>
-                    <a href="' . $link_categorie . '" class="pull-right">' . $name_categorie . '</a> 
+                    <a href=categorie/"' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
                   </div>
                   <div class="modal-body">
-                    <img src="' . $image_url . '" class="img-circle img-responsive" alt="image du produit">
+                    <img src="' . $produit["image_url"] . '" class="img-responsive" alt="image du produit">
                     <center>
-                        ' . $description . '
+                        ' . $produit["description"] . '
                     </center>
                   </div>
                   <div class="modal-footer">

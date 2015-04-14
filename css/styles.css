@@ -148,6 +148,8 @@ span.glyphicon-cog {
 
 .panel .img-responsive {
     margin: 0 auto;
+    width: 150px;
+    height: 150px;
 }
 
 .modal-body .img-responsive {

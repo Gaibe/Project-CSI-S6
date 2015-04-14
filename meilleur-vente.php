@@ -63,7 +63,7 @@ require_once("header.php");
 
     <?php
         include "modal/modal-produit.php";
-
+        // ProduitAffichage::displayProduit($produit, $categorie);
     }
     ?>
 

@@ -38,13 +38,7 @@ require_once("front-office/ProduitAffichage.php")
                 <?php
                 $link_categorie = "#";
                 foreach (Produit::findByCategorie($categorie['id_categorie']) as $produit) {
-                    ProduitAffichage::displayProduit(
-                        $produit['libelle'], 
-                        $produit['prix'], 
-                        $link_categorie, 
-                        $categorie['nom'], 
-                        $produit['description'],
-                        $produit['image_url']);
+                    ProduitAffichage::displayProduit($produit, $categorie);
                 }
                 ?>
             </div>
@@ -56,16 +50,6 @@ require_once("front-office/ProduitAffichage.php")
 </div>
 
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("#groupe-de-categorie input").click(function(e){
-            e.preventDefault();
-            var id = $(this).attr('id');
-            console.log("#".concat(id));
-            $("#".concat(id)).tab('show');
-        });
-    });
-</script>
 
 <?php
 require_once("footer.php");
