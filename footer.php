@@ -12,6 +12,17 @@
                 }
             });
         }
+        
+        function refreshPanier() {
+            var montant = '. $montant . ';
+            var quantite = ' . $quantite . ';
+            var montant_actuel = $("#panier-montant").html();
+            var quantite_actuel = $("#panier-quantite").html();
+            montant = montant + montant_actuel;
+            quantite = quantite + quantite_actuel;
+            $("#panier-montant").html(montant);
+            $("#panier-quantite").html(quantite);
+        }
 
         $(document).ready(function() {
             findActiveTab();

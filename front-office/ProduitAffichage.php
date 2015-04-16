@@ -19,10 +19,16 @@ class ProduitAffichage {
                         </a>
                         <a class="no-style" data-toggle="modal" data-target="#produit-id-' . $produit["id_produit"] . '">
                             <center class="panel-content">
-                                ' . $produit["description"] . '
+                                ' . nl2br($produit["description"]) . '
                             </center>
                         </a>
                     </div>
+                    <div class="col-md-4 input-group ajout-panier-panel">
+                        <span class="input-group-btn">
+                            <button id="ajout-' . $produit["id_produit"] . '" type="button" class="btn btn-primary ajout-produit-panier">Ajouter au panier</button>
+                        </span>
+                        <textarea type="text" class="form-control quantite-produit-panier" rows="1">1</textarea>
+                    </div><!-- /input-group -->
                     <p class="price">
                         ' . $produit["prix"] .' €
                     </p>
@@ -52,20 +58,31 @@ class ProduitAffichage {
                   <div class="modal-body">
                     <img src="' . $produit["image_url"] . '" class="img-responsive" alt="image du produit">
                     <center>
-                        ' . $produit["description"] . '
+                        ' . nl2br($produit["description"]) . '
                     </center>
                   </div>
                   <div class="modal-footer">
-                    <?php
-                    if (isset($_SESSION["admin"]) === true) {
-                    ?>
-                      <button type="button" class="btn btn-danger">Supprimer</button>
-                    <?php
-                    }
-                    ?>
-                    <button type="button" class="btn btn-primary">Ajouter au panier</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                  </div>
+                        <?php
+                        if (isset($_SESSION["admin"]) === true) {
+                        ?>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-danger">Supprimer</button>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button id="ajout-' . $produit["id_produit"] . '" type="button" class="btn btn-primary ajout-produit-panier">Ajouter au panier</button>
+                                </span>
+                                <textarea id="qte-' . $produit["id_produit"] . '" type="text" class="form-control quantite-produit-panier" rows="1">1</textarea>
+                            </div><!-- /input-group -->
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>

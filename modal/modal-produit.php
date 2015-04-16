@@ -1,4 +1,6 @@
 <?php
+// TODEL
+
 // CONTRAINTES :
 // $name_produit      Nom du produit
 // $prix              Prix du produit

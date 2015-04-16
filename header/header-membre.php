@@ -5,12 +5,22 @@ $client = Client::findById($_SESSION['membre']);
 
 $nb_article_panier = 0;
 $montant_panier = "0.00";
+
+$panier = Panier::findByClientIdValide($_SESSION['membre']);
+if ($panier === -1) {
+    // Si le client n'a pas de panier, on lui en créé un
+    $panier = Panier::panierVide($_SESSION['membre']);
+    $panier->insert();
+}
+
+
 if (isset($_SESSION['admin']) === true && $_SESSION['admin'] === true) {
     $is_admin = true;
 }
 else {
     $is_admin = false;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -46,10 +56,10 @@ else {
 
             <div class="col-xs-4">
                 <div class="input-group">
-                    <span class="input-group-addon"><?php echo $montant_panier; ?> €</span>
+                    <span class="input-group-addon"><?php echo $panier->__get("prix_total"); ?> €</span>
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="button">
-                          Panier <span class="badge"><?php echo $nb_article_panier; ?></span>
+                          Panier <span class="badge"><?php echo $panier->__get("quantite_totale"); ?></span>
                         </button>
                     </span>
                 </div>

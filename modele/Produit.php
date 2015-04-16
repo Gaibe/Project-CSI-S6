@@ -39,7 +39,7 @@ final class Produit {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $produit = new Produit();
-        $produit->categorie = Categorie::findByClientId($id);
+        $produit->categorie = Categorie::findById($id);
         return Hydrator::hydrate($result, $produit);
     }
 

@@ -9,17 +9,12 @@ require_once("front-office/ProduitAffichage.php")
     <div class="row">
 
 
-
-
-
-
-
         <div class="btn-group btn-group-justified" role="group" id="groupe-de-categorie">
             <?php
             foreach (Categorie::findAll() as $categorie) {
             ?>
                 <div class="btn-group" data-toggle="buttons">
-                    <button class="btn btn-primary" type="button" data-toggle="collapse" 
+                    <button id="button-<?php echo $categorie['id_categorie'] ?>" class="btn btn-primary btn-categorie" type="button" data-toggle="collapse"
                         data-target="#id-<?php echo $categorie['id_categorie'] ?>" aria-expanded="false" aria-controls="collapseExample">
                       <?php echo $categorie['nom']; ?>
                     </button>
@@ -49,6 +44,39 @@ require_once("front-office/ProduitAffichage.php")
     </div>
 </div>
 
+<div id="empty-div">
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".ajout-produit-panier").click(function(){
+            var id = $(this).attr("id");
+            var id_produit = id.substring(6);
+            var quantite = $("#qte-"+id_produit).val();
+            if (quantite <= 0 || quantite == null) {
+                quantite = 0;
+            }
+
+            $.ajax({
+                url: "ajout-produit-panier.php",
+                type: "POST",
+                data: { id_produit : id_produit, quantite : quantite },
+                dataType: "html",
+                success: function(result) {
+                    $("#empty-div").html(result);
+                }
+            })
+            .done(function() {
+                refreshPanier();
+                alert("Produit ajouté");
+            });
+        });
+
+    });
+</script>
 
 
 <?php

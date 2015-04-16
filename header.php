@@ -4,6 +4,7 @@ session_start();
 require_once "base.php";
 require_once "modele/Hydrator.php";
 require_once "modele/Client.php";
+require_once "modele/Panier.php";
 
 $project_name = explode("/", $_SERVER["PHP_SELF"])[1];
 

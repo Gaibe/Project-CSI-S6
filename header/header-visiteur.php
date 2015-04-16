@@ -1,5 +1,15 @@
 <!-- Appeler dans /header.php -->
 
+<?php
+if (isset($_SESSION['panier-prix']) === false) {
+    $panier = Panier::panierVide();
+    $_SESSION['panier-prix'] = $panier->__get("prix_total");
+    $_SESSION['panier-quantite'] = $panier->__get("quantite_totale");
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -29,9 +39,19 @@
                 </div>
             </div>
         </form>
-        <div class="pull-right" style="margin-top:8px;">
-            <div class="col-xs-6"><a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/inscription"><span class="glyphicon glyphicon-th-list"></span> Inscription</a></div>
-            <div class="col-xs-6"><a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/connexion"><span class="glyphicon glyphicon-user"></span> Connexion</a></div>
+        <div class="pull-right" style="margin-top:8px; width: 600px;">
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <span class="input-group-addon"><span id="panier-prix"><?php echo $_SESSION['panier-prix'] ?></span> €</span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">
+                          Panier <span id="panier-quantite" class="badge"><?php echo $_SESSION['panier-quantite'] ?></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4"><a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/inscription"><span class="glyphicon glyphicon-th-list"></span> Inscription</a></div>
+            <div class="col-xs-4"><a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/connexion"><span class="glyphicon glyphicon-user"></span> Connexion</a></div>
         </div>
     </div>
 </div>
