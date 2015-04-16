@@ -56,6 +56,23 @@ final class Produit {
 
         return Hydrator::hydrate($result, new Categorie());
     }
+    
+    
+    public static function findBestSellers($nbV) {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT DISTINCT libelle, prix, description, image_url, SOMME(quantite) AS nbVentes FROM produit INNER JOIN bilan_has_produit 
+            ON produit_id_produit = id_produit
+            GROUP BY id_produit
+            ORDER BY nbVentes
+            LIMIT :nbV");
+        $stmt->bindParam(':nbV', $nbV);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return Hydrator::hydrate($result, new Produit());
+    }
 
     public function insert() {
         $connection = base::getConnection();
