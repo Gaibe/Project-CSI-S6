@@ -52,13 +52,12 @@ final class Panier_Has_Produit {
     public function insert() {
         $connection = base::getConnection();
         $stmt = $connection->prepare("INSERT INTO panier_has_produit (panier_id_panier, produit_id_produit, quantite, prix_produit) 
-            VALUES (:prix_total, id_client, :quantite_totale, :prix_produit)");
-        $stmt->bindParam(':panier_id_panier', $this->panier_id_panier);
-        $stmt->bindParam(':produit_id_produit', $this->produit_id_produit);
+            VALUES (:id_panier, :id_produit, :quantite, :prix_produit)");
+        $stmt->bindParam(':id_panier', $this->panier_id_panier);
+        $stmt->bindParam(':id_produit', $this->produit_id_produit);
         $stmt->bindParam(':quantite', $this->quantite);
         $stmt->bindParam(':prix_produit', $this->prix_produit);
         $stmt->execute();
-        
     }
 
 

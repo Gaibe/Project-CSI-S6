@@ -9,15 +9,15 @@ require_once("modele/Panier.php");
 if (isset($_POST['id_produit']) === true) {
 
 
-    echo "SAAAAAAAAAAAAALUUUUUUUUUUUT !!!!!!";
     $id_produit = $_POST['id_produit'];
     $quantite = $_POST['quantite'];
 
     $produit = Produit::findById($id_produit);
     $montant = $produit->__get("prix")*$quantite;
 
-    if (isset($_POST['membre']) === true) {
-        $panier = Panier::findByClientId($_POST['membre']);
+
+    if (isset($_SESSION['membre']) === true) {
+        $panier = Panier::findByClientIdValide($_SESSION['membre']);
         $panier->addMontant($montant);
         $panier->addQuantite($quantite);
         $panier->ajouterProduit($produit->__get("id_produit"), $quantite, $produit->__get("prix"));

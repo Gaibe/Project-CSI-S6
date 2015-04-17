@@ -27,7 +27,7 @@ class ProduitAffichage {
                         <span class="input-group-btn">
                             <button id="ajout-' . $produit["id_produit"] . '" type="button" class="btn btn-primary ajout-produit-panier">Ajouter au panier</button>
                         </span>
-                        <textarea type="text" class="form-control quantite-produit-panier" rows="1">1</textarea>
+                        <textarea id="qte-' . $produit["id_produit"] . '" type="text" class="form-control quantite-produit-panier" rows="1">1</textarea>
                     </div><!-- /input-group -->
                     <p class="price">
                         ' . $produit["prix"] .' €
@@ -74,9 +74,9 @@ class ProduitAffichage {
                         <div class="col-md-4">
                             <div class="input-group">
                                 <span class="input-group-btn">
-                                    <button id="ajout-' . $produit["id_produit"] . '" type="button" class="btn btn-primary ajout-produit-panier">Ajouter au panier</button>
+                                    <button id="modal-ajout-' . $produit["id_produit"] . '" type="button" class="btn btn-primary ajout-produit-panier btn-modal">Ajouter au panier</button>
                                 </span>
-                                <textarea id="qte-' . $produit["id_produit"] . '" type="text" class="form-control quantite-produit-panier" rows="1">1</textarea>
+                                <textarea id="modal-qte-' . $produit["id_produit"] . '" type="text" class="form-control quantite-produit-panier" rows="1">1</textarea>
                             </div><!-- /input-group -->
                         </div>
                         <div class="col-md-4">

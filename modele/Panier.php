@@ -31,7 +31,7 @@ final class Panier {
         $this->$property = $value;
     }
 
-    public function addProduitPanier($panier_has_produit) {
+    public function addProduitPanier($produit) {
         array_push($this->panier_has_produit, $produit);
     }
 
@@ -84,7 +84,7 @@ final class Panier {
 
         $panier_produit = new Panier_Has_Produit();
         $panier_produit->__set("panier_id_panier", $this->id_panier);
-        $panier_produit->__set("produit_id_produit", $this->id_produit);
+        $panier_produit->__set("produit_id_produit", $id_produit);
         $panier_produit->__set("quantite", $quantite);
         $panier_produit->__set("prix_produit", $prix);
         $this->addProduitPanier($panier_produit);
