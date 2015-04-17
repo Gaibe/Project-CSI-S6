@@ -36,7 +36,18 @@ final class Client {
     {
         $this->$property = $value;
     }
+    
+    public static function findAll() {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM client ORDER BY nom");
+        $stmt->execute();
 
+        // set the resulting array to associative
+        $result = $stmt->fetchAll();
+
+        return Hydrator::hydrate($result, new Client());
+    }
+    
     public static function findById($id) {
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT * FROM client WHERE id_client = :id");
