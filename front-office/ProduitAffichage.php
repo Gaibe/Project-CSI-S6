@@ -108,23 +108,36 @@ class ProduitAffichage {
                     </thead>
                         <tbody>
                         ';
-                        foreach($panier_has_produit as $produit_in_panier) {
-                            $produit = Produit::findById($produit_in_panier["produit_id_produit"]);
+                    foreach($panier_has_produit as $produit_in_panier) {
+                        $produit = Produit::findById($produit_in_panier["produit_id_produit"]);
                         echo '    
                             
-                                <tr>
-                                    <td>' . $produit->__get("libelle") . '</td>
-                                    <td>' . $produit_in_panier["prix_produit"] . '</td>
-                                    <td>' . $produit_in_panier["quantite"] . '</td>
-                                    <td>' . ($produit_in_panier["quantite"]*$produit_in_panier["prix_produit"]) . '</td>
-                                    <td class="table-delete"><a id="delete-' . $produit->__get("id_produit") . '" href="#"><span class="glyphicon glyphicon-remove-sign"></span></a></td>
-                                </tr>
-                            ';
-                        }
-                        echo '
+                        <tr>
+                            <td>' . $produit->__get("libelle") . '</td>
+                            <td>' . $produit_in_panier["prix_produit"] . '</td>
+                            <td id="quantite-panier-' . $produit->__get("id_produit") . '">' . $produit_in_panier["quantite"] . ' 
+                            <button id="add-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <button id="remove-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                            </td>
+                            <td id="montant-panier-'. $produit->__get("id_produit") .'">' . ($produit_in_panier["quantite"]*$produit_in_panier["prix_produit"]) . '</td>
+                            <td class="table-delete"><a id="delete-' . $produit->__get("id_produit") . '" href="#"><span class="glyphicon glyphicon-remove-sign"></span></a></td>
+                        </tr>
+                        ';
+                    }
+                    echo '
                     </tbody>
                 </table>
+                <p class="panier-total">
+                    Total :
+                    <span class="panier-total-quantite">' . $panier->__get("quantite_totale") . '</span>
+                    <span class="panier-total-prix">' . $panier->__get("prix_total") . '</span>
+                </p>
             </div>
+
         </div>
         ';
     }

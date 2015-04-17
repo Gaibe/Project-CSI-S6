@@ -82,14 +82,23 @@ final class Panier {
         $stmt->bindParam(':id_panier', $this->id_panier);
         $stmt->execute();
 
-        $panier_produit = new Panier_Has_Produit();
-        $panier_produit->__set("panier_id_panier", $this->id_panier);
-        $panier_produit->__set("produit_id_produit", $id_produit);
-        $panier_produit->__set("quantite", $quantite);
-        $panier_produit->__set("prix_produit", $prix);
-        $this->addProduitPanier($panier_produit);
+        $panier_produit = Panier_Has_Produit::findById($this->id_panier, $id_produit);
+        if ($panier_produit === -1) {
+            $panier_produit = new Panier_Has_Produit();
+            $panier_produit->__set("panier_id_panier", $this->id_panier);
+            $panier_produit->__set("produit_id_produit", $id_produit);
+            $panier_produit->__set("quantite", $quantite);
+            $panier_produit->__set("prix_produit", $prix);
 
-        $panier_produit->insert();
+            $panier_produit->insert();
+        }
+        else {
+            $panier_produit->__set("quantite", $quantite+$panier_produit->__get("quantite"));
+            $panier_produit->__set("prix_produit", $prix);
+
+            $panier_produit->update();
+        }
+        $this->addProduitPanier($panier_produit);
     }
 
     public function insert() {
