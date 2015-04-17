@@ -61,7 +61,8 @@ final class Produit {
         $recherche = trim(strtolower($recherche));
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT * FROM produit 
-            WHERE libelle LIKE '%:recherche%'
+            WHERE libelle LIKE '%:recherche%' 
+            OR description LIKE '%:recherche%' 
             ORDER BY libelle");
         $stmt->bindParam(':recherche', $recherche);
         $stmt->execute();
@@ -85,6 +86,17 @@ final class Produit {
 
         // set the resulting array to associative
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return Hydrator::hydrate($result, new Produit());
+    }
+
+    public static function findAll() {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM produit ORDER BY libelle");
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetchAll();
 
         return Hydrator::hydrate($result, new Produit());
     }
