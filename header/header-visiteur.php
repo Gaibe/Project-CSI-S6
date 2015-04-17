@@ -31,9 +31,9 @@ if (isset($_SESSION['panier-prix']) === false) {
         <div class="navbar-header">
             <a href="/<?php echo $project_name; ?>/" class="navbar-brand">MegaDRIVE</a>
         </div>
-        <form class="navbar-form pull-left">
+        <form class="navbar-form pull-left" action="/<?php echo $project_name; ?>/recherche.php" method="POST">
             <div class="input-group" style="max-width:600px;">
-                <input type="text" class="form-control" placeholder="Rechercher un produit" name="srch-term" id="srch-term">
+                <input type="text" class="form-control" placeholder="Rechercher un produit" name="recherche" id="srch-term">
                 <div class="input-group-btn">
                     <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>

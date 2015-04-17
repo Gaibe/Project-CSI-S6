@@ -30,6 +30,18 @@ final class Categorie {
         return Hydrator::hydrate($result, new Categorie());
     }
 
+    public static function findByProduitId($id_produit) {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM categorie 
+            INNER JOIN produit_has_categorie 
+            WHERE produit_id_produit = :id_produit");
+        $stmt->bindParam(':id_produit', $id_produit);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public static function findAll() {
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT * FROM categorie ORDER BY nom");

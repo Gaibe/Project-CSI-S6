@@ -56,6 +56,21 @@ final class Produit {
 
         return Hydrator::hydrate($result, new Categorie());
     }
+
+    public static function findProduit($recherche) {
+        $recherche = trim(strtolower($recherche));
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM produit 
+            WHERE libelle LIKE '%:recherche%'
+            ORDER BY libelle");
+        $stmt->bindParam(':recherche', $recherche);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetchAll();
+
+        return Hydrator::hydrate($result, new Categorie());
+    }
     
     
     public static function findBestSellers($nbV) {
@@ -73,6 +88,7 @@ final class Produit {
 
         return Hydrator::hydrate($result, new Produit());
     }
+
 
     public function insert() {
         $connection = base::getConnection();
