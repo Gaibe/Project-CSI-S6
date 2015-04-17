@@ -74,6 +74,17 @@ final class Produit {
         return Hydrator::hydrate($result, new Produit());
     }
 
+    public static function findAll() {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM produit ORDER BY libelle");
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetchAll();
+
+        return Hydrator::hydrate($result, new Produit());
+    }
+    
     public function insert() {
         $connection = base::getConnection();
         $stmt = $connection->prepare("INSERT INTO produit (libelle, prix, description, image_url) 
