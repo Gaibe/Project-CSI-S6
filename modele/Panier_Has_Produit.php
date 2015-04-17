@@ -35,6 +35,17 @@ final class Panier_Has_Produit {
         return Hydrator::hydrate($result, new Panier_Has_Produit());
     }
 
+    public static function findByPanierId($id_panier) {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM panier_has_produit WHERE panier_id_panier = :id_panier");
+        $stmt->bindParam(':id_panier', $id_panier);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetchAll();
+        return Hydrator::hydrate($result, new Panier_Has_Produit());
+    }
+
     public function update() {
         $connection = base::getConnection();
         $stmt = $connection->prepare("UPDATE panier_has_produit 

@@ -1,4 +1,5 @@
 <?php
+
 class ProduitAffichage {
 
 
@@ -86,6 +87,45 @@ class ProduitAffichage {
                 </div>
               </div>
             </div>
+        ';
+    }
+
+
+    public static function displayPanierMembre($panier, $panier_has_produit) {
+        include_once("../modele/Produit.php");
+        echo '
+        <div class="panier-table">
+            <h3><center>Votre Panier</center></h3>
+            <div class="table-responsive">
+                <table class="table table-bordered table-panier">
+                    <thead>
+                        <tr>
+                        <th>Libelle</th>
+                        <th>Prix unitaire</th>
+                        <th>Quantite</th>
+                        <th>Montant total</th>
+                    </tr>
+                    </thead>
+                        <tbody>
+                        ';
+                        foreach($panier_has_produit as $produit_in_panier) {
+                            $produit = Produit::findById($produit_in_panier["produit_id_produit"]);
+                        echo '    
+                            
+                                <tr>
+                                    <td>' . $produit->__get("libelle") . '</td>
+                                    <td>' . $produit_in_panier["prix_produit"] . '</td>
+                                    <td>' . $produit_in_panier["quantite"] . '</td>
+                                    <td>' . ($produit_in_panier["quantite"]*$produit_in_panier["prix_produit"]) . '</td>
+                                    <td class="table-delete"><a id="delete-' . $produit->__get("id_produit") . '" href="#"><span class="glyphicon glyphicon-remove-sign"></span></a></td>
+                                </tr>
+                            ';
+                        }
+                        echo '
+                    </tbody>
+                </table>
+            </div>
+        </div>
         ';
     }
 }

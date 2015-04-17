@@ -24,15 +24,38 @@ if (isset($_POST['id_produit']) === true) {
     }
 
     else {
-        if (isset($_POST['panier'][$id_produit]) === true) {
-            $_POST['panier'][$id_produit] += $quantite;
+        if (isset($_SESSION['panier'][$id_produit]) === true) {
+            $_SESSION['panier'][$id_produit] += $quantite;
         }
         else {
-            $_POST['panier'][$id_produit] = $quantite;
+            $_SESSION['panier'][$id_produit] = $quantite;
         }
+        $_SESSION['panier-quantite'] += $quantite;
+        $_SESSION['panier-prix'] += $montant;
+
     }
 
 }
 else {
     header("Location: ./");
 }
+?>
+
+
+<script type="text/javascript">
+    function refreshPanier() {
+        var montant = '<?php echo $montant; ?>';
+        var quantite = '<?php echo $quantite; ?>';
+        var montant_actuel = $("#panier-prix").html();
+        var quantite_actuel = $("#panier-quantite").html();
+        montant = parseFloat(montant) + parseFloat(montant_actuel);
+        quantite = parseInt(quantite) + parseInt(quantite_actuel);
+        $("#panier-prix").html(parseFloat(montant).toFixed(2));
+        $("#panier-quantite").html(quantite);
+    }
+
+    $(document).ready(function() {
+        refreshPanier();
+    });
+
+</script>

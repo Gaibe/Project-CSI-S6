@@ -214,6 +214,44 @@ img#preview {
   width: 100%;
 }
 
-.quantite-produit-panier {
-  overflow-y: hidden;
+.form-control.quantite-produit-panier {
+  overflow: hidden;
+  width: 20px;
+  padding-left: 2px;
+  padding-right: 0px;
+}
+
+.btn-primary.disabled {
+  background-color: #4285f4;
+  opacity: 1;
+}
+
+.panier-table {
+  background-color: #fff;
+
+  border-style: solid;
+  border-width: 5px;
+  border-color: #fff;
+  border-radius: 5px;
+}
+
+tbody>tr>td.table-delete {
+  padding-top: 12px;
+  border: none;
+}
+
+table.table-panier thead {
+  border-top: 1px solid #ddd;;
+}
+
+table.table-panier {
+  border: none;
+  margin-left: 15px;
+}
+
+.glyphicon.glyphicon-remove-sign {
+  color: #EB4646;
+}
+.glyphicon.glyphicon-remove-sign:hover {
+  color: #EB9D9D;
 }

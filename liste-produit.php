@@ -1,8 +1,9 @@
 <?php
 require_once("header.php");
 require_once("modele/Produit.php");
-require_once("front-office/ProduitAffichage.php")
+require_once("front-office/ProduitAffichage.php");
 
+$link_categorie = "#";
 ?>
 
 <div class="container" id="main">
@@ -31,7 +32,7 @@ require_once("front-office/ProduitAffichage.php")
         ?>
             <div class="collapse" id="id-<?php echo $categorie['id_categorie'] ?>">
                 <?php
-                $link_categorie = "#";
+                
                 foreach (Produit::findByCategorie($categorie['id_categorie']) as $produit) {
                     ProduitAffichage::displayProduit($produit, $categorie);
                 }
@@ -78,7 +79,6 @@ require_once("front-office/ProduitAffichage.php")
                     }
                 })
                 .done(function() {
-                    refreshPanier();
                     alert("Produit ajouté");
                 });
             }
