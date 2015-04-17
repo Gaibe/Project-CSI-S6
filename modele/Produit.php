@@ -58,15 +58,14 @@ final class Produit {
     }
 
     public static function findProduit($recherche) {
-        $recherche = trim(strtolower($recherche));
+        $recherche = htmlspecialchars(trim(strtolower($recherche)));
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT * FROM produit 
-            WHERE libelle LIKE '%:recherche%' 
-            OR description LIKE '%:recherche%' 
+            WHERE libelle LIKE '%" . $recherche . "%' 
+            OR description LIKE '%" . $recherche . "%' 
             ORDER BY libelle");
-        $stmt->bindParam(':recherche', $recherche);
         $stmt->execute();
-
+ 
         // set the resulting array to associative
         $result = $stmt->fetchAll();
 
