@@ -1,10 +1,10 @@
 <?php
 
-final class Bilan {
+final class Reduction {
 
-    protected $id_réduction;
+    protected $id_reduction;
 
-    protected $montant_réduction;
+    protected $montant_reduction;
     
     protected $nb_produit;
     
