@@ -158,7 +158,7 @@ final class Panier {
         }
     }
 
-     public function update() {
+    public function update() {
         $connection = base::getConnection();
         $stmt = $connection->prepare("UPDATE panier 
             SET quantite_totale = :quantite_totale, prix_total = :prix_total 

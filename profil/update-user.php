@@ -1,23 +1,18 @@
 <?php
+session_start();
 require_once("../base.php");
-
+require_once("../modele/Hydrator.php");
 require_once("../modele/Client.php");
 
-if(isset($_POST['Nom']) === true && isset($_POST['Prenom']) === true && 
-    isset($_POST['Email']) === true && isset($_POST['Pseudo']) === true && isset($_POST['Password']) === true && 
-    $_POST['Password'] === $_POST['ConfirmPassword']) {
-
-    $crypte = sha1($_POST['Password']);
-    // créer et sauvegarder l'utilisateur
+if ($_SESSION['membre']) {
     $client = new Client();
     $client->__set('nom',strtolower($_POST['Nom']));
     $client->__set('prenom',strtolower($_POST['Prenom']));
     $client->__set('email',strtolower($_POST['Email']));
     $client->__set('pseudo',strtolower($_POST['Pseudo']));
-    $client->__set('mot_passe',$crypte);
+    $client->__set('id_client', $_SESSION['membre']);
 
-
-    $adresse = new Adresse();
+    $adresse = Adresse::findByClientId($_SESSION['membre']);
     $rue = $_POST['Rue'];
     if ($_POST['Rue'] == null) {
         $rue ="";
@@ -32,14 +27,14 @@ if(isset($_POST['Nom']) === true && isset($_POST['Prenom']) === true &&
     }
     $adresse->__set('rue', $rue);
     $adresse->__set('ville', $ville);
-    $adresse->__set('code_postal', $code_postal);
+    $adresse->__set('code_postal', (int)$code_postal);
 
     $client->__set('adresse', $adresse);
-    $client->insert();
+    $client->update();
 
-    header('Location: ../');
+    header("Location: ./");
     exit;
 }
-else {
-    header('Location: ./');
-}
+
+header("Location: ../");
+exit;

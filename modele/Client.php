@@ -56,7 +56,9 @@ final class Client {
 
         // set the resulting array to associative
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return Hydrator::hydrate($result, new Client());
+        $client = Hydrator::hydrate($result, new Client());
+        $client->adresse = Adresse::findByClientId($id);
+        return $client;
     }
 
     public static function findByPseudo($pseudo) {
@@ -85,7 +87,12 @@ final class Client {
 
         $this->id_client = $connection->lastInsertId();
 
-        if (isset($this->adresse) === true) {
+        $this->insertAdresse();
+    }
+
+    public function insertAdresse() {
+        $connection = base::getConnection();
+        if ($this->adresse !== -1) {
             $adresse = new Adresse();
             $adresse->__set('rue', $this->adresse->__get('rue'));
             $adresse->__set('ville', $this->adresse->__get('ville'));
@@ -99,9 +106,30 @@ final class Client {
             $stmt2->bindParam(':id_adresse', $id_adresse);
             $stmt2->bindParam(':id_client', $this->id_client);
             $stmt2->execute();
+
         }
     }
 
+    public function update() {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("UPDATE client 
+            SET nom = :nom, prenom = :prenom, email = :email, pseudo = :pseudo  
+            WHERE id_client = :id_client");
+        $stmt->bindParam(':nom', $this->nom);
+        $stmt->bindParam(':prenom', $this->prenom);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':pseudo', $this->pseudo);
+        $stmt->bindParam(':id_client', $this->id_client);
+        $stmt->execute();
 
-    
+        if (Adresse::findByClientId($this->id_client) === -1) {
+            $this->insertAdresse();
+        }
+        else {
+            if ($this->adresse !== -1) {
+                $this->adresse->update();
+            }
+        }
+    }
+
 }

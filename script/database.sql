@@ -64,11 +64,11 @@ CREATE TABLE IF NOT EXISTS `projet_csi`.`magasin` (
   PRIMARY KEY (`id_magasin`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `adresse` (
+CREATE TABLE IF NOT EXISTS `projet_csi`.`adresse` (
   `id_adresse` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `rue` VARCHAR(255) NULL,
   `ville` VARCHAR(50) NOT NULL,
-  `code_postal` SMALLINT(5) NOT NULL,
+  `code_postal` INT(6) NOT NULL,
   PRIMARY KEY (`id_adresse`))
 ENGINE = InnoDB;
 

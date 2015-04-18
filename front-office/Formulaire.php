@@ -199,4 +199,93 @@ class Formulaire {
         ';
     }
 
+
+    public static function profil($client) {
+        if ($client->__get("adresse") === -1) {
+            $rue = "";
+            $ville = "";
+            $code_postal = "";
+        }
+        else {
+            $rue = $client->__get("adresse")->__get("rue");
+            $ville = $client->__get("adresse")->__get("ville");
+             if ($client->__get("adresse")->__get("code_postal") == 0) {
+                $code_postal = "";
+            }
+            else {
+                $code_postal = $client->__get("adresse")->__get("code_postal");
+            }
+        }
+
+        echo '
+<div class="container" id="main">
+<div class="row">
+    <div class="col-md-offset-2" ng-app="sample">
+        <form class="form-horizontal" name="registerForm" action="update-user.php" method="POST">
+            <h2 class="col-md-offset-4 col-md-8">Profil</h2><br>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Nom">Nom</label>
+                <div class="col-md-4">
+                    <input id="Nom" type="text" class="form-control" name="Nom" ng-model="Nom" value="' . $client->__get("nom") . '" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Prenom">Prénom</label>
+                <div class="col-md-4">
+                    <input id="Prenom" type="text" class="form-control" name="Prenom" ng-model="Prenom" value="' . $client->__get("prenom") . '" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Email">Email</label>
+                <div class="col-md-4">
+                    <input id="Email" type="email" class="form-control" name="Email" ng-model="Email" value="' . $client->__get("email") . '" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Pseudo">Pseudo</label>
+                <div class="col-md-4">
+                    <input id="Pseudo" type="text" class="form-control" name="Pseudo" ng-model="Pseudo" value="' . $client->__get("pseudo") . '" required />
+                </div>
+            </div>
+     
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Rue">Adresse</label>
+                <div class="col-md-4">
+                    <input id="Rue" type="text" class="form-control" name="Rue" ng-model="Rue" 
+                    value="' . $rue . '" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Code_postal">Code postal</label>
+                <div class="col-md-4">
+                    <input id="Code_postal" type="text" class="form-control" name="Code_postal" ng-model="Code_postal" 
+                    value="' . $code_postal . '" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Ville">Ville</label>
+                <div class="col-md-4">
+                    <input id="Ville" type="text" class="form-control" name="Ville" ng-model="Ville" value="' . $ville . '"/>
+                </div>
+            </div>
+     
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-9">
+                    <input type="submit" class="btn btn-default" value="Modifier mon profil" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+</div>
+        ';
+    }
+
 }

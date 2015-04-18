@@ -37,7 +37,7 @@ final class Adresse {
 
     public static function findByClientId($id) {
         $connection = base::getConnection();
-        $stmt = $connection->prepare("SELECT * FROM adresse INNER JOIN client_has_adresse 
+        $stmt = $connection->prepare("SELECT id_adresse, rue, ville, code_postal FROM adresse INNER JOIN client_has_adresse 
             ON adresse_id_adresse = id_adresse
             WHERE client_id_client = :id");
         $stmt->bindParam(':id', $id);
@@ -72,6 +72,19 @@ final class Adresse {
         $stmt->bindParam(':ville', $this->ville);
         $stmt->bindParam(':code_postal', $this->code_postal);
         $stmt->execute();
+    }
+
+    public function update() {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("UPDATE adresse 
+            SET rue = :rue, ville = :ville, code_postal = :code_postal  
+            WHERE id_adresse = :id_adresse");
+        $stmt->bindParam(':rue', $this->rue);
+        $stmt->bindParam(':ville', $this->ville);
+        $stmt->bindParam(':code_postal', $this->code_postal);
+        $stmt->bindParam(':id_adresse', $this->id_adresse);
+        $stmt->execute();
+
     }
     
 }
