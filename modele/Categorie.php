@@ -34,6 +34,7 @@ final class Categorie {
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT * FROM categorie 
             INNER JOIN produit_has_categorie 
+            ON categorie_id_categorie = id_categorie 
             WHERE produit_id_produit = :id_produit");
         $stmt->bindParam(':id_produit', $id_produit);
         $stmt->execute();
