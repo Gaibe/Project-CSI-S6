@@ -44,7 +44,7 @@ else {
             <div class="form-group">
                 <label class="col-md-3 control-label" for="Produits">Produits</label>
                 <div class="col-md-4">
-                    <select multiple class="form-control" name="Produits[]">
+                    <select multiple class="form-control" name="Produits[]" required>
                         <?php
                         foreach ($list_prod as $prod) {
                         ?>
