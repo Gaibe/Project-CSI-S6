@@ -144,5 +144,43 @@ class Display {
         ';
     }
 
+
+    public static function displayMagasin($list_magasin) {
+        echo '
+        <div class="panier-table">
+            <h3><center>Nos Magasins :</center></h3>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                        <th>Nom</th>
+                        <th>Rue</th>
+                        <th>Code postal</th>
+                        <th>Ville</th>
+                    </tr>
+                    </thead>
+                        <tbody>
+                        ';
+                    foreach($list_magasin as $magasin) {
+                        $magasin = Hydrator::hydrate($magasin, new Magasin());
+                        $magasin->__set('adresse', Adresse::findByMagasinId($magasin->__get('id_magasin')));
+                        echo '    
+                            
+                        <tr>
+                            <td>' . $magasin->__get("nom") . '</td>
+                            <td>' . $magasin->__get("adresse")->__get("rue") . '</td>
+                            <td>' . $magasin->__get("adresse")->__get("code_postal") . '</td>
+                            <td>' . $magasin->__get("adresse")->__get("ville") . '</td>
+                        </tr>
+                        ';
+                    }
+                    echo '
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        ';
+    }
     
 }

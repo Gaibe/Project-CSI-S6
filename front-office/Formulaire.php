@@ -288,4 +288,54 @@ class Formulaire {
         ';
     }
 
+    public static function ajoutMagasin() {
+        echo '
+<div class="container" id="main">
+<div class="row">
+    <div class="col-md-offset-2" ng-app="sample">
+        <form class="form-horizontal" name="registerForm" action="interpreteur/ajout-magasin.php" method="POST">
+            <h2 class="col-md-offset-3 col-md-8">Ajout d\'un magasin</h2><br>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Nom">Nom *</label>
+                <div class="col-md-4">
+                    <input id="Nom" type="text" class="form-control" name="Nom" ng-model="Nom" required />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Rue">Adresse</label>
+                <div class="col-md-4">
+                    <input id="Rue" type="text" class="form-control" name="Rue" ng-model="Rue" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Code_postal">Code postal *</label>
+                <div class="col-md-4">
+                    <input id="Code_postal" type="text" class="form-control" name="Code_postal" ng-model="Code_postal" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="Ville">Ville *</label>
+                <div class="col-md-4">
+                    <input id="Ville" type="text" class="form-control" name="Ville" ng-model="Ville" required />
+                </div>
+            </div>
+     
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-9">
+                    <input type="submit" class="btn btn-default" value="Ajouter" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+</div>
+        ';
+    }
+
 }

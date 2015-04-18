@@ -51,7 +51,7 @@ final class Adresse {
 
     public static function findByMagasinId($id) {
         $connection = base::getConnection();
-        $stmt = $connection->prepare("SELECT * FROM adresse INNER JOIN magasin_has_adresse 
+        $stmt = $connection->prepare("SELECT id_adresse, rue, ville, code_postal FROM adresse INNER JOIN magasin_has_adresse 
             ON adresse_id_adresse = id_adresse
             WHERE magasin_id_magasin = :id");
         $stmt->bindParam(':id', $id);
@@ -69,6 +69,15 @@ final class Adresse {
         $stmt = $connection->prepare("INSERT INTO adresse (rue, ville, code_postal) 
             VALUES (:rue, :ville, :code_postal)");
         $stmt->bindParam(':rue', $this->rue);
+        $stmt->bindParam(':ville', $this->ville);
+        $stmt->bindParam(':code_postal', $this->code_postal);
+        $stmt->execute();
+    }
+
+    public function insertSansRue() {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("INSERT INTO adresse (ville, code_postal) 
+            VALUES (:ville, :code_postal)");
         $stmt->bindParam(':ville', $this->ville);
         $stmt->bindParam(':code_postal', $this->code_postal);
         $stmt->execute();

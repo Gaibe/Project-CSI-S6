@@ -54,7 +54,7 @@ final class Produit {
         // set the resulting array to associative
         $result = $stmt->fetchAll();
 
-        return Hydrator::hydrate($result, new Categorie());
+        return Hydrator::hydrate($result, new Produit());
     }
 
     public static function findProduit($recherche) {
@@ -69,7 +69,7 @@ final class Produit {
         // set the resulting array to associative
         $result = $stmt->fetchAll();
 
-        return Hydrator::hydrate($result, new Categorie());
+        return Hydrator::hydrate($result, new Produit());
     }
     
     

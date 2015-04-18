@@ -99,6 +99,7 @@ else {
                         <?php if ($is_admin === true) { ?>
                         <li><a href="/<?php echo $project_name ?>/admin/ajout-produit.php">Ajouter un produit</a></li>
                         <li><a href="/<?php echo $project_name ?>/admin/ajout-reduction.php">Ajouter une réduction</a></li>
+                        <li><a href="/<?php echo $project_name ?>/admin/ajout-magasin.php">Ajouter un magasin</a></li>
                         <li><a href="/<?php echo $project_name ?>/admin/affichage-bilan.php">Bilan</a></li>
                         <?php } ?>
                     </ul>
