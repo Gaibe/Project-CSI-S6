@@ -58,7 +58,8 @@ $link_categorie = "#";
     $(document).ready(function(){
         $(".ajout-produit-panier").click(function(){
             var id = $(this).attr("id");
-            if ($(this).attr("id") == $(".btn-modal").attr("id")) {
+            var id_modal = id.substring(0, 5);
+            if (id_modal == "modal") {
                 var id_produit = id.substring(12);
                 var quantite = $("#modal-qte-"+id_produit).val();
             }
