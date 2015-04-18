@@ -23,6 +23,14 @@ final class Panier_Has_Produit {
         $this->$property = $value;
     }
 
+    public function incQuantite() {
+        $this->quantite++;
+    }
+
+    public function decQuantite() {
+        $this->quantite--;
+    }
+
     public static function findById($id_panier, $id_produit) {
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT * FROM panier_has_produit WHERE panier_id_panier = :id_panier AND produit_id_produit = :id_produit");
@@ -48,15 +56,20 @@ final class Panier_Has_Produit {
 
     public function update() {
         $connection = base::getConnection();
-        $stmt = $connection->prepare("UPDATE panier_has_produit 
-            SET quantite = :quantite, prix_produit = :prix_produit 
-            WHERE panier_id_panier = :id_panier 
-            AND produit_id_produit = :id_produit");
-        $stmt->bindParam(':quantite', $this->quantite);
-        $stmt->bindParam(':prix_produit', $this->prix_produit);
-        $stmt->bindParam(':id_panier', $this->panier_id_panier);
-        $stmt->bindParam(':id_produit', $this->produit_id_produit);
-        $stmt->execute();
+        if ($this->quantite == 0) {
+            $this->delete();
+        }
+        else{
+            $stmt = $connection->prepare("UPDATE panier_has_produit 
+                SET quantite = :quantite, prix_produit = :prix_produit 
+                WHERE panier_id_panier = :id_panier 
+                AND produit_id_produit = :id_produit");
+            $stmt->bindParam(':quantite', $this->quantite);
+            $stmt->bindParam(':prix_produit', $this->prix_produit);
+            $stmt->bindParam(':id_panier', $this->panier_id_panier);
+            $stmt->bindParam(':id_produit', $this->produit_id_produit);
+            $stmt->execute();
+        }
     }
 
     public function delete() {

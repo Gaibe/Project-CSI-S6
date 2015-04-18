@@ -116,10 +116,10 @@ class ProduitAffichage {
                             <td>' . $produit->__get("libelle") . '</td>
                             <td>' . $produit_in_panier["prix_produit"] . '</td>
                             <td id="quantite-panier-' . $produit->__get("id_produit") . '">' . $produit_in_panier["quantite"] . ' 
-                            <button id="add-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change">
+                            <button id="add-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change" onclick="addOne('.$produit->__get("id_produit").')">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </button>
-                            <button id="remove-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change">
+                            <button id="remove-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change" onclick="removeOne('.$produit->__get("id_produit").')">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                             </td>
