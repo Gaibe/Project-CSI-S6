@@ -124,7 +124,9 @@ class ProduitAffichage {
                             </button>
                             </td>
                             <td id="montant-panier-'. $produit->__get("id_produit") .'">' . ($produit_in_panier["quantite"]*$produit_in_panier["prix_produit"]) . '</td>
-                            <td class="table-delete"><a id="delete-' . $produit->__get("id_produit") . '" href="#"><span class="glyphicon glyphicon-remove-sign"></span></a></td>
+                            <td class="table-delete"><a href="../panier/remove-panier.php?id_produit=' . $produit->__get("id_produit") . '&id_panier='. $panier->__get("id_panier") .'">
+                                <span class="glyphicon glyphicon-remove-sign"></span>
+                            </a></td>
                         </tr>
                         ';
                     }

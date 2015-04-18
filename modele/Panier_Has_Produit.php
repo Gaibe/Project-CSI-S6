@@ -72,5 +72,16 @@ final class Panier_Has_Produit {
     }
 
 
+    public function delete() {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("DELETE FROM panier_has_produit 
+            WHERE panier_id_panier = :id_panier 
+            AND produit_id_produit = :id_produit");
+        $stmt->bindParam(':id_panier', $this->panier_id_panier);
+        $stmt->bindParam(':id_produit', $this->produit_id_produit);
+        $stmt->execute();
+    }
+
+
     
 }
