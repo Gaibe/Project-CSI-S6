@@ -11,14 +11,18 @@ echo '
 if (isset($_SESSION['membre']) === true) {
     $panier = Panier::findByClientIdValide($_SESSION['membre']);
     $panier_has_produit = Panier_Has_Produit::findByPanierId($panier->__get("id_panier"));
-
-    ProduitAffichage::displayPanierMembre($panier, $panier_has_produit);
+    if ($panier_has_produit !== -1) {
+        ProduitAffichage::displayPanierMembre($panier, $panier_has_produit);
+        echo '<a href="#" class="btn btn-primary pull-right" role="button">Confirmer la commande</a>';
+    }
+    else {
+        echo '<h4><center>Aucun produit dans votre panier</center></h4>';
+    }
 }
 else {
 }
 
 echo '
-        <a href="#" class="btn btn-primary pull-right" role="button">Confirmer la commande</a>
     </div>
 </div>
 ';

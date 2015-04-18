@@ -41,6 +41,9 @@ $link_categorie = "#";
         <?php
         }
         ?>
+        <noscript>
+            Activer Javascript pour pouvoir accéder à l'ensemble du contenu
+        </noscript>
 
     </div>
 </div>

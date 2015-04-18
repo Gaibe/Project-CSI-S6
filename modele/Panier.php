@@ -101,6 +101,17 @@ final class Panier {
         $this->addProduitPanier($panier_produit);
     }
 
+    public function retirerProduit($id_produit) {
+        $connection = base::getConnection();
+
+        $produit_panier = Panier_Has_Produit::findById($this->id_panier, $id_produit);
+        $this->quantite_totale -= $produit_panier->__get("quantite");
+        $this->prix_total -= ($produit_panier->__get("prix_produit")*$produit_panier->__get("quantite"));
+        $produit_panier->delete();
+        $this->update();
+
+    }
+
     public function insert() {
         $connection = base::getConnection();
         $stmt = $connection->prepare("INSERT INTO panier (id_client, prix_total, quantite_totale) 
@@ -116,6 +127,17 @@ final class Panier {
             $produit->__set('panier_id_panier', $this->id_panier);
             $produit->insert();
         }
+    }
+
+     public function update() {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("UPDATE panier 
+            SET quantite_totale = :quantite_totale, prix_total = :prix_total 
+            WHERE id_panier = :id_panier");
+        $stmt->bindParam(':quantite_totale', $this->quantite_totale);
+        $stmt->bindParam(':prix_total', $this->prix_total);
+        $stmt->bindParam(':id_panier', $this->id_panier);
+        $stmt->execute();
     }
 
 

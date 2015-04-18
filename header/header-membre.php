@@ -57,10 +57,10 @@ else {
             <div class="col-xs-4">
                 <a href="/<?php echo $project_name; ?>/panier/">
                     <div class="input-group">
-                        <span class="input-group-addon"><?php echo $panier->__get("prix_total"); ?> €</span>
+                        <span class="input-group-addon"><span id="panier-prix"><?php echo $panier->__get("prix_total"); ?></span> €</span>
                         <span class="input-group-btn">
                             <button class="btn btn-primary disabled" type="button">
-                              Panier <span class="badge"><?php echo $panier->__get("quantite_totale"); ?></span>
+                              Panier <span id="panier-quantite" class="badge"><?php echo $panier->__get("quantite_totale"); ?></span>
                             </button>
                         </span>
                     </div>
