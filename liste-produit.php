@@ -1,7 +1,7 @@
 <?php
 require_once("header.php");
 require_once("modele/Produit.php");
-require_once("front-office/ProduitAffichage.php");
+require_once("front-office/Display.php");
 
 $link_categorie = "#";
 ?>
@@ -34,7 +34,7 @@ $link_categorie = "#";
                 <?php
                 
                 foreach (Produit::findByCategorie($categorie['id_categorie']) as $produit) {
-                    ProduitAffichage::displayProduit($produit, $categorie);
+                    Display::displayProduit($produit, $categorie);
                 }
                 ?>
             </div>

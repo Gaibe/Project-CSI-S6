@@ -22,3 +22,4 @@ $client->__set('adresse', $adresse);
 $client->insert();
 
 header('Location: ../');
+exit;

@@ -1,6 +1,6 @@
 <?php
 
-class ProduitAffichage {
+class Display {
 
 
     public static function displayProduit($produit, $categorie) {

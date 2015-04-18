@@ -1,7 +1,7 @@
 <?php
 
 require_once("header.php");
-require_once("front-office/ProduitAffichage.php");
+require_once("front-office/Display.php");
 require_once("modele/Produit.php");
 
 
@@ -15,7 +15,7 @@ if (isset($_POST["recherche"]) === true) {
         foreach ($list_produit as $produit) {
             $categorie = Categorie::findByProduitId($produit['id_produit']);
             
-            ProduitAffichage::displayProduit($produit, $categorie);
+            Display::displayProduit($produit, $categorie);
             
         }
     }

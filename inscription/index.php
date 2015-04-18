@@ -1,6 +1,8 @@
 <?php
 
-
+require_once("../front-office/Formulaire.php");
 require_once("../header.php");
-require_once("inscription-form.php");
+
+Formulaire::inscription();
+
 require_once("../footer.php");

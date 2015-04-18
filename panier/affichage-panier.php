@@ -1,7 +1,7 @@
 <?php
 
 require_once("../header.php");
-require_once("../front-office/ProduitAffichage.php");
+require_once("../front-office/Display.php");
 
 echo '
 <div class="container" id="main">
@@ -12,7 +12,7 @@ if (isset($_SESSION['membre']) === true) {
     $panier = Panier::findByClientIdValide($_SESSION['membre']);
     $panier_has_produit = Panier_Has_Produit::findByPanierId($panier->__get("id_panier"));
     if ($panier_has_produit !== -1) {
-        ProduitAffichage::displayPanierMembre($panier, $panier_has_produit);
+        Display::displayPanierMembre($panier, $panier_has_produit);
         echo '<a href="#" class="btn btn-primary pull-right" role="button">Confirmer la commande</a>';
     }
     else {
