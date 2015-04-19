@@ -20,6 +20,13 @@ if (isset($_SESSION['membre']) === true) {
     }
 }
 else {
+    if ($_SESSION['panier-quantite'] > 0) {
+        Display::displayPanierVisiteur();
+        echo '<a href="#" class="btn btn-primary pull-right" role="button">Confirmer la commande</a>';
+    }
+    else {
+        echo '<h4><center>Aucun produit dans votre panier</center></h4>';
+    }
 }
 
 echo '

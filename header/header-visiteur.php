@@ -41,14 +41,16 @@ if (isset($_SESSION['panier-prix']) === false) {
         </form>
         <div class="pull-right" style="margin-top:8px; width: 600px;">
             <div class="col-xs-4">
-                <div class="input-group">
-                    <span class="input-group-addon"><span id="panier-prix"><?php echo $_SESSION['panier-prix'] ?></span> €</span>
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button">
-                          Panier <span id="panier-quantite" class="badge"><?php echo $_SESSION['panier-quantite'] ?></span>
-                        </button>
-                    </span>
-                </div>
+                <a href="/<?php echo $project_name; ?>/panier/">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span id="panier-prix"><?php echo $_SESSION['panier-prix'] ?></span> €</span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">
+                              Panier <span id="panier-quantite" class="badge"><?php echo $_SESSION['panier-quantite'] ?></span>
+                            </button>
+                        </span>
+                    </div>
+                </a>
             </div>
             <div class="col-xs-4"><a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/inscription"><span class="glyphicon glyphicon-th-list"></span> Inscription</a></div>
             <div class="col-xs-4"><a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/connexion"><span class="glyphicon glyphicon-user"></span> Connexion</a></div>

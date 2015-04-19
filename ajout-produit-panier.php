@@ -17,13 +17,14 @@ if (isset($_POST['id_produit']) === true) {
 
 
     if (isset($_SESSION['membre']) === true) {
+        // Pour les membres
         $panier = Panier::findByClientIdValide($_SESSION['membre']);
         $panier->addMontant($montant);
         $panier->addQuantite($quantite);
         $panier->ajouterProduit($produit->__get("id_produit"), $quantite, $produit->__get("prix"));
     }
-
     else {
+        // Pour les visiteurs
         if (isset($_SESSION['panier'][$id_produit]) === true) {
             $_SESSION['panier'][$id_produit] += $quantite;
         }

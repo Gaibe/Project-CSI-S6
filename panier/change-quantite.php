@@ -20,17 +20,18 @@ if (isset($_POST['action']) === true && isset($_POST['id_produit']) === true) {
         }
     }
     else {
+        include_once("../modele/Produit.php");
         switch($_POST['action']) {
             case "add":
-            $_SESSION['panier'][$id_produit]++;
+            $_SESSION['panier'][$_POST['id_produit']]++;
             $_SESSION['panier-quantite']++;
-            $_SESSION['panier-prix'] += Produit::findById($id_produit);
+            $_SESSION['panier-prix'] += Produit::findById($_POST['id_produit'])->__get("prix");
             break;
 
             case "remove":
-            $_SESSION['panier'][$id_produit]--;
+            $_SESSION['panier'][$_POST['id_produit']]--;
             $_SESSION['panier-quantite']--;
-            $_SESSION['panier-prix'] -= Produit::findById($id_produit);
+            $_SESSION['panier-prix'] -= Produit::findById($_POST['id_produit'])->__get("prix");
             break;
         }
     }

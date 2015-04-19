@@ -144,6 +144,61 @@ class Display {
         ';
     }
 
+    // Session have to be started
+    public static function displayPanierVisiteur() {
+        include_once("../modele/Produit.php");
+        echo '
+        <div class="panier-table">
+            <h3><center>Votre Panier</center></h3>
+            <div class="table-responsive">
+                <table class="table table-bordered table-panier">
+                    <thead>
+                        <tr>
+                        <th>Libelle</th>
+                        <th>Prix unitaire</th>
+                        <th>Quantite</th>
+                        <th>Montant total</th>
+                    </tr>
+                    </thead>
+                        <tbody>
+                        ';
+                    foreach($_SESSION['panier'] as $id_produit => $produit_in_panier) {
+                        $produit = Produit::findById($id_produit);
+                        if ($produit !== -1 && $produit_in_panier > 0) {
+                            echo '
+                            <tr>
+                                <td>' . $produit->__get("libelle") . '</td>
+                                <td>' . $produit->__get("prix") . '</td>
+                                <td id="quantite-panier-' . $produit->__get("id_produit") . '">' . $produit_in_panier . ' 
+                                <button id="add-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change" onclick="addOne('.$produit->__get("id_produit").')">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                                <button id="remove-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change" onclick="removeOne('.$produit->__get("id_produit").')">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+                                </td>
+                                <td id="montant-panier-'. $produit->__get("id_produit") .'">' . ($produit_in_panier*$produit->__get("prix")) . '</td>
+                                <td class="table-delete"><a href="../panier/remove-panier.php?id_produit=' . $produit->__get("id_produit") . '&id_panier=-1">
+                                    <span class="glyphicon glyphicon-remove-sign"></span>
+                                </a></td>
+                            </tr>
+                            ';
+                        }
+                    }
+                    echo '
+                    </tbody>
+                </table>
+                <p class="panier-total">
+                    Total :
+                    <span class="panier-total-quantite">' .  $_SESSION['panier-quantite'] . '</span>
+                    <span class="panier-total-prix">' . $_SESSION['panier-prix'] . '</span>
+                </p>
+            </div>
+
+        </div>
+        ';
+    }
+
 
     public static function displayMagasin($list_magasin) {
         echo '
