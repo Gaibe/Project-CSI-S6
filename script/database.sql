@@ -287,16 +287,57 @@ INSERT INTO `produit` (`id_produit`, `libelle`, `prix`, `description`, `image_ur
 (7, 'Carottes', 1.49, 'Variété : Carotte\r\nOrigine : France\r\nCatégorie : 1\r\nCalibre : 25/40\r\n0.75 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=271995&use=d&cat=p&typeid=i'),
 (8, 'Chou fleur', 1.69, 'Variété : Chou fleur\r\nOrigine : France - Bretagne\r\nCatégorie : 1', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=476654&use=d&cat=p&typeid=i'),
 (9, 'Poissons panés', 2.13, 'Ronde des Mers\r\nColin d''Alaska 2x100g\r\n10.65 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=485919&use=d&cat=p&typeid=i'),
-(10, 'Petites crevettes roses Ronde des mers', 1.86, '125g\r\n14.88 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=640383&use=d&cat=p&typeid=i');
+(10, 'Petites crevettes roses Ronde des mers', 1.86, '125g\r\n14.88 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=640383&use=d&cat=p&typeid=i'),
+(11, 'Viande bovine 2x steak* à griller', 3.87, '260g 14.88 € / kg\r\nOrigine : France\r\nLieu d''élevage : France\r\nLieu d''abattage : France\r\nType : Laitière\r\nCatégorie : Vache', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=659532&use=d&cat=p&typeid=i'),
+(12, 'Porc : Rôti fumé', 9.75, 'Origine France - 850g\r\n11.47 € / kg', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=727895&use=d&cat=p&typeid=i'),
+(13, 'Pavés de Saumon', 5.30, '2x140g - 18.93 € / kg\r\nMode de production : Élevé(e) en\r\nZone de pêche : Norvège\r\nDécongelé : Non\r\nNom scientifique : Salmo salar\r\nEngin de pêche -', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=618940&use=d&cat=p&typeid=i'),
+(14, 'Poires Conférence', 1.99, '1kg - 1.99 € / kg\r\nVariété : Conférence\r\nOrigine : Belgique\r\nCatégorie : 1\r\nCalibre : 55/65', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=271996&use=d&cat=p&typeid=i'),
+(15, 'Soda Coca Cola', 9.54, 'bouteille 6x1,5L - 1.06 € / l\r\nPour votre santé, évitez de grignoter entre les repas.', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=768398&use=d&cat=p&typeid=i'),
+(16, 'Poivrons tricolores', 1.99, '500g - 3.98 € / kg\r\nVariété : California\r\nOrigine : Espagne\r\nCatégorie : 1\r\nCalibre : G', 'http://fd2-photos.leclercdrive.fr/image.ashx?id=8369&use=d&cat=p&typeid=i');
 
 INSERT INTO `produit_has_categorie` (`produit_id_produit`, `categorie_id_categorie`) VALUES
 (1, 1),
 (2, 1),
+(11, 1),
+(12, 1),
 (9, 2),
 (10, 2),
+(13, 2),
 (5, 3),
 (6, 3),
+(14, 3),
 (7, 4),
 (8, 4),
+(16, 4),
 (3, 5),
-(4, 5);
+(4, 5),
+(15, 5);
+
+
+
+INSERT INTO `magasin` (`id_magasin`, `nom`) VALUES
+(1, 'Magasin du Louvre'),
+(2, 'Magasin de luxe'),
+(3, 'bazar du baobab'),
+(4, 'décostyle'),
+(5, 'Matrix Interior Design'),
+(6, 'he Warner Brothers Store'),
+(7, 'Super Saver Foods');
+
+INSERT INTO `adresse` (`id_adresse`, `rue`, `ville`, `code_postal`) VALUES
+(1, '12, rue de la Bresse', 'Vosges', 88000),
+(2, NULL, 'Strasbourg', 67000),
+(3, '6, rue de la source', 'Nancy', 54000),
+(4, '13, Rue de la Pompe', 'MAMOUDZOU', 97600),
+(5, '30, rue Isambard', 'FRESNES', 94260),
+(6, '97, rue des Dunes', 'SAINT-MÉDARD-EN-JALLES', 33160),
+(7, '15, Rue de Verdun', 'MONTGERON', 91230);
+
+INSERT INTO `magasin_has_adresse` (`magasin_id_magasin`, `adresse_id_adresse`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7);
