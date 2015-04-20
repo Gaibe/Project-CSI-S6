@@ -6,11 +6,12 @@ class Display {
     *   Affiche un produit dans un cadre
     */
     public static function displayProduit($produit, $categorie) {
+        $project_name = explode("/", $_SERVER["PHP_SELF"])[1];
         echo '
             <div class="col-md-4 col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href="categorie/' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
+                        <a href="/' . $project_name . '/liste-produit.php?categorie=' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
                         <a class="no-style" data-toggle="modal" data-target="#produit-id-' . $produit["id_produit"] . '">
                             <h4 class="article-titre">' . $produit["libelle"] . '</h4>
                         </a>
@@ -59,7 +60,7 @@ class Display {
                     <span>
                         ' . $produit["prix"] .' €
                     </span>
-                    <a href="categorie/' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
+                    <a href="/' . $project_name . '/liste-produit.php?categorie=' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
                   </div>
                   <div class="modal-body">
                     <img src="' . $produit["image_url"] . '" class="img-responsive" alt="image du produit">

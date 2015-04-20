@@ -12,12 +12,11 @@ $link_categorie = "#";
 
         <div class="btn-group btn-group-justified" role="group" id="groupe-de-categorie">
             <?php
-            $is_first = true;
             foreach (Categorie::findAll() as $categorie) {
             ?>
                 <div class="btn-group" data-toggle="buttons">
                     <button id="button-<?php echo $categorie['id_categorie'] ?>" 
-                        class="btn btn-primary btn-categorie <?php echo $is_first === true ? 'active' : '' ?>" 
+                        class="btn btn-primary btn-categorie" 
                         type="button" data-toggle="collapse" 
                         data-target="#id-<?php echo $categorie['id_categorie'] ?>" 
                         aria-expanded="false" aria-controls="collapseExample">
@@ -27,7 +26,6 @@ $link_categorie = "#";
 
                 
             <?php
-                $is_first = false;
             }
             ?>
         </div>
@@ -93,11 +91,27 @@ $link_categorie = "#";
     }
 
     $(document).ready(function(){
-        $(".collapse").first().collapse("toggle");
+        
 
         $(".ajout-produit-panier").click(function(){
             ajouterProduitPanier(this);
         });
+
+        <?php
+        if (isset($_GET['categorie']) === true) {
+        ?>
+            var id_categorie = <?php echo $_GET['categorie']; ?>;
+            $("#button-"+id_categorie).addClass("active");
+            $("#id-"+id_categorie).collapse("toggle");
+        <?php
+        }
+        else {
+        ?>
+            $(".collapse").first().collapse("toggle");
+            $(".btn-categorie").first().addClass("active");
+        <?php
+        }
+        ?>
 
     });
 </script>
