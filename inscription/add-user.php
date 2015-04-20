@@ -1,7 +1,10 @@
 <?php
-require_once("../base.php");
+session_start();
 
+require_once("../base.php");
 require_once("../modele/Client.php");
+require_once("../connexion/Authentication.php");
+require_once("../modele/Panier.php");
 
 if(isset($_POST['Nom']) === true && isset($_POST['Prenom']) === true && 
     isset($_POST['Email']) === true && isset($_POST['Pseudo']) === true && isset($_POST['Password']) === true && 
@@ -37,9 +40,20 @@ if(isset($_POST['Nom']) === true && isset($_POST['Prenom']) === true &&
     $client->__set('adresse', $adresse);
     $client->insert();
 
+    $client_inserer = Client::findLastInserted();
+    // stockage de l'id client en session
+    $_SESSION['membre'] = $client_inserer->__get("id_client");
+
+    // Création d'un nouveau panier
+    $panier = Panier::panierVide($_SESSION['membre']);
+    $panier->insert();
+
+    Authentication::savePanier($panier);
+
     header('Location: ../');
     exit;
 }
 else {
     header('Location: ./');
+    exit;
 }

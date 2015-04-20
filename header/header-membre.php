@@ -3,8 +3,6 @@
 <?php 
 $client = Client::findById($_SESSION['membre']);
 
-$nb_article_panier = 0;
-$montant_panier = "0.00";
 
 $panier = Panier::findByClientIdValide($_SESSION['membre']);
 if ($panier === -1) {

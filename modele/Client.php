@@ -73,6 +73,16 @@ final class Client {
         return Hydrator::hydrate($result, new Client());
     }
 
+    public static function findLastInserted() {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM client ORDER BY date_creation DESC LIMIT 1");
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return Hydrator::hydrate($result, new Client());
+    }
+
     public function insert() {
         $connection = base::getConnection();
         $stmt = $connection->prepare("INSERT INTO client (nom, prenom, email, pseudo, mot_passe, role) 

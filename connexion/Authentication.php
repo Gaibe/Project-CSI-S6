@@ -34,9 +34,22 @@ class Authentication {
         // créer variable de session = profil chargé
         session_start();
         $_SESSION['membre'] = $client_id;
-        $_SESSION['pseudo'] = $client->__get('pseudo');
         if ($client->__get('role') === 'admin') {
             $_SESSION['admin'] = true;
+        }
+    }
+
+    public static function savePanier($panier) {
+        if (isset($_SESSION['panier']) === true && isset($_SESSION['panier-quantite']) === true
+        && isset($_SESSION['panier-prix']) === true) {
+            include_once("../modele/Produit.php");
+
+            $panier->addMontant($_SESSION['panier-prix']);
+            $panier->addQuantite($_SESSION['panier-quantite']);
+            foreach ($_SESSION['panier'] as $id_produit => $produit_panier) {
+                $produit = Produit::findById($id_produit);
+                $panier->ajouterProduit($id_produit, $produit_panier, $produit->__get("prix"));
+            }
         }
     }
 }
