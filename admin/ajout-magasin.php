@@ -7,7 +7,6 @@ if (isset($_SESSION['admin']) === false) {
     exit;
 }
 else {
-    include_once("../header.php");
     include_once("../front-office/Formulaire.php");
     
     Formulaire::ajoutMagasin();  

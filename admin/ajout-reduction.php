@@ -7,7 +7,6 @@ if (isset($_SESSION['admin']) === false) {
     exit;
 }
 else {
-    include_once("../header.php");
     include_once("../modele/Produit.php");
     include_once("../modele/Client.php");
     $list_prod = Produit::findAll();

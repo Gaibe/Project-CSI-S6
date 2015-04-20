@@ -8,7 +8,6 @@ if (isset($_SESSION['admin']) === false) {
     exit;
 }
 else {
-    include_once("../header.php");
     
 ?>
 
