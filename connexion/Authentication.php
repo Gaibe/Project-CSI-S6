@@ -2,6 +2,7 @@
 require_once "../base.php";
 require_once "../modele/Hydrator.php";
 require_once '../modele/Client.php';
+require_once '../modele/Panier.php';
 require_once 'AuthException.php';
 
 
@@ -16,6 +17,8 @@ class Authentication {
         if($client->__get('mot_passe') == sha1($password)){
             // charger profil ($client->id)
             Authentication::loadProfile($client->__get('id_client'));
+            $panier = Panier::findByClientIdValide($client->__get('id_client'));
+            Authentication::savePanier($panier);
         }
         else{
             throw new AuthException();
