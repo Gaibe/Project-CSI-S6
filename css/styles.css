@@ -202,6 +202,10 @@ img#preview {
     border-right-width: 1px;
 }
 
+.btn-group-justified .collapsed:focus {
+  background-color: #4285f4;
+}
+
 #groupe-de-categorie {
     margin-bottom: 15px;
 }

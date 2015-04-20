@@ -122,8 +122,12 @@ final class Produit {
 
     public function delete() {
         $connection = base::getConnection();
+        $stmt2 = $connection->prepare("DELETE FROM produit_has_categorie WHERE produit_id_produit = :id");
+        $stmt2->bindParam(':id', $this->id_produit);
+        $stmt2->execute();
+
         $stmt = $connection->prepare("DELETE FROM produit WHERE id_produit = :id");
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $this->id_produit);
         $stmt->execute();
     }
 

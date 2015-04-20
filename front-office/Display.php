@@ -2,13 +2,15 @@
 
 class Display {
 
-
+    /**
+    *   Affiche un produit dans un cadre
+    */
     public static function displayProduit($produit, $categorie) {
         echo '
             <div class="col-md-4 col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href=categorie/"' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
+                        <a href="categorie/' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
                         <a class="no-style" data-toggle="modal" data-target="#produit-id-' . $produit["id_produit"] . '">
                             <h4 class="article-titre">' . $produit["libelle"] . '</h4>
                         </a>
@@ -41,8 +43,11 @@ class Display {
 
 
 
-
+    /**
+    *   Affichage complet d'un produit dans une fenetre modal
+    */
     public static function displayProduitModal($produit, $categorie) {
+        $project_name = explode("/", $_SERVER["PHP_SELF"])[1];
         echo '
             <div class="modal fade" id="produit-id-' . $produit["id_produit"] . '" tabindex="-1" role="dialog" aria-labelledby="#titleLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -54,7 +59,7 @@ class Display {
                     <span>
                         ' . $produit["prix"] .' €
                     </span>
-                    <a href=categorie/"' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
+                    <a href="categorie/' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
                   </div>
                   <div class="modal-body">
                     <img src="' . $produit["image_url"] . '" class="img-responsive" alt="image du produit">
@@ -63,15 +68,17 @@ class Display {
                     </center>
                   </div>
                   <div class="modal-footer">
-                        <?php
-                        if (isset($_SESSION["admin"]) === true) {
-                        ?>
+        ';
+        if (isset($_SESSION["admin"]) === true) {
+            echo '
                             <div class="col-md-4">
-                                <button type="button" class="btn btn-danger">Supprimer</button>
+                                <a class="btn btn-danger" href="/'. $project_name .'/admin/interpreteur/supprimer-produit.php?id_produit=' . $produit["id_produit"] . '">
+                                    Supprimer
+                                </a>
                             </div>
-                        <?php
-                        }
-                        ?>
+            ';
+        }
+        echo '
                         <div class="col-md-4">
                             <div class="input-group">
                                 <span class="input-group-btn">
@@ -91,6 +98,9 @@ class Display {
     }
 
 
+    /**
+    *   Affiche le contenu du panier d'un membre
+    */
     public static function displayPanierMembre($panier, $panier_has_produit) {
         include_once("../modele/Produit.php");
         echo '
@@ -144,7 +154,10 @@ class Display {
         ';
     }
 
-    // Session have to be started
+    /**
+    *   Affiche le panier d'un visiteur
+    *   Session have to be started
+    */
     public static function displayPanierVisiteur() {
         include_once("../modele/Produit.php");
         echo '
@@ -200,6 +213,9 @@ class Display {
     }
 
 
+    /**
+    *   Affiche la liste des magasin
+    */
     public static function displayMagasin($list_magasin) {
         echo '
         <div class="panier-table">
