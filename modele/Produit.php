@@ -57,19 +57,19 @@ final class Produit {
         return Hydrator::hydrate($result, new Produit());
     }
     
-    public static function findReducProd($idp, $idc) {
+    public static function findReducProd($id_produit, $id_client) {
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT montant_reduction, prix - (prix * montant_reduction/100) AS prixreduit 
         FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
         INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
-        INNER JOIN reduction_has_clienT ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
+        INNER JOIN reduction_has_client ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
 
-        WHERE date_fin > NOW() AND produit_id_produit = :idp AND client_id_client = :idc AND date_fin = 
+        WHERE date_fin > NOW() AND produit_id_produit = :id_produit AND client_id_client = :id_client AND date_fin = 
 
         (SELECT MAX(date_fin) FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
             INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
             INNER JOIN reduction_has_clienT ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
-            WHERE produit_id_produit = :idp AND client_id_client = :idc
+            WHERE produit_id_produit = :id_produit AND client_id_client = :id_client
         ) 
         
         AND montant_reduction = 
@@ -79,16 +79,16 @@ final class Produit {
             INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
             INNER JOIN reduction_has_clienT ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
 
-            WHERE date_fin > NOW() AND produit_id_produit = :idp AND client_id_client = :idc AND date_fin = 
+            WHERE date_fin > NOW() AND produit_id_produit = :id_produit AND client_id_client = :id_client AND date_fin = 
 
             (SELECT MAX(date_fin) FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
             INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
             INNER JOIN reduction_has_clienT ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
-            WHERE produit_id_produit = :idp AND client_id_client = :idc)
+            WHERE produit_id_produit = :id_produit AND client_id_client = :id_client)
         )");
         $stmt->bindParam(':id_categorie', $id_categ);
-        $stmt->bindParam(':idp', $idp);
-        $stmt->bindParam(':idc', $idc);
+        $stmt->bindParam(':id_produit', $id_produit);
+        $stmt->bindParam(':id_client', $id_client);
         $stmt->execute();
 
         // set the resulting array to associative
