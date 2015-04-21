@@ -13,7 +13,7 @@ if (isset($_SESSION['membre']) === true) {
     $panier_has_produit = Panier_Has_Produit::findByPanierId($panier->__get("id_panier"));
     if ($panier_has_produit !== -1) {
         Display::displayPanierMembre($panier, $panier_has_produit);
-        echo '<a href="#" class="btn btn-primary pull-right" role="button">Confirmer la commande</a>';
+        echo '<a href="../confirmer-commande.php" class="btn btn-primary pull-right" role="button">Confirmer la commande</a>';
     }
     else {
         echo '<h4><center>Aucun produit dans votre panier</center></h4>';
@@ -22,7 +22,7 @@ if (isset($_SESSION['membre']) === true) {
 else {
     if ($_SESSION['panier-quantite'] > 0) {
         Display::displayPanierVisiteur();
-        echo '<a href="#" class="btn btn-primary pull-right" role="button">Confirmer la commande</a>';
+        echo '<a href="../confirmer-commande.php" class="btn btn-primary pull-right" role="button">Confirmer la commande</a>';
     }
     else {
         echo '<h4><center>Aucun produit dans votre panier</center></h4>';

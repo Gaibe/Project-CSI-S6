@@ -26,7 +26,7 @@ final class Commande {
         $this->$property = $value;
     }
 
-    public function findById($id_commande) {
+    public static function findById($id_commande) {
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT * FROM commande WHERE id_commande = :id_commande");
         $stmt->bindParam(':id_commande', $id_commande);
@@ -35,6 +35,7 @@ final class Commande {
         // set the resulting array to associative
         return $result = $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
 
 
     public function insert() {

@@ -10,8 +10,9 @@ require_once("header.php");
 
 
 
-
     <?php
+// Tout est a refaire ici
+
     $nb_produit = 12;
 
     for ($i = 0; $i < $nb_produit; $i++) {

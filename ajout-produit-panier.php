@@ -37,9 +37,7 @@ if (isset($_POST['id_produit']) === true) {
     }
 
 }
-else {
-    header("Location: ./");
-}
+
 ?>
 
 

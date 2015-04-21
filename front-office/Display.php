@@ -216,13 +216,14 @@ class Display {
 
     /**
     *   Affiche la liste des magasin
+    *   Session had to be started
     */
     public static function displayMagasin($list_magasin) {
         echo '
         <div class="panier-table">
             <h3><center>Nos Magasins :</center></h3>
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
                         <th>Nom</th>
@@ -236,9 +237,14 @@ class Display {
                     foreach($list_magasin as $magasin) {
                         $magasin = Hydrator::hydrate($magasin, new Magasin());
                         $magasin->__set('adresse', Adresse::findByMagasinId($magasin->__get('id_magasin')));
-                        echo '    
-                            
-                        <tr>
+                        if (isset($_SESSION['magasin']) === true && $magasin->__get('id_magasin') == $_SESSION['magasin']) {
+                            $class = "active";
+                        }
+                        else {
+                            $class = "";
+                        }
+                        echo '
+                        <tr id="id-magasin-' . $magasin->__get("id_magasin") . '" class="table-magasin ' . $class . '">
                             <td>' . $magasin->__get("nom") . '</td>
                             <td>' . $magasin->__get("adresse")->__get("rue") . '</td>
                             <td>' . $magasin->__get("adresse")->__get("code_postal") . '</td>
@@ -252,6 +258,18 @@ class Display {
             </div>
 
         </div>
+        ';
+    }
+
+    public static function displayConfirmation($magasin) {
+
+
+        echo '
+            <h3><center>Confirmer ces informations :</center></h3>
+            <p class="lead">
+                Magasin : '. $magasin->__get("nom") . ' - ' . $magasin->__get("adresse")->__get("rue") . ' - ' . 
+                $magasin->__get("adresse")->__get("code_postal") . ' ' . $magasin->__get("adresse")->__get("ville") . '
+            </p>
         ';
     }
     

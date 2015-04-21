@@ -124,6 +124,11 @@ h3,h4,h5 {
 
 }
 
+
+.navbar {
+  min-height: 52px;
+}
+
 span.glyphicon-remove {
     color: #ED7E7E;
 }
@@ -275,4 +280,12 @@ table.table-panier {
 .btn-quantite-change {
   font-size: 8px;
   padding: 3px;
+}
+
+.table-magasin {
+  cursor: pointer;
+}
+
+.table-magasin.active {
+  background-color: #e0e0e0;
 }

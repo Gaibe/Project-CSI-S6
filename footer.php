@@ -13,6 +13,22 @@
             });
         }
 
+        function ajouterMagasin(button) {
+            var id_magasin = $(button).attr("id").substring(11);
+            $.ajax({
+                url: 'ajout-magasin.php',
+                type: 'POST',
+                data: { id_magasin : id_magasin },
+                success: function(result) {
+                    $("#empty-div-magasin").html(result);
+                }
+            })
+            .done(function() {
+                alert("Magasin ajouté");
+            });
+
+        }
+
         $(document).ready(function() {
             findActiveTab();
         });
