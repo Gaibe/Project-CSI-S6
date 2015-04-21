@@ -56,6 +56,46 @@ final class Produit {
 
         return Hydrator::hydrate($result, new Produit());
     }
+    
+    public static function findReducProd($idp, $idc) {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT montant_reduction, prix - (prix * montant_reduction/100) 
+        FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
+        INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
+        INNER JOIN reduction_has_clienT ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
+
+        WHERE date_fin > NOW() AND produit_id_produit = :idp AND client_id_client = :idc AND date_fin = 
+
+        (SELECT MAX(date_fin) FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
+            INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
+            INNER JOIN reduction_has_clienT ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
+            WHERE produit_id_produit = :idp AND client_id_client = :idc
+        ) 
+        
+        AND montant_reduction = 
+        
+        (SELECT MAX(montant_reduction) FROM
+            reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
+            INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
+            INNER JOIN reduction_has_clienT ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
+
+            WHERE date_fin > NOW() AND produit_id_produit = :idp AND client_id_client = :idc AND date_fin = 
+
+            (SELECT MAX(date_fin) FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
+            INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
+            INNER JOIN reduction_has_clienT ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
+            WHERE produit_id_produit = :idp AND client_id_client = :idc)
+        )");
+        $stmt->bindParam(':id_categorie', $id_categ);
+        $stmt->bindParam(':idp', $idp);
+        $stmt->bindParam(':idc', $idc);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetchAll();
+
+        return Hydrator::hydrate($result, new Produit());
+    }
 
     public static function findProduit($recherche) {
         $recherche = htmlspecialchars(trim(strtolower($recherche)));
@@ -71,6 +111,7 @@ final class Produit {
 
         return Hydrator::hydrate($result, new Produit());
     }
+    
     
     
     public static function findBestSellers($nbV) {
