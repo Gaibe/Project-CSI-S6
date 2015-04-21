@@ -9,3 +9,5 @@ Pour faire fonctionner le projet :
 - Dans PhpMyadmin, créez une base de données que vous nommez "projet_csi"
 - Il faut par la suite créer un utilisateur dont le username est "projet_csi" et le pass est "csi" (le client doit être en local). Pour ce faire, il faut sélectionner la base de donnée créé, puis sélectionner la table user, puis vous pourrez effectuer les changements nécessaires.
 - Enfin, il faut éxecutez le script dans /script/database.sql pour créer les tables
+
+Note: activez Javascript pour obtenir un rendu optimal
