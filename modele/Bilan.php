@@ -2,6 +2,13 @@
 
 final class Bilan {
 
+    
+    // type de bilan
+    const JOURNALIER = "journalier";
+    const HEBDOMADAIRE = "hebdomadaire";
+    const MENSUEL = "mensuel";
+
+
     protected $id_bilan;
 
     protected $montant_total;
