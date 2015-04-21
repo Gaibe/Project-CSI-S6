@@ -59,7 +59,7 @@ final class Produit {
     
     public static function findReducProd($idp, $idc) {
         $connection = base::getConnection();
-        $stmt = $connection->prepare("SELECT montant_reduction, prix - (prix * montant_reduction/100) 
+        $stmt = $connection->prepare("SELECT montant_reduction, prix - (prix * montant_reduction/100) AS prixreduit 
         FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
         INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
         INNER JOIN reduction_has_clienT ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
@@ -92,9 +92,12 @@ final class Produit {
         $stmt->execute();
 
         // set the resulting array to associative
-        $result = $stmt->fetchAll();
-
-        return Hydrator::hydrate($result, new Produit());
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        
+        /*Pour récupérer le montant de la réduction (en pourcentage), faire : $result["montant_reduction"]
+          Pour récupérer le nouveau prix après application de la réduction  : $result["prixreduit"] */
+        return $result;
     }
 
     public static function findProduit($recherche) {
