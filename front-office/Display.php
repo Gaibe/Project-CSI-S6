@@ -246,7 +246,7 @@ class Display {
                         echo '
                         <tr id="id-magasin-' . $magasin->__get("id_magasin") . '" class="table-magasin ' . $class . '">
                             <td>' . $magasin->__get("nom") . '</td>
-                            <td>' . $magasin->__get("adresse")->__get("rue") . '</td>
+                            <td>' . $magasin->__get("adresse")->getRue() . '</td>
                             <td>' . $magasin->__get("adresse")->__get("code_postal") . '</td>
                             <td>' . $magasin->__get("adresse")->__get("ville") . '</td>
                         </tr>
@@ -263,14 +263,50 @@ class Display {
 
     public static function displayConfirmation($magasin) {
 
-
         echo '
-            <h3><center>Confirmer ces informations :</center></h3>
-            <p class="lead">
-                Magasin : '. $magasin->__get("nom") . ' - ' . $magasin->__get("adresse")->__get("rue") . ' - ' . 
-                $magasin->__get("adresse")->__get("code_postal") . ' ' . $magasin->__get("adresse")->__get("ville") . '
-            </p>
+        <h3><center>Confirmer ces informations :</center></h3>
+        <p class="lead">
+            Magasin : '. $magasin->__get("nom") . ' - ' . $magasin->__get("adresse")->getRue() . ' - ' . 
+            $magasin->__get("adresse")->__get("code_postal") . ' ' . $magasin->__get("adresse")->__get("ville") . '
+        </p>
         ';
+    }
+
+    public static function displayCreneau($id_magasin) {
+        for ($i = date("d-m-Y"); $i < date("d-m-Y", strtotime("$i +5 day")); $i = date("d-m-Y", strtotime("$i +1 day"))) {
+            if (date("w", strtotime($i)) !== "6" && date("w", strtotime($i)) !== "7") {
+                $list_horraire = Magasin::horraireOuverture($i);
+                echo '
+                <h4><center>' . $i . '</center></h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <tbody>
+                        ';
+                        foreach($list_horraire as $horraire) {
+                            if ($horraire > date("d-m-Y H:i")) {
+                                // Recherche dans la base de donnée si l'horraire est deja donnée
+                                $commande = Commande::findHeureRetrait($id_magasin, $horraire);
+                                if ($commande === -1) {
+                                    $class = "";
+                                }
+                                else {
+                                    if ($commande)
+                                    $class = "disabled";
+                                }
+                                echo '
+                                <tr class="table-creneau col-xs-2 ' . $class . '">
+                                    <td>' . $horraire->format("H:i") . '</td>
+                                </tr>
+                                ';
+                            }
+                        }
+                        echo '
+                        </tbody>
+                    </table>
+                </div>
+                ';
+            }
+        }
     }
     
 }

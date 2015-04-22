@@ -23,6 +23,14 @@ final class Adresse {
         $this->$property = $value;
     }
 
+    public function getRue() {
+        if ($this->rue == "") {
+            return "rue non renseigné";
+        } else {
+            return $this->rue;
+        }
+    }
+
     public static function findById($id) {
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT * FROM adresse WHERE id_adresse = :id");

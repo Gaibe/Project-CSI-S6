@@ -25,6 +25,7 @@
             })
             .done(function() {
                 alert("Magasin ajouté");
+                location.reload();
             });
 
         }

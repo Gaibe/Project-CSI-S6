@@ -33,9 +33,22 @@ final class Commande {
         $stmt->execute();
 
         // set the resulting array to associative
-        return $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return Hydrator::hydrate($result, new Commande());
     }
 
+
+    public static function findHeureRetrait($id_magasin, $heure_retrait) {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM commande 
+            WHERE id_magasin = :id_magasin AND heure_retrait >= CURDATE() AND heure_retrait = ". $heure_retrait->format('Y-m-d H:i:s'));
+        $stmt->bindParam(':id_magasin', $id_magasin);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetchAll();
+        return Hydrator::hydrate($result, new Commande());
+    }
 
 
     public function insert() {

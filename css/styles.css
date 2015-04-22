@@ -285,7 +285,3 @@ table.table-panier {
 .table-magasin {
   cursor: pointer;
 }
-
-.table-magasin.active {
-  background-color: #e0e0e0;
-}

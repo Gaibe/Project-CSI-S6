@@ -4,6 +4,7 @@ require_once("Adresse.php");
 
 final class Magasin {
 
+    const NB_QUAI = 5;
 
     protected $id_magasin;
 
@@ -19,6 +20,32 @@ final class Magasin {
     public function __set($property, $value)
     {
         $this->$property = $value;
+    }
+
+    public static function horraireOuverture($day) {
+        return array(
+            // Magasin ouvre à 8heure
+            new DateTime($day.' 08:00:00'),
+            new DateTime($day.' 08:30:00'),
+            new DateTime($day.' 09:00:00'),
+            new DateTime($day.' 09:30:00'),
+            new DateTime($day.' 10:00:00'),
+            new DateTime($day.' 10:30:00'),
+            new DateTime($day.' 11:00:00'),
+            new DateTime($day.' 11:30:00'),
+            // Pause de midi
+            new DateTime($day.' 13:00:00'),
+            new DateTime($day.' 13:30:00'),
+            new DateTime($day.' 14:00:00'),
+            new DateTime($day.' 14:30:00'),
+            new DateTime($day.' 15:00:00'),
+            new DateTime($day.' 15:30:00'),
+            new DateTime($day.' 16:00:00'),
+            new DateTime($day.' 16:30:00'),
+            new DateTime($day.' 17:00:00'),
+            new DateTime($day.' 17:30:00')
+            // Magasin ferme à 18h donc 17h30 dernier chargement
+            );
     }
 
     public static function findById($id) {
@@ -48,7 +75,7 @@ final class Magasin {
         // set the resulting array to associative
         $result = $stmt->fetchAll();
         
-        return Hydrator::hydrate($result, new Client());
+        return Hydrator::hydrate($result, new Magasin());
     }
 
     public function insert() {
