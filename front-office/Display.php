@@ -273,19 +273,20 @@ class Display {
     }
 
     public static function displayCreneau($id_magasin) {
-        for ($i = date("d-m-Y"); $i < date("d-m-Y", strtotime("$i +5 day")); $i = date("d-m-Y", strtotime("$i +1 day"))) {
-            if (date("w", strtotime($i)) !== "6" && date("w", strtotime($i)) !== "7") {
-                $list_horraire = Magasin::horraireOuverture($i);
+        for ($day = date("d-m-Y"); $day < date("d-m-Y", strtotime("$day +5 day")); $day = date("d-m-Y", strtotime("$day +1 day"))) {
+            if (date("w", strtotime($day)) !== "6" && date("w", strtotime($day)) !== "7") {
+                $list_horaire = Magasin::horaireOuverture($day);
                 echo '
-                <h4><center>' . $i . '</center></h4>
+                <h4><center>' . $day . '</center></h4>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-hover">
                         <tbody>
                         ';
-                        foreach($list_horraire as $horraire) {
-                            if ($horraire > date("d-m-Y H:i")) {
-                                // Recherche dans la base de donnée si l'horraire est deja donnée
-                                $commande = Commande::findHeureRetrait($id_magasin, $horraire);
+                        foreach($list_horaire as $horaire) {
+                            // Verifie si la date n'est pas antérieur
+                            if ($horaire > date("d-m-Y H:i")) {
+                                // Recherche dans la base de donnée si l'horaire est deja donnée
+                                $commande = Commande::findHeureRetrait($id_magasin, $horaire);
                                 if ($commande === -1) {
                                     $class = "";
                                 }
@@ -295,7 +296,14 @@ class Display {
                                 }
                                 echo '
                                 <tr class="table-creneau col-xs-2 ' . $class . '">
-                                    <td>' . $horraire->format("H:i") . '</td>
+                                    <td>
+                                        <a class="no-style" href="ajout-commande.php?day='.date('d',strtotime($day)).
+                                        '&month='.date('m',strtotime($day)).'&year='.date('Y',strtotime($day)).
+                                        '&hour='.$horaire->format('H').'&min='.$horaire->format('i').'">
+
+                                            ' . $horaire->format("H:i") . '
+                                        </a>
+                                    </td>
                                 </tr>
                                 ';
                             }

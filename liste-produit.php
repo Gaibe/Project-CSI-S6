@@ -76,7 +76,7 @@ $link_categorie = "#";
         }
         else {
             $.ajax({
-                url: "ajout-produit-panier.php",
+                url: "panier/ajout-produit-panier.php",
                 type: "POST",
                 data: { id_produit : id_produit, quantite : quantite },
                 dataType: "html",

@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-require_once("base.php");
-require_once("modele/Hydrator.php");
-require_once("modele/Produit.php");
-require_once("modele/Panier.php");
+require_once("../base.php");
+require_once("../modele/Hydrator.php");
+require_once("../modele/Produit.php");
+require_once("../modele/Panier.php");
 
 if (isset($_POST['id_produit']) === true) {
 

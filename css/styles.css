@@ -285,3 +285,17 @@ table.table-panier {
 .table-magasin {
   cursor: pointer;
 }
+
+
+.table-hover>tbody>tr.table-creneau:hover>td {
+  background-color: inherit;
+}
+
+.table>tbody>tr.table-creneau>td {
+  border-top: inherit;
+}
+
+.table-hover>tbody>tr.table-creneau>td:hover {
+  background-color: #f5f5f5;
+  cursor: pointer; 
+}

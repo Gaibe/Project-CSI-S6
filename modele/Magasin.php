@@ -22,7 +22,7 @@ final class Magasin {
         $this->$property = $value;
     }
 
-    public static function horraireOuverture($day) {
+    public static function horaireOuverture($day) {
         return array(
             // Magasin ouvre à 8heure
             new DateTime($day.' 08:00:00'),

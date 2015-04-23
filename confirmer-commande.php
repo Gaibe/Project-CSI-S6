@@ -38,7 +38,7 @@ if (isset($_SESSION['membre']) === true) {
         else {
             echo '
             <div class="container" id="main">
-                <div class="row">
+                <div class="row panier-table">
                     <h3>Selectionner un horaire cette semaine</h3>
             ';
             Display::displayCreneau($_SESSION['magasin']);
