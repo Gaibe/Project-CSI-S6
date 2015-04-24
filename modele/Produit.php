@@ -100,6 +100,45 @@ final class Produit {
         
         return $result;
     }
+    
+    
+    
+    public static function findReducProdAll($id_produit) {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT montant_reduction, prix - (prix * montant_reduction/100) AS prixreduit, nombre_produit
+        FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
+        INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
+
+        WHERE date_fin > NOW() AND produit_id_produit = :id_produit AND date_fin = 
+
+        (SELECT MAX(date_fin) FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
+            INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
+            WHERE produit_id_produit = :id_produit
+        ) 
+        
+        AND montant_reduction = 
+        
+        (SELECT MAX(montant_reduction) FROM
+            reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
+            INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
+
+            WHERE date_fin > NOW() AND produit_id_produit = :id_produit AND date_fin = 
+
+            (SELECT MAX(date_fin) FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
+            INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
+            WHERE produit_id_produit = :id_produit
+        )");
+        $stmt->bindParam(':id_categorie', $id_categ);
+        $stmt->bindParam(':id_produit', $id_produit);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        
+        return $result;
+    }
+    
 
     public static function findProduit($recherche) {
         $recherche = htmlspecialchars(trim(strtolower($recherche)));
