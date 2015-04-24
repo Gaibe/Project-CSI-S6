@@ -146,9 +146,6 @@ span.glyphicon-cog {
   height: 395px;
 }
 
-.panel-produit .panel-body img {
-  margin: auto 0;
-}
 
 .panel-produit .panel-content {
   margin-top: 10px;
@@ -166,6 +163,19 @@ span.glyphicon-cog {
   position: absolute;
   bottom: 30px;
   left: 30px;
+}
+
+.montant-reduction {
+  position: absolute;
+  bottom: 50%;
+  right: 30px;
+
+  font-size: 16px;
+}
+
+.modal-montant-reduction {
+  font-size: 14px;
+  margin-left: 15%;
 }
 
 .modal-body .img-responsive {

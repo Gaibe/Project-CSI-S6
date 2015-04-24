@@ -35,15 +35,19 @@ class Display {
                         </span>
                         <textarea id="qte-' . $produit["id_produit"] . '" type="text" class="form-control quantite-produit-panier" rows="1">1</textarea>
                     </div><!-- /input-group -->
-                    <p class="price">
+                    
                     ';
                     if ($reduction === false) {
-                        echo $produit["prix"] .' €';
+                        echo '<p class="price">' . $produit["prix"] .' €</p>';
                     } else {
-                        echo '<strong>'.$reduction . ' €</strong> <s>' . $produit["prix"] . ' €</s>';
+                        ($reduction['montant_reduction'] == ceil($reduction['montant_reduction'])) ? 
+                            $montant_reduction = sprintf('%.0f',$reduction['montant_reduction']) : $montant_reduction = $reduction['montant_reduction'];
+                        echo '<span class="label label-warning montant-reduction">-'.$montant_reduction.' %</span>';
+                        echo '<p class="price">
+                            <strong style="color:red;">'.number_format($reduction['prixreduit'], 2) . ' €</strong>  <s>' . $produit["prix"] . ' €</s>
+                            </p>';
                     }
                     echo '
-                    </p>
                 </div> 
             </div>
         ';
@@ -57,6 +61,8 @@ class Display {
     */
     public static function displayProduitModal($produit, $categorie) {
         $project_name = explode("/", $_SERVER["PHP_SELF"])[1];
+        (isset($_SESSION['membre']) === true) ? $id_client = $_SESSION['membre'] : $id_client = "";
+        $reduction = Produit::findReducProd($produit["id_produit"],$id_client);
         echo '
             <div class="modal fade" id="produit-id-' . $produit["id_produit"] . '" tabindex="-1" role="dialog" aria-labelledby="#titleLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -65,9 +71,18 @@ class Display {
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h3 class="modal-title" id="titleLabel">' . $produit["libelle"] . '</h3>
                     </br>
-                    <span>
-                        ' . $produit["prix"] .' €
-                    </span>
+                    ';
+                    if ($reduction === false) {
+                        echo '' . $produit["prix"] .' €';
+                    } else {
+                        ($reduction['montant_reduction'] == ceil($reduction['montant_reduction'])) ? 
+                            $montant_reduction = sprintf('%.0f',$reduction['montant_reduction']) : $montant_reduction = $reduction['montant_reduction'];
+                        echo '
+                            <s>' . $produit["prix"] . ' €</s>  <strong style="color:red;">'.number_format($reduction['prixreduit'], 2) . ' €</strong>
+                            <span class="label label-warning modal-montant-reduction">-'.$montant_reduction.' %</span>
+                        ';
+                    }
+                    echo '
                     <a href="/' . $project_name . '/liste-produit.php?categorie=' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
                   </div>
                   <div class="modal-body">
