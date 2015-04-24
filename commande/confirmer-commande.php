@@ -14,7 +14,7 @@ if (isset($_SESSION['membre']) === true) {
         echo '
         <div class="container" id="main">
             <div class="row">
-                <div class="panier-table">
+                <div class="page-content">
         ';
         $magasin = Magasin::findById($_SESSION['magasin']);
         Display::displayConfirmation($magasin, $commande);
@@ -52,7 +52,7 @@ if (isset($_SESSION['membre']) === true) {
         else {
             echo '
             <div class="container" id="main">
-                <div class="row panier-table">
+                <div class="row page-content">
                     <h3>Selectionner un horaire pour le retrait</h3>
                     <small>Le retrait doit se faire au minimum le lendemain de la commande (nos magasins sont fermés le week-end)</small>
                     </br>

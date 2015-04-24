@@ -128,7 +128,7 @@ class Display {
     public static function displayPanierMembre($panier, $panier_has_produit) {
         include_once("../modele/Produit.php");
         echo '
-        <div class="panier-table">
+        <div class="page-content">
             <h3><center>Votre Panier</center></h3>
             <div class="table-responsive">
                 <table class="table table-bordered table-panier">
@@ -165,15 +165,15 @@ class Display {
                         ';
                     }
                     echo '
+                        <tr class="table-last-element">
+                            <td></td>
+                            <td><center>Total :</center></td>
+                            <td>' . $panier->__get("quantite_totale") . '</td>
+                            <td>' . $panier->__get("prix_total") . ' €</td>
+                        </tr>
                     </tbody>
                 </table>
-                <p class="panier-total">
-                    Total :
-                    <span class="panier-total-quantite">' . $panier->__get("quantite_totale") . '</span>
-                    <span class="panier-total-prix">' . $panier->__get("prix_total") . ' €</span>
-                </p>
             </div>
-
         </div>
         ';
     }
@@ -185,7 +185,7 @@ class Display {
     public static function displayPanierVisiteur() {
         include_once("../modele/Produit.php");
         echo '
-        <div class="panier-table">
+        <div class="page-content">
             <h3><center>Votre Panier</center></h3>
             <div class="table-responsive">
                 <table class="table table-bordered table-panier">
@@ -223,15 +223,15 @@ class Display {
                         }
                     }
                     echo '
+                    <tr class="table-last-element">
+                        <td></td>
+                        <td><center>Total :</center></td>
+                        <td>' . $_SESSION['panier-quantite'] . '</td>
+                        <td>' . $_SESSION['panier-prix'] . ' €</td>
+                    </tr>
                     </tbody>
                 </table>
-                <p class="panier-total">
-                    Total :
-                    <span class="panier-total-quantite">' .  $_SESSION['panier-quantite'] . '</span>
-                    <span class="panier-total-prix">' . $_SESSION['panier-prix'] . ' €</span>
-                </p>
             </div>
-
         </div>
         ';
     }
@@ -243,7 +243,7 @@ class Display {
     */
     public static function displayMagasin($list_magasin) {
         echo '
-        <div class="panier-table">
+        <div class="page-content">
             <h3><center>Nos Magasins :</center></h3>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -366,7 +366,7 @@ class Display {
         echo '
         <h3><center>Votre Panier</center></h3>
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-panier">
                 <thead>
                     <tr>
                     <th>Libelle</th>
@@ -390,13 +390,14 @@ class Display {
                     ';
                 }
                 echo '
+                <tr class="table-last-element">
+                    <td></td>
+                    <td><center>Total :</center></td>
+                    <td>' . $panier->__get("quantite_totale") . '</td>
+                    <td>' . $panier->__get("prix_total") . ' €</td>
+                </tr>
                 </tbody>
             </table>
-            <p class="panier-total">
-                Total :
-                <span class="panier-total-quantite">' . $panier->__get("quantite_totale") . '</span>
-                <span class="panier-total-prix">' . $panier->__get("prix_total") . ' €</span>
-            </p>
         </div>
 
         ';

@@ -64,6 +64,7 @@
 
         $(document).ready(function() {
             findActiveTab();
+            $('[data-toggle="tooltip"]').tooltip();
         });
 
     </script>

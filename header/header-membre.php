@@ -50,9 +50,9 @@ else {
                 </div>
             </div>
         </form>
-        <div class="pull-right" style="margin-top:8px; width: 900px;">
+        <div class="pull-right" style="margin-top:8px; width: 600px;">
 
-            <div class="col-xs-4">
+            <div class="col-md-4">
                 <a href="/<?php echo $project_name; ?>/panier/">
                     <div class="input-group">
                         <span class="input-group-addon"><span id="panier-prix"><?php echo $panier->__get("prix_total"); ?></span> €</span>
@@ -65,24 +65,22 @@ else {
                 </a>
             </div>
 
-            <div class="col-xs-4">
-                <div class="encart-profil bg-info">
-                    <?php if ($is_admin === true) { ?>
-                    <span class="glyphicon glyphicon-star" title="admin"></span> 
-                    <?php } ?>
-                    <?php echo ucfirst($client->__get('prenom')) . " " . ucfirst($client->__get('nom')); ?>
-                </div>
+            <div class="col-md-5">
+                <a class="no-style" href="/<?php echo $project_name; ?>/profil">
+                    <div class="encart-profil bg-info" data-toggle="tooltip" data-placement="bottom" title="Accéder à votre profil">
+                        <?php if ($is_admin === true) { ?>
+                        <span class="glyphicon glyphicon-star" title="admin"></span> 
+                        <?php } ?>
+                        <?php echo ucfirst($client->__get('prenom')) . " " . ucfirst($client->__get('nom')); ?>
+                    </div>
+                </a>
             </div>
-            <div class="col-xs-2">
+            <div class="col-md-3">
                 <a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/deconnexion">
                     <span class="glyphicon glyphicon-remove"></span> Déconnexion
                 </a>
             </div>
-            <div class="col-xs-2">
-                <a class="btn btn-default center-block" href="/<?php echo $project_name; ?>/profil">
-                    <span class="glyphicon glyphicon-cog"></span> Profil
-                </a>
-            </div>
+            
         </div>
     </div>
     <div class="navbar navbar-default" id="subnav">

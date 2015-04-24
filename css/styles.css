@@ -250,13 +250,15 @@ img#preview {
   opacity: 1;
 }
 
-.panier-table {
+.page-content {
   background-color: #fff;
 
   border-style: solid;
   border-width: 5px;
   border-color: #fff;
   border-radius: 5px;
+
+  padding: 15px;
 }
 
 tbody>tr>td.table-delete {
@@ -270,7 +272,6 @@ table.table-panier thead {
 
 table.table-panier {
   border: none;
-  margin-left: 15px;
 }
 
 .glyphicon.glyphicon-remove-sign {
@@ -280,25 +281,23 @@ table.table-panier {
   color: #EB9D9D;
 }
 
-.panier-total {
-  margin-left: 55%;
-}
 
-.panier-total .panier-total-quantite {
-  margin-left: 15%;
-}
-
-.panier-total .panier-total-prix {
-  margin-left: 25%;
-}
 
 .btn-quantite-change {
   font-size: 8px;
   padding: 3px;
 }
 
+tbody>tr.table-last-element>td {
+  border: none;
+}
+
 .table-magasin {
   cursor: pointer;
+}
+
+.table>tbody>tr.active.table-magasin>td, .table-hover>tbody>tr.active.table-magasin:hover>td {
+    background-color: #f4b400;
 }
 
 
