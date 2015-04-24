@@ -142,21 +142,21 @@ span.glyphicon-cog {
     color: #A2A3A3;
 }
 
-.panel {
+.panel.panel-produit {
   height: 395px;
 }
 
-.panel-body img {
+.panel-produit .panel-body img {
   margin: auto 0;
 }
 
-.panel-content {
+.panel-produit .panel-content {
   margin-top: 10px;
   overflow: hidden;
   height: 70px;
 }
 
-.panel .img-responsive {
+.panel-produit .img-responsive {
     margin: 0 auto;
     width: 150px;
     height: 150px;

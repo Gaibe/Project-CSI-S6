@@ -5,7 +5,7 @@ require_once("../front-office/Formulaire.php");
 
 if (isset($_SESSION['membre']) == true) {
     $client = Client::findById($_SESSION['membre']);
-    Formulaire::profil($client);
+    Formulaire::changerMDP();
 }
 else {
     header("Location: ../");

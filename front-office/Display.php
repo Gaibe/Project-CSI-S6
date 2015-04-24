@@ -11,7 +11,7 @@ class Display {
         $reduction = Produit::findReducProd($produit["id_produit"],$id_client);
         echo '
             <div class="col-md-4 col-sm-6">
-                <div class="panel panel-default">
+                <div class="panel panel-default panel-produit">
                     <div class="panel-heading">
                         <a href="/' . $project_name . '/liste-produit.php?categorie=' . $categorie["id_categorie"] . '" class="pull-right">' . $categorie["nom"] . '</a> 
                         <a class="no-style" data-toggle="modal" data-target="#produit-id-' . $produit["id_produit"] . '">
@@ -384,6 +384,63 @@ class Display {
             </p>
         </div>
 
+        ';
+    }
+
+    public static function displayHistoriqueCommande($client) {
+        echo '
+<center>
+    <div class="btn-group" role="group">
+        <a href="./" class="btn btn-primary" role="button">Votre profil</a>
+        <a href="modifier-mdp.php" class="btn btn-primary" role="button">Modifier votre mot de passe</a>
+        <a class="btn btn-primary active" role="button">Vos commandes</a>
+    </div>
+</center>
+</br>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Collapsible Group Item #1
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        Voici un texte d exemple
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Collapsible Group Item #2
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        Et voici un autre texte d exemple
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Collapsible Group Item #3
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        Voici ici-meme le 3eme texte exemple
+      </div>
+    </div>
+  </div>
+</div>
         ';
     }
     

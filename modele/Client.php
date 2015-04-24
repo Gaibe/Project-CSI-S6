@@ -142,4 +142,14 @@ final class Client {
         }
     }
 
+    public function updateMDP() {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("UPDATE client 
+            SET mot_passe = :mot_passe
+            WHERE id_client = :id_client");
+        $stmt->bindParam(':mot_passe', $this->mot_passe);
+        $stmt->bindParam(':id_client', $this->id_client);
+        $stmt->execute();
+    }
+
 }

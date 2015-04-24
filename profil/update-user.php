@@ -4,7 +4,10 @@ require_once("../base.php");
 require_once("../modele/Hydrator.php");
 require_once("../modele/Client.php");
 
-if ($_SESSION['membre']) {
+if (isset($_SESSION['membre']) === true && isset($_POST['Nom']) === true
+    && isset($_POST['Prenom']) === true && isset($_POST['Email']) === true
+    && isset($_POST['Pseudo']) === true) {
+    
     $client = new Client();
     $client->__set('nom',strtolower($_POST['Nom']));
     $client->__set('prenom',strtolower($_POST['Prenom']));

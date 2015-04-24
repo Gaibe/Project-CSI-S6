@@ -220,6 +220,13 @@ class Formulaire {
         echo '
 <div class="container" id="main">
 <div class="row">
+    <center>
+        <div class="btn-group" role="group">
+            <a class="btn btn-primary active" role="button">Votre profil</a>
+            <a href="modifier-mdp.php" class="btn btn-primary" role="button">Modifier votre mot de passe</a>
+            <a href="historique-commande.php" class="btn btn-primary" role="button">Vos commandes</a>
+        </div>
+    </center>
     <div class="col-md-offset-2" ng-app="sample">
         <form class="form-horizontal" name="registerForm" action="update-user.php" method="POST">
             <h2 class="col-md-offset-4 col-md-8">Profil</h2><br>
@@ -283,6 +290,55 @@ class Formulaire {
         </form>
     </div>
 
+</div>
+</div>
+        ';
+    }
+
+    public static function changerMDP() {
+        echo '
+<div class="container" id="main">
+<div class="row">
+    <center>
+        <div class="btn-group" role="group">
+            <a href="./" class="btn btn-primary" role="button">Votre profil</a>
+            <a class="btn btn-primary active" role="button">Modifier votre mot de passe</a>
+            <a href="historique-commande.php" class="btn btn-primary" role="button">Vos commandes</a>
+        </div>
+    </center>
+    <div class="col-md-offset-2" ng-app="sample">
+        <form class="form-horizontal" name="changeMDPForm" action="update-mdp.php" method="POST">
+            <h2 class="col-md-offset-2 col-md-8">Changer votre mot de passe</h2><br>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="ancien-mdp">Ancien mot de passe</label>
+                <div class="col-md-4">
+                    <input id="ancien-mdp" type="password" class="form-control" name="ancien-mdp" ng-model="ancien-mdp" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="nouveau-mdp">Nouveau mot de passe</label>
+                <div class="col-md-4">
+                    <input id="nouveau-mdp" type="password" class="form-control" name="nouveau-mdp" ng-model="nouveau-mdp" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="confirmation-mdp">Confirmer votre mot de passe</label>
+                <div class="col-md-4">
+                    <input id="confirmation-mdp" type="password" class="form-control" name="confirmation-mdp" ng-model="confirmation-mdp" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <input type="submit" class="btn btn-default" value="Modifier mon mot de passe" />
+                </div>
+            </div>
+
+        </form>
+    </div>
 </div>
 </div>
         ';

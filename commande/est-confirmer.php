@@ -12,7 +12,7 @@ if (isset($_SESSION['membre']) === true) {
     if ($commande !== -1) {
         $panier->setValide();
 
-        echo '<script> alert("Votre commande est confirmer et comporte le numero : '. $commande->__get("id_commande") .'"); </script>';
+        echo '<script> alert("Votre commande est confirmer"); </script>';
         header("refresh: 0;url=../");
         exit;
     }
