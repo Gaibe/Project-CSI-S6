@@ -16,7 +16,7 @@
         function ajouterMagasin(button) {
             var id_magasin = $(button).attr("id").substring(11);
             $.ajax({
-                url: 'ajout-magasin.php',
+                url: '/<?php echo $project_name; ?>/ajout-magasin.php',
                 type: 'POST',
                 data: { id_magasin : id_magasin },
                 success: function(result) {
@@ -48,7 +48,7 @@
             }
             else {
                 $.ajax({
-                    url: "panier/ajout-produit-panier.php",
+                    url: "/<?php echo $project_name; ?>/panier/ajout-produit-panier.php",
                     type: "POST",
                     data: { id_produit : id_produit, quantite : quantite },
                     dataType: "html",

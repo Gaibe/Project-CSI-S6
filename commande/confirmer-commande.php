@@ -48,7 +48,7 @@ if (isset($_SESSION['membre']) === true) {
             ';
             echo '<script> alert("Veuillez selectionner un magasin pour continuer"); </script>';
         }
-        // si le quai et la date de retrait ne sont pas en session
+        // si le quai et la date de retrait ne sont pas dans la base de données
         else {
             echo '
             <div class="container" id="main">
