@@ -39,7 +39,7 @@ final class Produit {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $produit = new Produit();
-        $produit->categorie = Categorie::findById($id);
+        $produit->categorie = Categorie::findByProduitId($id);
         return Hydrator::hydrate($result, $produit);
     }
 
@@ -57,9 +57,12 @@ final class Produit {
         return Hydrator::hydrate($result, new Produit());
     }
     
+    /*Pour récupérer le montant de la réduction (en pourcentage), faire : $result["montant_reduction"]
+     * Pour récupérer le nouveau prix après application de la réduction  : $result["prixreduit"]
+     * Pour récupérer le nombre de produits avant application de la réduction  : $result["nombre_produit"] */
     public static function findReducProd($id_produit, $id_client) {
         $connection = base::getConnection();
-        $stmt = $connection->prepare("SELECT montant_reduction, prix - (prix * montant_reduction/100) AS prixreduit 
+        $stmt = $connection->prepare("SELECT montant_reduction, prix - (prix * montant_reduction/100) AS prixreduit, nombre_produit
         FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
         INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
         INNER JOIN reduction_has_client ON reduction_has_client.reduction_id_reduction = reduction.id_reduction
@@ -95,8 +98,6 @@ final class Produit {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         
         
-        /*Pour récupérer le montant de la réduction (en pourcentage), faire : $result["montant_reduction"]
-          Pour récupérer le nouveau prix après application de la réduction  : $result["prixreduit"] */
         return $result;
     }
 
@@ -119,7 +120,7 @@ final class Produit {
     
     public static function findBestSellers($nbV) {
         $connection = base::getConnection();
-        $stmt = $connection->prepare("SELECT DISTINCT libelle, nom AS nomcateg, prix, description, image_url, SUM(quantite) AS nbVentes 
+        $stmt = $connection->prepare("SELECT DISTINCT id_produit, libelle, nom AS nomcateg, prix, description, image_url, SUM(quantite) AS nbVentes 
             FROM produit 
             INNER JOIN bilan_has_produit ON bilan_has_produit.produit_id_produit = id_produit
             INNER JOIN produit_has_categorie ON produit_has_categorie.produit_id_produit = id_produit
@@ -132,10 +133,28 @@ final class Produit {
 
         // set the resulting array to associative
         $result = $stmt->fetchAll();
+        $tab = array();
+        for($i=0; $i<10; $i++){
+            $idp = $result[$i]["id_produit"];
+            $lib = $result[$i]["libelle"];
+            $prix = $result[$i]["prix"];
+            $desc = $result[$i]["description"];
+            $url = $result[$i]["image_url"];
+            $categ = $result[$i]["nomcateg"];
+            
+            $prod = new Produit();
+            $prod->__set("id_produit", $idp);
+            $prod->__set("libelle", $lib);
+            $prod->__set("prix", $prix);
+            $prod->__set("description", $desc);
+            $prod->__set("image_url", $url);
+            $prod->__set("categorie", $categ);
+            $tab[$i] = $prod;
+        }
         
-        return $result;
-
+        return Hydrator::hydrate($result, new Produit());
     }
+    
 
     public static function findAll() {
         $connection = base::getConnection();
