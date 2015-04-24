@@ -148,7 +148,7 @@ class Display {
                             
                         <tr>
                             <td>' . $produit->__get("libelle") . '</td>
-                            <td>' . $produit_in_panier["prix_produit"] . '</td>
+                            <td>' . $produit_in_panier["prix_produit"] . ' €</td>
                             <td id="quantite-panier-' . $produit->__get("id_produit") . '">' . $produit_in_panier["quantite"] . ' 
                             <button id="add-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change" onclick="addOne('.$produit->__get("id_produit").')">
                                 <span class="glyphicon glyphicon-plus"></span>
@@ -157,7 +157,7 @@ class Display {
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                             </td>
-                            <td id="montant-panier-'. $produit->__get("id_produit") .'">' . ($produit_in_panier["quantite"]*$produit_in_panier["prix_produit"]) . '</td>
+                            <td id="montant-panier-'. $produit->__get("id_produit") .'">' . ($produit_in_panier["quantite"]*$produit_in_panier["prix_produit"]) . ' €</td>
                             <td class="table-delete"><a href="../panier/remove-panier.php?id_produit=' . $produit->__get("id_produit") . '&id_panier='. $panier->__get("id_panier") .'">
                                 <span class="glyphicon glyphicon-remove-sign"></span>
                             </a></td>
@@ -170,7 +170,7 @@ class Display {
                 <p class="panier-total">
                     Total :
                     <span class="panier-total-quantite">' . $panier->__get("quantite_totale") . '</span>
-                    <span class="panier-total-prix">' . $panier->__get("prix_total") . '</span>
+                    <span class="panier-total-prix">' . $panier->__get("prix_total") . ' €</span>
                 </p>
             </div>
 
@@ -205,7 +205,7 @@ class Display {
                             echo '
                             <tr>
                                 <td>' . $produit->__get("libelle") . '</td>
-                                <td>' . $produit->__get("prix") . '</td>
+                                <td>' . $produit->__get("prix") . ' €</td>
                                 <td id="quantite-panier-' . $produit->__get("id_produit") . '">' . $produit_in_panier . ' 
                                 <button id="add-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change" onclick="addOne('.$produit->__get("id_produit").')">
                                     <span class="glyphicon glyphicon-plus"></span>
@@ -214,7 +214,7 @@ class Display {
                                     <span class="glyphicon glyphicon-minus"></span>
                                 </button>
                                 </td>
-                                <td id="montant-panier-'. $produit->__get("id_produit") .'">' . ($produit_in_panier*$produit->__get("prix")) . '</td>
+                                <td id="montant-panier-'. $produit->__get("id_produit") .'">' . ($produit_in_panier*$produit->__get("prix")) . ' €</td>
                                 <td class="table-delete"><a href="../panier/remove-panier.php?id_produit=' . $produit->__get("id_produit") . '&id_panier=-1">
                                     <span class="glyphicon glyphicon-remove-sign"></span>
                                 </a></td>
@@ -228,7 +228,7 @@ class Display {
                 <p class="panier-total">
                     Total :
                     <span class="panier-total-quantite">' .  $_SESSION['panier-quantite'] . '</span>
-                    <span class="panier-total-prix">' . $_SESSION['panier-prix'] . '</span>
+                    <span class="panier-total-prix">' . $_SESSION['panier-prix'] . ' €</span>
                 </p>
             </div>
 
@@ -383,9 +383,9 @@ class Display {
                         
                     <tr>
                         <td>' . $produit->__get("libelle") . '</td>
-                        <td>' . $produit_in_panier["prix_produit"] . '</td>
+                        <td>' . $produit_in_panier["prix_produit"] . ' €</td>
                         <td>' . $produit_in_panier["quantite"] . ' </td>
-                        <td>' . ($produit_in_panier["quantite"]*$produit_in_panier["prix_produit"]) . '</td>
+                        <td>' . ($produit_in_panier["quantite"]*$produit_in_panier["prix_produit"]) . ' €</td>
                     </tr>
                     ';
                 }
@@ -395,7 +395,7 @@ class Display {
             <p class="panier-total">
                 Total :
                 <span class="panier-total-quantite">' . $panier->__get("quantite_totale") . '</span>
-                <span class="panier-total-prix">' . $panier->__get("prix_total") . '</span>
+                <span class="panier-total-prix">' . $panier->__get("prix_total") . ' €</span>
             </p>
         </div>
 

@@ -78,7 +78,8 @@ final class Panier {
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT * FROM panier 
             WHERE id_client = :id_client
-            AND est_valide = true");
+            AND est_valide = true
+            ORDER BY date_creation DESC");
         $stmt->bindParam(':id_client', $id_client);
         $stmt->execute();
 
