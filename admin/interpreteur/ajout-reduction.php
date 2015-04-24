@@ -49,9 +49,9 @@ if (isset($_POST['Montant']) === true && isset($_POST['NbProduit']) === true
      
 }
 
-/*
+
 header("Location: ../../");
 exit;
- */
+ 
  
 
