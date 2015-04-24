@@ -36,7 +36,7 @@ else {
             <div class="form-group">
                 <label class="col-md-3 control-label" for="DateFin">Date de fin</label>
                 <div class="col-md-4">
-                    <input id="Date-fin" type="text" class="form-control" name="DateFin" ng-model="DateFin" />
+                    <input id="Date-fin" type="date" class="form-control" name="DateFin" ng-model="DateFin" />
                 </div>
             </div>
 

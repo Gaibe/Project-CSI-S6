@@ -1,6 +1,7 @@
 <?php
 
 require_once("header.php");
+require_once("modele/Produit.php");
 ?>
 
 <div class="container" id="main">
@@ -13,21 +14,19 @@ require_once("header.php");
     <?php
 // Tout est a refaire ici
 
-    $nb_produit = 12;
+    $result = Produit::findBestSellers(10);
 
-    for ($i = 0; $i < $nb_produit; $i++) {
+    for ($i = 0; $i < 10; $i++) {
 
         // A modifier
-        $name_produit = "Nom de l'article";
-        $name_categorie = "Categorie";
+        $name_produit = $result[$i]["libelle"];
+        $name_categorie = $result[$i]["nomcateg"];
 
         $link_produit = "#";
         $link_categorie = "#";
 
-        $description = "Surmontant la crainte que le débit de la parole est inutile. Pourvu que ce soit 
-                        un motif pour le détenir. Oubliés pendant près de cinq cents francs d'appointements et 
-                        recevant de temps en temps elle sont bonnes les oranges même pour un prix aussi bas !";
-        $prix = "0,00";
+        $description = $result[$i]["description"];
+        $prix = $result[$i]["prix"];
     ?>
       
 
@@ -46,7 +45,7 @@ require_once("header.php");
                 </div>
                 <div class="panel-body">
                     <a class="no-style" data-toggle="modal" data-target="#modal-produit">
-                        <img src="http://www.fid-jaques.ch/wp_2014/wp-content/uploads/2014/04/Icon_WriteArticles-1.png" 
+                        <img src= "<?php $result[$i]["image_url"] ?>"
                             class="img-circle img-responsive" alt="image du produit">
                     </a>
                     <a class="no-style" data-toggle="modal" data-target="#modal-produit">

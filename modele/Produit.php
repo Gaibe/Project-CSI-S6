@@ -119,18 +119,22 @@ final class Produit {
     
     public static function findBestSellers($nbV) {
         $connection = base::getConnection();
-        $stmt = $connection->prepare("SELECT DISTINCT libelle, prix, description, image_url, SOMME(quantite) AS nbVentes FROM produit INNER JOIN bilan_has_produit 
-            ON produit_id_produit = id_produit
+        $stmt = $connection->prepare("SELECT DISTINCT libelle, nom AS nomcateg, prix, description, image_url, SUM(quantite) AS nbVentes 
+            FROM produit 
+            INNER JOIN bilan_has_produit ON bilan_has_produit.produit_id_produit = id_produit
+            INNER JOIN produit_has_categorie ON produit_has_categorie.produit_id_produit = id_produit
+            INNER JOIN categorie ON categorie_id_categorie = id_categorie
             GROUP BY id_produit
-            ORDER BY nbVentes
-            LIMIT :nbV");
+            ORDER BY nbVentes DESC
+            LIMIT 10");
         $stmt->bindParam(':nbV', $nbV);
         $stmt->execute();
 
         // set the resulting array to associative
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll();
+        
+        return $result;
 
-        return Hydrator::hydrate($result, new Produit());
     }
 
     public static function findAll() {
