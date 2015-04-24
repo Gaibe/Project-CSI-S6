@@ -74,6 +74,18 @@ final class Panier {
         $stmt->execute();
     }
 
+    public static function findByClientIdConfirmer($id_client) {
+        $connection = base::getConnection();
+        $stmt = $connection->prepare("SELECT * FROM panier 
+            WHERE id_client = :id_client
+            AND est_valide = true");
+        $stmt->bindParam(':id_client', $id_client);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        return $result = $stmt->fetchAll();
+    }
+
     public function ajouterProduit($id_produit, $quantite, $prix) {
         $connection = base::getConnection();
         $stmt = $connection->prepare("UPDATE panier SET prix_total = :prix_total, quantite_totale = :quantite_totale WHERE id_panier = :id_panier");

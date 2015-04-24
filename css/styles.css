@@ -323,3 +323,8 @@ table.table-panier {
   cursor: not-allowed;
   background: #dddddd;
 }
+
+
+.panel .panel-heading a {
+  font-size: 15px;
+}

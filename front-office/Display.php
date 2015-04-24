@@ -402,59 +402,37 @@ class Display {
         ';
     }
 
-    public static function displayHistoriqueCommande($client) {
+    public static function displayHistoriqueCommande($panier, $commande) {
+        include_once("../modele/Panier_Has_Produit.php");
+        include_once("../modele/Magasin.php");
+        
+        $panier_has_produit = Panier_Has_Produit::findByPanierId($panier->__get("id_panier"));
+        $magasin = Magasin::findById($commande->__get("id_magasin"));
+        $date_creation = new DateTime($commande->__get("date_creation"));
+        $date_retrait = new DateTime($commande->__get("heure_retrait"));
+        
         echo '
-<center>
-    <div class="btn-group" role="group">
-        <a href="./" class="btn btn-primary" role="button">Votre profil</a>
-        <a href="modifier-mdp.php" class="btn btn-primary" role="button">Modifier votre mot de passe</a>
-        <a class="btn btn-primary active" role="button">Vos commandes</a>
-    </div>
-</center>
-</br>
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
+<div class="panel panel-default">
+    <div id="heading-accordion-'.$commande->__get("id_commande").'" class="panel-heading" role="tab">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Collapsible Group Item #1
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-accordion-'.$commande->__get("id_commande").'" 
+            aria-expanded="false" aria-controls="collapse-accordion-'.$commande->__get("id_commande").'">
+          Commande n°'.$commande->__get("id_commande").' passée le '.$date_creation->format("d/m/Y").' à '.$date_creation->format("H:i").'
         </a>
       </h4>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div id="collapse-accordion-'.$commande->__get("id_commande").'" class="panel-collapse collapse" 
+        role="tabpanel" aria-labelledby="heading-accordion-'.$commande->__get("id_commande").'">
       <div class="panel-body">
-        Voici un texte d exemple
+        Retrait le '.$date_retrait->format("d/m/Y").' à '.$date_retrait->format("H:i").' au quai n°'.$commande->__get("num_quai").'
+        </br>
+        '.$magasin->__get("nom").' situé à '. $magasin->__get("adresse")->getRue() .' '. 
+        $magasin->__get("adresse")->__get("code_postal") .' '. $magasin->__get("adresse")->__get("ville") .'
+        ';
+        self::displayConfirmationPanier($panier, $panier_has_produit);
+        echo '
       </div>
     </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Collapsible Group Item #2
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
-        Et voici un autre texte d exemple
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingThree">
-      <h4 class="panel-title">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Collapsible Group Item #3
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-      <div class="panel-body">
-        Voici ici-meme le 3eme texte exemple
-      </div>
-    </div>
-  </div>
 </div>
         ';
     }

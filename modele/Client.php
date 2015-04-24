@@ -83,6 +83,7 @@ final class Client {
         return Hydrator::hydrate($result, new Client());
     }
 
+
     public function insert() {
         $connection = base::getConnection();
         $stmt = $connection->prepare("INSERT INTO client (nom, prenom, email, pseudo, mot_passe, role) 
