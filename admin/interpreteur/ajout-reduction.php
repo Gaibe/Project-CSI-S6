@@ -4,7 +4,9 @@ require_once("../../base.php");
 require_once("../../modele/Hydrator.php");
 require_once("../../modele/Reduction.php");
 require_once("../../modele/Client.php");
+require_once("../../modele/Produit.php");
 $connection = base::getConnection();
+
 
 if (isset($_POST['Montant']) === true && isset($_POST['NbProduit']) === true 
     && isset($_POST['DateFin']) === true){
@@ -27,7 +29,6 @@ if (isset($_POST['Montant']) === true && isset($_POST['NbProduit']) === true
     }
     
     if (isset($_POST['Clients']) && !empty($_POST['Clients'])){
-        echo "ok2";
         $connection = base::getConnection();
         $list_client = $_POST['Clients'];
         foreach($list_client as $client){
