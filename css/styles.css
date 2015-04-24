@@ -299,3 +299,12 @@ table.table-panier {
   background-color: #f5f5f5;
   cursor: pointer; 
 }
+
+.table-creneau.disabled td {
+  background: #dddddd;
+}
+
+.table-hover>tbody>tr.table-creneau.disabled>td:hover,  .table-creneau.disabled a:hover, .table-hover>tbody>tr.table-creneau.disabled:hover>td {
+  cursor: not-allowed;
+  background: #dddddd;
+}

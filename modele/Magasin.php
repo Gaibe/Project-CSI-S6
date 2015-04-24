@@ -4,6 +4,7 @@ require_once("Adresse.php");
 
 final class Magasin {
 
+    // nombre de quai des magasin prédéfini à 5
     const NB_QUAI = 5;
 
     protected $id_magasin;
@@ -22,6 +23,9 @@ final class Magasin {
         $this->$property = $value;
     }
 
+    /**
+    *   Les horaires de retrait possible des commandes
+    */
     public static function horaireOuverture($day) {
         return array(
             // Magasin ouvre à 8heure
