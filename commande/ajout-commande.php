@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once("base.php");
-require_once("modele/Hydrator.php");
-require_once("modele/Panier.php");
-require_once("modele/Commande.php");
+require_once("../base.php");
+require_once("../modele/Hydrator.php");
+require_once("../modele/Panier.php");
+require_once("../modele/Commande.php");
 
 
 if (isset($_SESSION['membre']) === true && isset($_GET['day']) === true && isset($_GET['month']) === true && isset($_GET['year'])
@@ -20,7 +20,8 @@ if (isset($_SESSION['membre']) === true && isset($_GET['day']) === true && isset
     $commande->__set("heure_retrait", $date_retrait);
     $commande->__set("num_quai", sizeof($commande_in_database));
     $commande->insert();
-
+    header("Location: confirmer-commande.php");
+    exit;
 
 }
 else {

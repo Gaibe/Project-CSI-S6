@@ -7,6 +7,8 @@ class Display {
     */
     public static function displayProduit($produit, $categorie) {
         $project_name = explode("/", $_SERVER["PHP_SELF"])[1];
+        (isset($_SESSION['membre']) === true) ? $id_client = $_SESSION['membre'] : $id_client = "";
+        $reduction = Produit::findReducProd($produit["id_produit"],$id_client);
         echo '
             <div class="col-md-4 col-sm-6">
                 <div class="panel panel-default">
@@ -34,7 +36,13 @@ class Display {
                         <textarea id="qte-' . $produit["id_produit"] . '" type="text" class="form-control quantite-produit-panier" rows="1">1</textarea>
                     </div><!-- /input-group -->
                     <p class="price">
-                        ' . $produit["prix"] .' €
+                    ';
+                    if ($reduction === false) {
+                        echo $produit["prix"] .' €';
+                    } else {
+                        echo '<strong>'.$reduction . ' €</strong> <s>' . $produit["prix"] . ' €</s>';
+                    }
+                    echo '
                     </p>
                 </div> 
             </div>
@@ -261,13 +269,20 @@ class Display {
         ';
     }
 
-    public static function displayConfirmation($magasin) {
-
+    public static function displayConfirmation($magasin, $commande) {
+        $date_retrait = new DateTime($commande->__get("heure_retrait"));
         echo '
-        <h3><center>Confirmer ces informations :</center></h3>
-        <p class="lead">
-            Magasin : '. $magasin->__get("nom") . ' - ' . $magasin->__get("adresse")->getRue() . ' - ' . 
+        <h1><center>Confirmer ces informations :</center></h1>
+        <h2><center>Commande n°'.$commande->__get("id_commande").'</center></h2>
+        <h3>Magasin :</h3>
+        <p>
+            '. $magasin->__get("nom") . ' - ' . $magasin->__get("adresse")->getRue() . ' - ' . 
             $magasin->__get("adresse")->__get("code_postal") . ' ' . $magasin->__get("adresse")->__get("ville") . '
+        </p>
+        <h3>Retrait :</h3>
+        <p>
+            Le '.$date_retrait->format("d/m/Y").' à '.$date_retrait->format("H:i").' 
+            au quai n°'.$commande->__get("num_quai").'
         </p>
         ';
     }
@@ -329,6 +344,47 @@ class Display {
                 ';
             }
         }
+    }
+
+    public static function displayConfirmationPanier($panier, $panier_has_produit) {
+        include_once("../modele/Produit.php");
+        echo '
+        <h3><center>Votre Panier</center></h3>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th>Libelle</th>
+                    <th>Prix unitaire</th>
+                    <th>Quantite</th>
+                    <th>Montant total</th>
+                </tr>
+                </thead>
+                    <tbody>
+                    ';
+                foreach($panier_has_produit as $produit_in_panier) {
+                    $produit = Produit::findById($produit_in_panier["produit_id_produit"]);
+                    echo '    
+                        
+                    <tr>
+                        <td>' . $produit->__get("libelle") . '</td>
+                        <td>' . $produit_in_panier["prix_produit"] . '</td>
+                        <td>' . $produit_in_panier["quantite"] . ' </td>
+                        <td>' . ($produit_in_panier["quantite"]*$produit_in_panier["prix_produit"]) . '</td>
+                    </tr>
+                    ';
+                }
+                echo '
+                </tbody>
+            </table>
+            <p class="panier-total">
+                Total :
+                <span class="panier-total-quantite">' . $panier->__get("quantite_totale") . '</span>
+                <span class="panier-total-prix">' . $panier->__get("prix_total") . '</span>
+            </p>
+        </div>
+
+        ';
     }
     
 }

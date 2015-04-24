@@ -88,4 +88,13 @@ final class Commande {
         $stmt->execute();
     }
 
+    public function delete() {
+        $connection = base::getConnection();        
+        $stmt = $connection->prepare("DELETE FROM commande
+            WHERE id_commande = :id_commande");
+        $stmt->bindParam(':id_commande', $this->id_commande);
+
+        $stmt->execute();
+    }
+
 }

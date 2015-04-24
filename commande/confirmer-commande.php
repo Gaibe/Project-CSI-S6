@@ -1,20 +1,31 @@
 <?php
-require_once("header.php");
-require_once("front-office/Display.php");
-require_once("modele/Magasin.php");
-require_once("modele/Commande.php");
-
+require_once("../header.php");
+require_once("../front-office/Display.php");
+require_once("../modele/Magasin.php");
+require_once("../modele/Commande.php");
+require_once("../modele/Panier.php");
 
 if (isset($_SESSION['membre']) === true) {
-    // si le magasin et la commande sont renseigné
-    if (isset($_SESSION['magasin']) === true && isset($_SESSION["quai"]) === true && isset($_SESSION["date_retrait"]) === true) {
+    // si le magasin et la commande sont renseigné => demande de confirmation et paiement
+    $panier = Panier::findbyClientIdValide($_SESSION['membre']);
+    $panier_has_produit = Panier_Has_Produit::findByPanierId($panier->__get("id_panier"));
+    $commande = Commande::findByPanierId($panier->__get("id_panier"));
+    if (isset($_SESSION['magasin']) === true && $commande !== -1) {
         echo '
         <div class="container" id="main">
             <div class="row">
+                <div class="panier-table">
         ';
         $magasin = Magasin::findById($_SESSION['magasin']);
-        Display::displayConfirmation($magasin);
+        Display::displayConfirmation($magasin, $commande);
+        Display::displayConfirmationPanier($panier, $panier_has_produit);
         echo '
+                    
+                </div>
+                <div class="pull-right">
+                    <a href="est-confirmer.php" class="btn btn-primary" role="button">Confirmer et payer</a>
+                    <a href="est-annuler.php" class="btn btn-danger" role="button">Annuler</a>
+                </div>
             </div>
         </div>
         ';
@@ -76,4 +87,4 @@ else {
 
 <?php
 
-require_once("footer.php");
+require_once("../footer.php");
