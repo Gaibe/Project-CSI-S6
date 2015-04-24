@@ -126,7 +126,7 @@ final class Produit {
             INNER JOIN categorie ON categorie_id_categorie = id_categorie
             GROUP BY id_produit
             ORDER BY nbVentes DESC
-            LIMIT 10");
+            LIMIT :nbV");
         $stmt->bindParam(':nbV', $nbV);
         $stmt->execute();
 

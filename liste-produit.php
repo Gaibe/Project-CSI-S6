@@ -3,7 +3,6 @@ require_once("header.php");
 require_once("modele/Produit.php");
 require_once("front-office/Display.php");
 
-$link_categorie = "#";
 ?>
 
 <div class="container" id="main">
@@ -58,37 +57,7 @@ $link_categorie = "#";
 
 
 <script type="text/javascript">
-    function ajouterProduitPanier(button) {
-        var id = $(button).attr("id");
-        var id_modal = id.substring(0, 5);
-        if (id_modal == "modal") {
-            var id_produit = id.substring(12);
-            var quantite = $("#modal-qte-"+id_produit).val();
-        }
-        else {
-            var id_produit = id.substring(6);
-            var quantite = $("#qte-"+id_produit).val();
-        }
 
-        if (quantite <= 0 || quantite == null) {
-            quantite = 0;
-            alert("Aucun produit à ajouté");
-        }
-        else {
-            $.ajax({
-                url: "panier/ajout-produit-panier.php",
-                type: "POST",
-                data: { id_produit : id_produit, quantite : quantite },
-                dataType: "html",
-                success: function(result) {
-                    $("#empty-div").html(result);
-                }
-            })
-            .done(function() {
-                alert("Produit ajouté");
-            });
-        }
-    }
 
     $(document).ready(function(){
         
