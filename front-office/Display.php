@@ -52,9 +52,15 @@ class Display {
                                 </p>';
                         // Si la réduction s'applique après un certains nombre d'article achetés
                         } else {
-                            echo '<span class="label label-warning montant-reduction">
-                                Le '.($reduction["nombre_produit"]+1).'eme à</br>-'.$montant_reduction.' %
-                            </span>';
+                            if ($montant_reduction == 100) {
+                                echo '<span class="label label-warning montant-reduction">
+                                    Le '.($reduction["nombre_produit"]+1).'eme</br>offert !
+                                </span>';
+                            } else {
+                                echo '<span class="label label-warning montant-reduction">
+                                    Le '.($reduction["nombre_produit"]+1).'eme à</br>-'.$montant_reduction.' %
+                                </span>';
+                            }
                             echo '<p class="price">' . $produit["prix"] .' €</p>';
                         }
                     }
@@ -101,9 +107,15 @@ class Display {
                         // Si la réduction s'applique après un certains nombre d'article achetés
                         } else {
                             echo $produit["prix"] .' €';
-                            echo '<span class="label label-warning modal-montant-reduction">
-                                Le '.($reduction["nombre_produit"]+1).'eme à -'.$montant_reduction.' %
-                            </span>';
+                            if ($montant_reduction == 100) {
+                                echo '<span class="label label-warning modal-montant-reduction">
+                                    Le '.($reduction["nombre_produit"]+1).'eme offert !
+                                </span>';
+                            } else {
+                                echo '<span class="label label-warning modal-montant-reduction">
+                                    Le '.($reduction["nombre_produit"]+1).'eme à -'.$montant_reduction.' %
+                                </span>';
+                            }
                         }
                     }
                     echo '

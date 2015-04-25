@@ -19,10 +19,19 @@ echo '
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
 ';
-    foreach (Panier::findByClientIdConfirmer($_SESSION['membre']) as $panier) {
-        $panier = Hydrator::hydrate($panier, new Panier());
-        $commande = Commande::findByPanierId($panier->__get("id_panier"));
-        Display::displayHistoriqueCommande($panier, $commande);
+    $list_panier = Panier::findByClientIdConfirmer($_SESSION['membre']);
+
+    if ($list_panier == null) {
+        echo '
+        <h4>Vous n\'avez pas encore passé de commandes</h4>
+        ';
+    }
+    else {
+        foreach ($list_panier as $panier) {
+            $panier = Hydrator::hydrate($panier, new Panier());
+            $commande = Commande::findByPanierId($panier->__get("id_panier"));
+            Display::displayHistoriqueCommande($panier, $commande);
+        }
     }
     echo '
     </div>
