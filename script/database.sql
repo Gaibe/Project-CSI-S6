@@ -341,3 +341,33 @@ INSERT INTO `magasin_has_adresse` (`magasin_id_magasin`, `adresse_id_adresse`) V
 (5, 5),
 (6, 6),
 (7, 7);
+
+
+
+INSERT INTO `bilan` (`id_bilan`, `montant_total`, `date_creation`, `type`) VALUES
+(1, 15.00, '2015-04-22 17:07:21', 'mensuel'),
+(2, 12.00, '2015-04-22 17:14:10', 'mensuel'),
+(3, 12.00, '2015-04-22 17:14:26', 'mensuel'),
+(4, 12.00, '2015-04-22 17:14:33', 'mensuel');
+
+
+
+INSERT INTO `bilan_has_produit` (`bilan_id_bilan`, `produit_id_produit`, `quantite`, `montant`) VALUES
+(1, 1, 2, 3.00),
+(1, 3, 5, 3.00),
+(1, 4, 3, 3.00),
+(1, 6, 8, 3.00),
+(1, 7, 2, 3.00),
+(1, 8, 2, 3.00),
+(1, 9, 3, 3.00),
+(1, 10, 2, 3.00),
+(1, 11, 2, 3.00),
+(1, 12, 1, 3.00),
+(1, 13, 2, 3.00),
+(1, 14, 6, 3.00),
+(2, 2, 1, 3.00),
+(2, 4, 6, 3.00),
+(2, 8, 4, 3.00),
+(2, 9, 4, 3.00),
+(3, 5, 2, 3.00),
+(3, 8, 5, 3.00);
