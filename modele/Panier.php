@@ -87,15 +87,27 @@ final class Panier {
         return $result = $stmt->fetchAll();
     }
 
-    public function ajouterProduit($id_produit, $quantite, $prix) {
+    public function ajouterProduit($id_produit, $quantite) {
+        include_once("Produit.php");
         $connection = base::getConnection();
+        $reduction = Produit::findReducProd($id_produit, $this->id_client);
+        $produit = Produit::findById($id_produit);
+        $panier_produit = Panier_Has_Produit::findById($this->id_panier, $id_produit);
+        $this->quantite_totale += $quantite;
+        $montant = $produit->getPrixQuantite($_SESSION['membre'],$this->__get("quantite_totale"));
+        $prix = $montant/$this->__get("quantite_totale");
+        
+
+        //  if ($reduction !== false && $reduction["nombre_produit"] > 1 && ($reduction["nombre_produit"]) < ($panier_produit->__get("quantite")+$quantite)){
+        //     $panier_produit->__set("prix_produit", $produit->__get("prix"));
+        // }
+
         $stmt = $connection->prepare("UPDATE panier SET prix_total = :prix_total, quantite_totale = :quantite_totale WHERE id_panier = :id_panier");
-        $stmt->bindParam(':prix_total', $this->prix_total);
+        $stmt->bindParam(':prix_total', $montant);
         $stmt->bindParam(':quantite_totale', $this->quantite_totale);
         $stmt->bindParam(':id_panier', $this->id_panier);
         $stmt->execute();
 
-        $panier_produit = Panier_Has_Produit::findById($this->id_panier, $id_produit);
         if ($panier_produit === -1) {
             $panier_produit = new Panier_Has_Produit();
             $panier_produit->__set("panier_id_panier", $this->id_panier);
@@ -117,31 +129,28 @@ final class Panier {
     public function retirerProduit($id_produit) {
         $connection = base::getConnection();
 
-        $produit_panier = Panier_Has_Produit::findById($this->id_panier, $id_produit);
-        $this->quantite_totale -= $produit_panier->__get("quantite");
-        $this->prix_total -= ($produit_panier->__get("prix_produit")*$produit_panier->__get("quantite"));
-        $produit_panier->delete();
+        $panier_produit = Panier_Has_Produit::findById($this->id_panier, $id_produit);
+        $this->quantite_totale -= $panier_produit->__get("quantite");
+        $this->prix_total -= ($panier_produit->__get("prix_produit")*$panier_produit->__get("quantite"));
+        $panier_produit->delete();
         $this->update();
     }
 
     public function ajouterUnProduit($id_produit) {
-        $connection = base::getConnection();
-        $produit_panier = Panier_Has_Produit::findById($this->id_panier, $id_produit);
-        $prix_total = $this->prix_total + $produit_panier->__get("prix_produit");
-        $stmt = $connection->prepare("UPDATE panier 
-            SET quantite_totale = quantite_totale+1, prix_total = :prix_total
-            WHERE id_panier = :id_panier");
-        $stmt->bindParam(':prix_total', $prix_total);
-        $stmt->bindParam(':id_panier', $this->id_panier);
-        $stmt->execute();
-
-        $produit_panier->incQuantite();
-        $produit_panier->update();
+        $this->ajouterProduit($id_produit, 1);
     }
 
     public function retirerUnProduit($id_produit) {
+        include_once("Produit.php");
         $connection = base::getConnection();
+
+        $reduction = Produit::findReducProd($id_produit, $this->id_client);
         $produit_panier = Panier_Has_Produit::findById($this->id_panier, $id_produit);
+
+        if ($reduction !== false && $reduction["nombre_produit"] > 1 && ($reduction["nombre_produit"]+1) == $produit_panier->__get("quantite")) {
+            $produit = Produit::findById($id_produit);
+            $produit_panier->__set("prix_produit", $produit->__get("prix"));
+        }
         $prix_total = $this->prix_total - $produit_panier->__get("prix_produit");
         $stmt = $connection->prepare("UPDATE panier 
             SET quantite_totale = quantite_totale-1, prix_total = :prix_total 

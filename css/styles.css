@@ -327,3 +327,7 @@ tbody>tr.table-last-element>td {
 .panel .panel-heading a {
   font-size: 15px;
 }
+
+.panier-montant-reduction {
+  font-size: 14px;
+}
