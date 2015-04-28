@@ -438,11 +438,11 @@ class Display {
             <table class="table table-bordered table-panier">
                 <thead>
                     <tr>
-                    <th>Libelle</th>
-                    <th>Prix unitaire</th>
-                    <th>Quantite</th>
-                    <th>Montant total</th>
-                </tr>
+                        <th>Libelle</th>
+                        <th>Prix unitaire</th>
+                        <th>Quantite</th>
+                        <th>Montant total</th>
+                    </tr>
                 </thead>
                     <tbody>
                     ';
@@ -504,6 +504,59 @@ class Display {
         ';
         self::displayConfirmationPanier($panier, $panier_has_produit);
         echo '
+      </div>
+    </div>
+</div>
+        ';
+    }
+
+
+
+    public static function displayBilan($bilan) {
+        include_once("../modele/Bilan_Has_Produit.php");
+        include_once("../modele/Produit.php");
+        
+        $bilan_has_produit = Bilan_Has_Produit::findByBilanId($bilan->__get("id_bilan"));
+        $date_creation = new DateTime($bilan->__get("date_creation"));
+        
+        echo '
+<div class="panel panel-default">
+    <div id="heading-accordion-'.$bilan->__get("id_bilan").'" class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-accordion-'.$bilan->__get("id_bilan").'" 
+            aria-expanded="false" aria-controls="collapse-accordion-'.$bilan->__get("id_bilan").'">
+          Bilan '.$bilan->__get("type").' n°'.$bilan->__get("id_bilan").' créé le '.$date_creation->format("d/m/Y").' à '.$date_creation->format("H:i").'
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-accordion-'.$bilan->__get("id_bilan").'" class="panel-collapse collapse" 
+        role="tabpanel" aria-labelledby="heading-accordion-'.$bilan->__get("id_bilan").'">
+      <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Libelle</th>
+                    <th>Prix unitaire</th>
+                    <th>Quantite</th>
+                    <th>Montant total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+      ';
+        foreach ($bilan_has_produit as $b_produit) {
+            $produit = Produit::findById($b_produit["produit_id_produit"]);
+            echo '
+                <td>'.$produit->__get("libelle").'</td>
+                <td>'.$bilan_has_produit["quantite"].'</td>
+                <td>'.$bilan_has_produit["montant"].'</td>
+            ';
+        }
+        echo '
+                </tr>
+            </tbody>
+        </table>
+        Total de '.$bilan->__get("montant_total").'
       </div>
     </div>
 </div>
