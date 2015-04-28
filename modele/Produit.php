@@ -171,32 +171,20 @@ final class Produit {
             INNER JOIN categorie ON categorie_id_categorie = id_categorie
             GROUP BY id_produit
             ORDER BY nbVentes DESC
-            LIMIT 10");
-        $stmt->bindParam(':nbV', $nbV);
+            LIMIT ".$nbV);
         $stmt->execute();
 
         // set the resulting array to associative
         $result = $stmt->fetchAll();
-        $tab = array();
-        for($i=0; $i<10; $i++){
-            $idp = $result[$i]["id_produit"];
-            $lib = $result[$i]["libelle"];
-            $prix = $result[$i]["prix"];
-            $desc = $result[$i]["description"];
-            $url = $result[$i]["image_url"];
-            $categ = $result[$i]["nomcateg"];
-            
-            $prod = new Produit();
-            $prod->__set("id_produit", $idp);
-            $prod->__set("libelle", $lib);
-            $prod->__set("prix", $prix);
-            $prod->__set("description", $desc);
-            $prod->__set("image_url", $url);
-            $prod->__set("categorie", $categ);
-            $tab[$i] = $prod;
+        if ($result == null) {
+            $connection = base::getConnection();
+            $stmt = $connection->prepare("SELECT *
+                FROM produit
+                LIMIT ".$nbV);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
         }
-        
-        return Hydrator::hydrate($result, new Produit());
+        return $result;
     }
     
 
