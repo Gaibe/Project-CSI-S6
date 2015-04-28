@@ -8,7 +8,7 @@ class Display {
     public static function displayProduit($produit, $categorie) {
         $project_name = explode("/", $_SERVER["PHP_SELF"])[1];
         (isset($_SESSION['membre']) === true) ? 
-        $reduction = Produit::findReducProd($produit["id_produit"],$_SESSION['membre']) : $reduction = Produit::findReducProdAll($produit["id_produit"]);
+        $reduction = Produit::findReducProd($produit["id_produit"],$_SESSION['membre']) : $reduction = false;
         echo '
             <div class="col-md-4 col-sm-6">
                 <div class="panel panel-default panel-produit">
@@ -79,7 +79,7 @@ class Display {
     public static function displayProduitModal($produit, $categorie) {
         $project_name = explode("/", $_SERVER["PHP_SELF"])[1];
         (isset($_SESSION['membre']) === true) ? 
-        $reduction = Produit::findReducProd($produit["id_produit"],$_SESSION['membre']) : $reduction = Produit::findReducProdAll($produit["id_produit"]);
+        $reduction = Produit::findReducProd($produit["id_produit"],$_SESSION['membre']) : $reduction = false;
         echo '
             <div class="modal fade" id="produit-id-' . $produit["id_produit"] . '" tabindex="-1" role="dialog" aria-labelledby="#titleLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -183,7 +183,10 @@ class Display {
                         echo '    
                             
                         <tr>
-                            <td>' . $produit->__get("libelle") . '</td>
+                            <td>' . $produit->__get("libelle");
+                            self::displayLabelReduction($produit);
+                        echo '
+                            </td>
                             <td>' . $produit_in_panier["prix_produit"] . ' €</td>
                             <td id="quantite-panier-' . $produit->__get("id_produit") . '">' . $produit_in_panier["quantite"] . ' 
                             <button id="add-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change" onclick="addOne('.$produit->__get("id_produit").')">
@@ -240,7 +243,10 @@ class Display {
                         if ($produit !== -1 && $produit_in_panier > 0) {
                             echo '
                             <tr>
-                                <td>' . $produit->__get("libelle") . '</td>
+                                <td>' . $produit->__get("libelle");
+                                self::displayLabelReduction($produit);
+        echo '  
+                                </td>
                                 <td>' . $produit->__get("prix") . ' €</td>
                                 <td id="quantite-panier-' . $produit->__get("id_produit") . '">' . $produit_in_panier . ' 
                                 <button id="add-'. $produit->__get("id_produit") .'" class="btn btn-default btn-quantite-change" onclick="addOne('.$produit->__get("id_produit").')">
@@ -272,6 +278,33 @@ class Display {
         ';
     }
 
+    public static function displayLabelReduction($produit) {
+        (isset($_SESSION['membre']) === true) ? 
+        $reduction = Produit::findReducProd($produit->__get("id_produit"),$_SESSION['membre']) : $reduction = false;
+
+        if ($reduction !== false) {
+            ($reduction['montant_reduction'] == ceil($reduction['montant_reduction'])) ? 
+                $montant_reduction = sprintf('%.0f',$reduction['montant_reduction']) : $montant_reduction = $reduction['montant_reduction'];
+            // Si la réduction s'applique à tous les produits
+            if ($reduction["nombre_produit"] < 1) {
+                
+                echo '
+                    <span class="label label-warning panier-montant-reduction pull-right">-'.$montant_reduction.' %</span>
+                ';
+            // Si la réduction s'applique après un certains nombre d'article achetés
+            } else {
+                if ($montant_reduction == 100) {
+                    echo '<span class="label label-warning panier-montant-reduction pull-right">
+                        Le '.($reduction["nombre_produit"]+1).'eme offert !
+                    </span>';
+                } else {
+                    echo '<span class="label label-warning panier-montant-reduction pull-right">
+                        Le '.($reduction["nombre_produit"]+1).'eme à -'.$montant_reduction.' %
+                    </span>';
+                }
+            }
+        }
+    }
 
     /**
     *   Affiche la liste des magasin
@@ -405,11 +438,11 @@ class Display {
             <table class="table table-bordered table-panier">
                 <thead>
                     <tr>
-                    <th>Libelle</th>
-                    <th>Prix unitaire</th>
-                    <th>Quantite</th>
-                    <th>Montant total</th>
-                </tr>
+                        <th>Libelle</th>
+                        <th>Prix unitaire</th>
+                        <th>Quantite</th>
+                        <th>Montant total</th>
+                    </tr>
                 </thead>
                     <tbody>
                     ';
@@ -418,7 +451,10 @@ class Display {
                     echo '    
                         
                     <tr>
-                        <td>' . $produit->__get("libelle") . '</td>
+                        <td>' . $produit->__get("libelle");
+        self::displayLabelReduction($produit); 
+        echo '
+                        </td>
                         <td>' . $produit_in_panier["prix_produit"] . ' €</td>
                         <td>' . $produit_in_panier["quantite"] . ' </td>
                         <td>' . ($produit_in_panier["quantite"]*$produit_in_panier["prix_produit"]) . ' €</td>
@@ -468,6 +504,58 @@ class Display {
         ';
         self::displayConfirmationPanier($panier, $panier_has_produit);
         echo '
+      </div>
+    </div>
+</div>
+        ';
+    }
+
+
+
+    public static function displayBilan($bilan) {
+        include_once("../modele/Bilan_Has_Produit.php");
+        include_once("../modele/Produit.php");
+        
+        $bilan_has_produit = Bilan_Has_Produit::findByBilanId($bilan->__get("id_bilan"));
+        $date_creation = new DateTime($bilan->__get("date_creation"));
+        
+        echo '
+<div class="panel panel-default">
+    <div id="heading-accordion-'.$bilan->__get("id_bilan").'" class="panel-heading" role="tab">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-accordion-'.$bilan->__get("id_bilan").'" 
+            aria-expanded="false" aria-controls="collapse-accordion-'.$bilan->__get("id_bilan").'">
+          Bilan '.$bilan->__get("type").' n°'.$bilan->__get("id_bilan").' créé le '.$date_creation->format("d/m/Y").' à '.$date_creation->format("H:i").'
+        </a>
+      </h4>
+    </div>
+    <div id="collapse-accordion-'.$bilan->__get("id_bilan").'" class="panel-collapse collapse" 
+        role="tabpanel" aria-labelledby="heading-accordion-'.$bilan->__get("id_bilan").'">
+      <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Libelle</th>
+                    <th>Quantite</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+      ';
+        foreach ($bilan_has_produit as $b_produit) {
+            $produit = Produit::findById($b_produit["produit_id_produit"]);
+            echo '
+                <td>'.$produit->__get("libelle").'</td>
+                <td>'.$b_produit["quantite"].'</td>
+                <td>'.$b_produit["montant"].'</td>
+            ';
+        }
+        echo '
+                </tr>
+            </tbody>
+        </table>
+        Total de '.$bilan->__get("montant_total").'
       </div>
     </div>
 </div>
