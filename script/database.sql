@@ -249,6 +249,37 @@ CREATE TABLE IF NOT EXISTS `projet_csi`.`reduction_has_client` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+
+delimiter //
+
+CREATE TRIGGER panier_has_produit_delete_t
+AFTER DELETE ON panier_has_produit
+FOR EACH ROW
+BEGIN
+    IF (SELECT COUNT(*)
+        FROM panier_has_produit
+        WHERE panier_id_panier = OLD.panier_id_panier) = 0 
+    THEN
+
+        UPDATE panier SET prix_total = 0.00, quantite_totale = 0
+        WHERE id_panier = OLD.panier_id_panier;
+    END IF;
+END//
+
+
+
+delimiter ;
+
+
+
+
+-- INSERTION DE DONNEES
+
+
+
+
+
 INSERT INTO `projet_csi`.`client` (`nom`, `prenom`, `email`, `pseudo`, `mot_passe`, `role`)
 VALUES ('projet', 'admin', 'admin@csi.com', 'projet_csi', '3cfe9d1883c5819dd5fdcc3c57fa7a892db0c56c', 'admin');
 
@@ -342,6 +373,35 @@ INSERT INTO `magasin_has_adresse` (`magasin_id_magasin`, `adresse_id_adresse`) V
 (6, 6),
 (7, 7);
 
+
+
+INSERT INTO `bilan` (`id_bilan`, `montant_total`, `date_creation`, `type`) VALUES
+(1, 15.00, '2015-04-22 17:07:21', 'mensuel'),
+(2, 12.00, '2015-04-22 17:14:10', 'mensuel'),
+(3, 12.00, '2015-04-22 17:14:26', 'mensuel'),
+(4, 12.00, '2015-04-22 17:14:33', 'mensuel');
+
+
+
+INSERT INTO `bilan_has_produit` (`bilan_id_bilan`, `produit_id_produit`, `quantite`, `montant`) VALUES
+(1, 1, 2, 3.00),
+(1, 3, 5, 3.00),
+(1, 4, 3, 3.00),
+(1, 6, 8, 3.00),
+(1, 7, 2, 3.00),
+(1, 8, 2, 3.00),
+(1, 9, 3, 3.00),
+(1, 10, 2, 3.00),
+(1, 11, 2, 3.00),
+(1, 12, 1, 3.00),
+(1, 13, 2, 3.00),
+(1, 14, 6, 3.00),
+(2, 2, 1, 3.00),
+(2, 4, 6, 3.00),
+(2, 8, 4, 3.00),
+(2, 9, 4, 3.00),
+(3, 5, 2, 3.00),
+(3, 8, 5, 3.00);
 
 DELIMITER |
 
