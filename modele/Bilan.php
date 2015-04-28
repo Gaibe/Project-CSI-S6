@@ -46,9 +46,8 @@ final class Bilan {
         $stmt->execute();
 
         // set the resulting array to associative
-        $result = $stmt->fetchAll();
 
-        return Hydrator::hydrate($result, new Bilan());
+        return $result = $stmt->fetchAll();
     }
     
     public static function findByProduitId($id, $type) {

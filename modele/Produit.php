@@ -28,6 +28,47 @@ final class Produit {
         $this->$property = $value;
     }
 
+    public function getPrixUnitaire($id_client = null) {
+        if ($id_client !== null) { 
+            $reduction = self::findReducProd($this->id_produit,$id_client);
+        } else {
+            $reduction = false;
+        }
+
+        if ($reduction !== false) {
+            if ($reduction["nombre_produit"] < 1) {
+                return number_format($reduction["prixreduit"], 2);
+            }
+        }
+        return $this->prix;
+        
+    }
+
+
+    public function getPrixQuantite($id_client = null, $quantite = 1) {
+        if ($id_client !== null) { 
+            $reduction = self::findReducProd($this->id_produit,$id_client);
+        } else {
+            $reduction = false;
+        }
+        if ($reduction !== false) {
+            if ($reduction["nombre_produit"] < 1) {
+                return number_format($reduction["prixreduit"] * $quantite, 2);
+            }
+            else {
+                if ($quantite >= $reduction["nombre_produit"]) {
+                    return number_format($reduction["prixreduit"] + ($this->prix*($quantite-1)), 2);
+                }
+                else {
+                    return $this->prix*$quantite;
+                }
+            }
+        }
+        else {
+            return $this->prix*$quantite;
+        }
+    }
+
     public static function findById($id) {
         $connection = base::getConnection();
         $stmt = $connection->prepare("SELECT * FROM produit WHERE id_produit = :id");
@@ -102,43 +143,7 @@ final class Produit {
     }
     
     
-    
-    public static function findReducProdAll($id_produit) {
-        $connection = base::getConnection();
-        $stmt = $connection->prepare("SELECT montant_reduction, prix - (prix * montant_reduction/100) AS prixreduit, nombre_produit
-        FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
-        INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
-
-        WHERE date_fin > NOW() AND produit_id_produit = :id_produit AND date_fin = 
-
-        (SELECT MAX(date_fin) FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
-            INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
-            WHERE produit_id_produit = :id_produit
-        ) 
-        
-        AND montant_reduction = 
-        
-        (SELECT MAX(montant_reduction) FROM
-            reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
-            INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
-
-            WHERE date_fin > NOW() AND produit_id_produit = :id_produit AND date_fin = 
-
-            (SELECT MAX(date_fin) FROM reduction INNER JOIN reduction_has_produit ON reduction.id_reduction = reduction_has_produit.reduction_id_reduction 
-            INNER JOIN produit ON reduction_has_produit.produit_id_produit = produit.id_produit 
-            WHERE produit_id_produit = :id_produit
-        )");
-        $stmt->bindParam(':id_categorie', $id_categ);
-        $stmt->bindParam(':id_produit', $id_produit);
-        $stmt->execute();
-
-        // set the resulting array to associative
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        
-        return $result;
-    }
-    
+  
 
     public static function findProduit($recherche) {
         $recherche = htmlspecialchars(trim(strtolower($recherche)));
