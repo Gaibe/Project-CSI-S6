@@ -44,8 +44,7 @@ final class Bilan_Has_Produit {
         $stmt->execute();
 
         // set the resulting array to associative
-        $result = $stmt->fetchAll();
-        return Hydrator::hydrate($result, new Bilan_Has_Produit());
+        return $result = $stmt->fetchAll();
     }
 
     public function update() {
