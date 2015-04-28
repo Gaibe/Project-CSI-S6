@@ -343,31 +343,58 @@ INSERT INTO `magasin_has_adresse` (`magasin_id_magasin`, `adresse_id_adresse`) V
 (7, 7);
 
 
+DELIMITER |
 
-INSERT INTO `bilan` (`id_bilan`, `montant_total`, `date_creation`, `type`) VALUES
-(1, 15.00, '2015-04-22 17:07:21', 'mensuel'),
-(2, 12.00, '2015-04-22 17:14:10', 'mensuel'),
-(3, 12.00, '2015-04-22 17:14:26', 'mensuel'),
-(4, 12.00, '2015-04-22 17:14:33', 'mensuel');
+CREATE PROCEDURE edition_bilan()
+BEGIN
 
+	DECLARE v_finished INTEGER DEFAULT 0;
+	DECLARE v_idbilan INTEGER;
+	DECLARE v_panier BIGINT(10);
+	DECLARE v_prod BIGINT(5);
+	DECLARE v_valide INTEGER;
+	DECLARE v_QUANTITE INTEGER;
+	DECLARE v_prix FLOAT;
+	DECLARE v_nbVentes INTEGER;
+	DECLARE v_montant FLOAT;
+	DECLARE v_montanttotal FLOAT;
+    
+	DECLARE mycursor CURSOR FOR 
+	SELECT panier_id_panier, produit_id_produit, est_valide, quantite, prix_produit, SUM(quantite) AS nbVentes, SUM(quantite * prix_produit) AS montant 
+	FROM panier INNER JOIN panier_has_produit ON id_panier = panier_id_panier 
+	WHERE est_valide = 1 
+	GROUP BY produit_id_produit 
+	ORDER BY produit_id_produit;
+    
+	DECLARE CONTINUE HANDLER 
+        FOR NOT FOUND SET v_finished = 1;
+	
+	
+	
+	OPEN mycursor;
+	
+	INSERT INTO bilan (montant_total, type) VALUES (0.00, "mensuel");
+    SET v_idbilan = bilan.LAST_INSERT_ID(); 
+    
+    
+	boucle: LOOP
+	
+	FETCH mycursor INTO v_panier, v_prod, v_valide, v_QUANTITE, v_prix, v_nbVentes, v_montant;
+	
+	IF v_finished = 1 THEN 
+	LEAVE boucle;
+	END IF;
+	
+	INSERT INTO bilan_has_produit (bilan_id_bilan, produit_id_produit, quantite, montant) VALUES (v_idbilan, v_prod, v_nbVentes, v_montant);
+	
+	END LOOP boucle;
+	
+	CLOSE mycursor;
+	
+	SET v_montanttotal = SELECT SUM(montant) FROM bilan_has_produit WHERE bilan_id_bilan = v_idbilan;
+	
+	UPDATE bilan SET montant_total= v_montanttotal WHERE id_bilan = v_idbilan;
+    
+END|
 
-
-INSERT INTO `bilan_has_produit` (`bilan_id_bilan`, `produit_id_produit`, `quantite`, `montant`) VALUES
-(1, 1, 2, 3.00),
-(1, 3, 5, 3.00),
-(1, 4, 3, 3.00),
-(1, 6, 8, 3.00),
-(1, 7, 2, 3.00),
-(1, 8, 2, 3.00),
-(1, 9, 3, 3.00),
-(1, 10, 2, 3.00),
-(1, 11, 2, 3.00),
-(1, 12, 1, 3.00),
-(1, 13, 2, 3.00),
-(1, 14, 6, 3.00),
-(2, 2, 1, 3.00),
-(2, 4, 6, 3.00),
-(2, 8, 4, 3.00),
-(2, 9, 4, 3.00),
-(3, 5, 2, 3.00),
-(3, 8, 5, 3.00);
+DELIMITER ;
