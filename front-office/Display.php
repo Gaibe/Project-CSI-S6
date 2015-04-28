@@ -536,9 +536,8 @@ class Display {
             <thead>
                 <tr>
                     <th>Libelle</th>
-                    <th>Prix unitaire</th>
                     <th>Quantite</th>
-                    <th>Montant total</th>
+                    <th>Montant</th>
                 </tr>
             </thead>
             <tbody>
@@ -548,8 +547,8 @@ class Display {
             $produit = Produit::findById($b_produit["produit_id_produit"]);
             echo '
                 <td>'.$produit->__get("libelle").'</td>
-                <td>'.$bilan_has_produit["quantite"].'</td>
-                <td>'.$bilan_has_produit["montant"].'</td>
+                <td>'.$b_produit["quantite"].'</td>
+                <td>'.$b_produit["montant"].'</td>
             ';
         }
         echo '

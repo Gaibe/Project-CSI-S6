@@ -1,6 +1,7 @@
 <?php
 include_once("../header.php");
 include_once("../modele/Bilan.php");
+include_once("../front-office/Display.php");
 
 
 if (isset($_SESSION['membre']) === false && isset($_SESSION['admin']) === false) {
