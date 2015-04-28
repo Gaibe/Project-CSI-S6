@@ -13,18 +13,17 @@ if (isset($_POST['id_produit']) === true) {
     $quantite = $_POST['quantite'];
 
     $produit = Produit::findById($id_produit);
-    $montant = $produit->__get("prix")*$quantite;
 
 
     if (isset($_SESSION['membre']) === true) {
         // Pour les membres
+        $montant = $produit->getPrixQuantite($_SESSION['membre'],$quantite);
         $panier = Panier::findByClientIdValide($_SESSION['membre']);
-        $panier->addMontant($montant);
-        $panier->addQuantite($quantite);
-        $panier->ajouterProduit($produit->__get("id_produit"), $quantite, $produit->__get("prix"));
+        $panier->ajouterProduit($produit->__get("id_produit"), $quantite);
     }
     else {
         // Pour les visiteurs
+        $montant = $produit->getPrixQuantite(null,$quantite);
         if (isset($_SESSION['panier'][$id_produit]) === true) {
             $_SESSION['panier'][$id_produit] += $quantite;
         }
