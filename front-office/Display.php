@@ -541,21 +541,23 @@ class Display {
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                
       ';
         foreach ($bilan_has_produit as $b_produit) {
             $produit = Produit::findById($b_produit["produit_id_produit"]);
             echo '
-                <td>'.$produit->__get("libelle").'</td>
-                <td>'.$b_produit["quantite"].'</td>
-                <td>'.$b_produit["montant"].'</td>
+                <tr>
+                    <td>'.$produit->__get("libelle").'</td>
+                    <td>'.$b_produit["quantite"].'</td>
+                    <td>'.$b_produit["montant"].' €</td>
+                </tr>
             ';
         }
         echo '
-                </tr>
+                
             </tbody>
         </table>
-        Total de '.$bilan->__get("montant_total").'
+        Total de '.$bilan->__get("montant_total").' €
       </div>
     </div>
 </div>
