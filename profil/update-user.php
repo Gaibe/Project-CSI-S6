@@ -16,6 +16,9 @@ if (isset($_SESSION['membre']) === true && isset($_POST['Nom']) === true
     $client->__set('id_client', $_SESSION['membre']);
 
     $adresse = Adresse::findByClientId($_SESSION['membre']);
+    if ($adresse == -1) {
+        $adresse = new Adresse();
+    }
     $rue = $_POST['Rue'];
     if ($_POST['Rue'] == null) {
         $rue ="";

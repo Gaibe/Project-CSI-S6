@@ -14,7 +14,7 @@ class Authentication {
         // charger utilisateur $client
         $client = Client::findByPseudo($pseudo);
         // vérifier $client->hash == hash($password)
-        if($client->__get('mot_passe') == sha1($password)){
+        if($client != -1 && $client->__get('mot_passe') == sha1($password)){
             // charger profil ($client->id)
             Authentication::loadProfile($client->__get('id_client'));
             $panier = Panier::findByClientIdValide($client->__get('id_client'));

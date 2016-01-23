@@ -102,14 +102,14 @@ class Formulaire {
             <div class="form-group">
                 <label class="col-md-3 control-label" for="Pseudo">Pseudo</label>
                 <div class="col-md-4">
-                    <input id="Pseudo" type="text" class="form-control" name="Pseudo" ng-model="Pseudo" />
+                    <input id="Pseudo" type="text" class="form-control" name="Pseudo" ng-model="Pseudo" required />
                 </div>
             </div>
            
             <div class="form-group">
                 <label class="col-md-3 control-label" for="Password">Mot de passe</label>
                 <div class="col-md-4">
-                    <input id="Password" type="password" class="form-control" name="Password" ng-model="Password" />
+                    <input id="Password" type="password" class="form-control" name="Password" ng-model="Password" required />
                 </div>
             </div>
      
